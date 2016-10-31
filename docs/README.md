@@ -28,11 +28,6 @@ sufficient CSS styling:
 - [ ] Infinite Scroll
 - [ ] Production README
 
-###Note: 
-I want to be able to fetch videos via query string in the url. This way users can
-copy and paste urls to share videos. If someone knows an easy way to sync the query string
-with the store's state let me know! Currently trying to find a way to implement
-a listener for query string changes.
 
 ## Design Docs
 * [View Wireframes][wireframes]
