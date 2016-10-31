@@ -3,20 +3,20 @@
 **OverlayContainer**
  - Header
   + (Signed In)
-   - SignOutButton
-   - UploadVideoButton
+    - SignOutButton
+    - UploadVideoButton
   + (Signed Out)
-   - AuthForm (hover Sign up/log in to show)
+    - AuthForm (hover Sign up/log in to show)
 
  - SideArea
   + CurrentVideo
-   - CurrentVideoPlayer
-   - CurrentVideoDetails
-   - LikeVideoButton
-   - DislikeVideoButton
+    - CurrentVideoPlayer
+    - CurrentVideoDetails
+    - LikeVideoButton
+    - DislikeVideoButton
   + CurrentVideoComments (hover to show)
-   - CurrentVideoCommentIndexItem
-   - (Signed In) CreateComment
+    - CurrentVideoCommentIndexItem
+    - (Signed In) CreateComment
 
 **VideoIndexContainer**
  - videoIndexItem (displayed according to search bar entry)
