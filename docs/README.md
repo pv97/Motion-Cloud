@@ -19,7 +19,8 @@ By the end of Week 9, this app will, at a minimum, satisfy the
 following criteria with smooth, bug-free navigation, adequate seed data and
 sufficient CSS styling:
 
-Note: I want to be able to fetch videos via query string in the url. This way users can
+###Note: 
+I want to be able to fetch videos via query string in the url. This way users can
 copy and paste urls to share videos. If someone knows an easy way to sync the query string
 with the store's state let me know! Currently trying to find a way to implement
 a listener for query string changes.
