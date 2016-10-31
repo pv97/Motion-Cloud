@@ -1,9 +1,11 @@
-# FresherNote
+# MotionCloud
 
 [Heroku link][heroku]
+
 [Trello link][trello]
 
 [heroku]: http://www.herokuapp.com
+
 [trello]: https://trello.com/b/kCORyr4I/motion-cloud
 
 ## Minimum Viable Product
