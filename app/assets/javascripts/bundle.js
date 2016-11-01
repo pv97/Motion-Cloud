@@ -28077,7 +28077,15 @@
 		_createClass(App, [{
 			key: 'render',
 			value: function render() {
-				return _react2.default.createElement('div', null);
+				return _react2.default.createElement(
+					'div',
+					{ id: 'test' },
+					_react2.default.createElement(
+						'h1',
+						null,
+						'hihi'
+					)
+				);
 			}
 		}]);
 	
