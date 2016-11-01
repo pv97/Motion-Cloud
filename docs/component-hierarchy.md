@@ -1,6 +1,6 @@
 ## Component Hierarchy
 
-**OverlayContainer**
+**AppContainer**
  - Header
   + (Signed In)
     - SignOutButton
@@ -35,7 +35,7 @@
 
 |Path   | Component   |
 |-------|-------------|
-| "/" | "OverlayContainer" |
+| "/" | "AppContainer" |
 | "/videos/" | "VideoIndexContainer" |
 | "/videos/new" | "UploadVideoContainer" |
 | "/users/:id" | "UserContainer" |
