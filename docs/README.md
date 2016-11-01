@@ -10,23 +10,51 @@
 
 ## Minimum Viable Product
 
-MotionCloud is a web application inspired by SoundCloud built using Ruby on Rails
-and React/Redux. Instead of a music player, a video player will pop up on the left
-half of the screen and persistently play across pages. Comments/details can be
-viewed by hovering left of the video section.
+MotionCloud is a web application built to be a hybrid of SoundCloud and Youtube
+using Ruby on Rails and React/Redux. Instead of a music player, a video player
+can persistently play across pages. Video comments can be viewed by clicking
+left of the video section.
 
 By the end of Week 9, this app will, at a minimum, satisfy the
 following criteria with smooth, bug-free navigation, adequate seed data and
 sufficient CSS styling:
 
-- [ ] Hosting on Heroku
 - [ ] New account creation, login, and guest/demo login
-- [ ] Streaming Videos
-- [ ] Uploading Videos
-- [ ] Comments
-- [ ] One page streaming layout
-- [ ] Infinite Scroll
 - [ ] Production README
+- [ ] Hosting on Heroku
+
+- [ ] Video CRUD
+  + [ ] Adequate styling
+  + [ ] Smooth, bug-free navigation
+  + [ ] Adequate and appropriate seeds to demonstrate the feature
+
+- [ ] Playing videos with continuous play
+  + [ ] Adequate styling
+  + [ ] Smooth, bug-free navigation
+
+- [ ] Comments
+  + [ ] Adequate styling
+  + [ ] Smooth, bug-free navigation
+  + [ ] Adequate and appropriate seeds to demonstrate the feature
+
+- [ ] Users pages
+  + [ ] Adequate styling
+  + [ ] Smooth, bug-free navigation
+  + [ ] Adequate and appropriate seeds to demonstrate the feature
+
+- [ ] #bonus minimizable video player
+  + [ ] Adequate styling
+  + [ ] Smooth, bug-free navigation
+
+- [ ] #bonus Video queue
+  + [ ] Adequate styling
+  + [ ] Smooth, bug-free navigation
+
+- [ ] #bonus Likes
+  + [ ] Adequate styling
+  + [ ] Smooth, bug-free navigation
+  + [ ] Adequate and appropriate seeds to demonstrate the feature
+
 
 
 ## Design Docs
@@ -48,24 +76,26 @@ sufficient CSS styling:
 
 **Objective:** Functioning rails project with front-end Authentication
 
-### Phase 2: Videos Model, API, and components (4 days)
+### Phase 2: Videos CRUD (2 days)
 
-**Objective:** Videos can be uploaded and destroyed through the API. Details can
-  be seen on a separate component. Set up connection to Cloudinary.
+**Objective:** Videos can be uploaded and destroyed through the API.
+  Set up connection to Cloudinary.
 
-### Phase 3: Comments (1 days)
+### Phase 3: Videos persistent player (2 days)
+
+**Objective:** Videos and comments can be viewed persistently on any page.
+
+### Phase 4: Comments (1 days)
 
 **Objective:** Comments can be made on videos.
 
-### Phase 4: One Page Layout (2 days, W2 Th 6pm)
+### Phase 5: Users Page (1 days, W2 Th 6pm)
 
 **objective:** Allow video to be streamed at any route, do conditional styling.
   View counter for videos.
 
-### Phase 5: - Infinite scroll for Videos/Comments Index (1 day, W2 F 6pm)
-
-**objective:** Add infinite scroll to Videos/Comments Index
 
 ### Bonus Features (TBD)
 - [ ] Option to (dis)like a video/comment
 - [ ] Option to add videos to queue
+- [ ] Option to add minimize video player
