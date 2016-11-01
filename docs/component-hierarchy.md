@@ -2,13 +2,14 @@
 
 **AppContainer**
  - Header
-  + (Signed In)
+  + UserNavContainer (logged in)
     - SignOutButton
     - UploadVideoButton
-  + (Signed Out)
-    - AuthForm (hover Sign up/log in to show)
+  + SessionFormContainer (logged out)
+    - SessionFormBox
+    - Switch form type button
 
- - SideArea
+ - VideoPlayer
   + CurrentVideo
     - CurrentVideoPlayer
     - CurrentVideoDetails
@@ -35,7 +36,7 @@
 
 |Path   | Component   |
 |-------|-------------|
-| "/" | "AppContainer" |
+| "/" | "App" |
 | "/videos/" | "VideoIndexContainer" |
 | "/videos/new" | "UploadVideoContainer" |
 | "/users/:id" | "UserContainer" |

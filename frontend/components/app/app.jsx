@@ -1,21 +1,16 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router';
+import { Link } from 'react-router';
+import SessionFormContainer from './session_form/session_form_container';
+import UserNavContainer from './user_nav/user_nav_container';
 
-class App extends React.Component {
-	constructor(props) {
-		super(props);
+const App = ({ children }) => (
+  <div>
+    <header>
+      <UserNavContainer />
+      <SessionFormContainer />
+    </header>
+    {children}
+  </div>
+);
 
-	}
-
-
-	render() {
-		return (
-			<div id="test">
-        <h1>hihi</h1>
-			</div>
-		);
-	}
-
-}
-
-export default withRouter(App);
+export default App;
