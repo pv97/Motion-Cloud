@@ -1,26 +1,7 @@
-var path = require("path");
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-module.exports = {
-  context: __dirname,
-  entry: "./frontend/motion_cloud.jsx",
-  output: {
-    path: path.join(__dirname, 'app', 'assets', 'javascripts'),
-    filename: "bundle.js"
-  },
-  module: {
-    loaders: [
-      {
-        test: [/\.jsx?$/, /\.js?$/],
-        exclude: /(node_modules|bower_components)/,
-        loader: 'babel',
-        query: {
-          presets: ['es2015', 'react']
-        }
-      }
-    ]
-  },
-  devtool: 'source-maps',
-  resolve: {
-    extensions: ["", ".js", ".jsx" ]
-  }
-};
+document.addEventListener('DOMContentLoaded', () => {
+    const root = document.getElementById('root');
+    ReactDOM.render(<h1>Welcome to MotionCloud</h1>, root);
+});
