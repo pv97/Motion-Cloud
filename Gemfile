@@ -18,6 +18,7 @@ gem 'better_errors'
 gem 'binding_of_caller'
 gem 'pry-rails'
 gem 'annotate'
+gem 'figaro'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

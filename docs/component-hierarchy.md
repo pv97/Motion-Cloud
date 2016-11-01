@@ -27,8 +27,8 @@
  - videoIndexItem
   + videoDetail
 
-**UploadVideoContainer**
- - UploadVideoForm
+**VideoUploadFormContainer**
+ - VideoUploadForm
 
 
 
@@ -38,5 +38,5 @@
 |-------|-------------|
 | "/" | "App" |
 | "/videos/" | "VideoIndexContainer" |
-| "/videos/new" | "UploadVideoContainer" |
+| "/videos/new" | "VideoUploadFormContainer" |
 | "/users/:id" | "UserContainer" |
