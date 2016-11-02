@@ -20,7 +20,7 @@ import {
 import { hashHistory } from 'react-router';
 
 const VideosMiddleware = ({getState, dispatch}) => next => action => {
-  let success;
+  
   const errorCallback = xhr => dispatch(receiveVideoErrors(xhr.responseJSON));
   let receiveAllVideosSuccess = videos => dispatch(receiveAllVideos(videos));
   let receiveVideoSuccess = video => {

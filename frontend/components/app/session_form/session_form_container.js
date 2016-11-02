@@ -3,9 +3,10 @@ import { login, logout, signup } from '../../../actions/session_actions';
 import SessionForm from './session_form';
 
 
-const mapStateToProps = ({ session }) => ({
+const mapStateToProps = ({ session, query }) => ({
   loggedIn: Boolean(session.currentUser),
-  errors: session.errors
+  errors: session.errors,
+  query
 });
 
 const mapDispatchToProps = (dispatch) => ({

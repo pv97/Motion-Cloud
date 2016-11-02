@@ -1,11 +1,13 @@
 import { applyMiddleware } from 'redux';
 
-import SessionMiddleware from '../middleware/session_middleware';
-import VideosMiddleware from '../middleware/videos_middleware';
+import SessionMiddleware from './session_middleware';
+import VideosMiddleware from './videos_middleware';
+import QueryMiddleware from './query_middleware';
 
 const RootMiddleware = applyMiddleware(
   SessionMiddleware,
-  VideosMiddleware
+  VideosMiddleware,
+  QueryMiddleware
 );
 
 export default RootMiddleware;
