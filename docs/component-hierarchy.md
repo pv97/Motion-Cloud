@@ -9,13 +9,13 @@
     - SessionFormBox
     - Switch form type button
 
- - VideoPlayerContainer
-  + VideoPlayer
+ - VideoOverlay
+  + VideoPlayerContainer
     - CurrentVideoPlayer
     - CurrentVideoDetails
     - LikeVideoButton
     - DislikeVideoButton
-  + Comments (hover to show)
+  + CommentsContainer (hover to show)
     - CommentItem
     - (Signed In) CreateComment
 

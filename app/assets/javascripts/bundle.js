@@ -31942,9 +31942,10 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var mapStateToProps = function mapStateToProps(state) {
+	  debugger;
+	  var urlQuery = state.router.location.query;
 	  return {
-	    loggedIn: Boolean(state.session.currentUser),
-	    errors: state.videos.errors
+	    groupByField: urlQuery.groupBy
 	  };
 	};
 	

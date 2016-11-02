@@ -2,10 +2,13 @@ import { connect } from 'react-redux';
 import VideoPlayer from './video_player';
 import { fetchVideo } from '../../../../actions/video_actions';
 
-const mapStateToProps = state => ({
-  loggedIn: Boolean(state.session.currentUser),
-  errors: state.videos.errors
-});
+const mapStateToProps = state => {
+  debugger
+    const urlQuery = state.router.location.query;
+    return {
+        groupByField: urlQuery.groupBy
+    }
+};
 
 const mapDispatchToProps = (dispatch) => ({
   fetchVideo: (id) => dispatch(fetchVideo(id))
