@@ -6,12 +6,14 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 
 // react components
 import App from './app/app';
+import VideoUploadFormContainer from './video_upload_form/video_upload_form_container';
+
 const Root = ({ store }) => {
 
   const _ensureLoggedIn = (nextState, replace) => {
     const currentUser = store.getState().session.currentUser;
     if (!currentUser) {
-      replace('/login');
+      replace('/');
     }
   };
 
@@ -26,6 +28,7 @@ const Root = ({ store }) => {
     <Provider store={store}>
       <Router history={hashHistory}>
         <Route path="/" component={App}>
+          <Route path="/videos/new" component={VideoUploadFormContainer} onEnter={_ensureLoggedIn}/>
         </Route>
       </Router>
     </Provider>

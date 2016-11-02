@@ -9,14 +9,14 @@ password_digest | string    | not null
 session_token   | string    | not null, indexed, unique
 
 ## videos
-column name | data type | details
-------------|-----------|-----------------------
-id          | integer   | not null, primary key
-title       | string    | not null
-url         | string    | not null
-description | text      | not null
-user_id     | integer   | not null, foreign key (references users), indexed
-archived    | boolean   | not null, default: false
+column name  | data type | details
+-------------|-----------|-----------------------
+id           | integer   | not null, primary key
+title        | string    | not null
+url          | string    | not null
+description  | text      | not null
+user_id      | integer   | not null, foreign key (references users), indexed
+archived     | boolean   | not null, default: false
 
 ## comments
 column name | data type | details
