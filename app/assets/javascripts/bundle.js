@@ -28224,6 +28224,7 @@
 			_this.handleSubmit = _this.handleSubmit.bind(_this);
 			_this.changeToSignup = _this.changeToSignup.bind(_this);
 			_this.changeToLogin = _this.changeToLogin.bind(_this);
+			_this.guestLogin = _this.guestLogin.bind(_this);
 			return _this;
 		}
 	
@@ -28290,6 +28291,13 @@
 				);
 			}
 		}, {
+			key: 'guestLogin',
+			value: function guestLogin() {
+				this.setState({ username: "Guest", password: "password" });
+				var user = this.state;
+				this.props.login({ user: user });
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				if (this.props.loggedIn) {
@@ -28337,6 +28345,12 @@
 							),
 							_react2.default.createElement('br', null),
 							_react2.default.createElement('input', { type: 'submit', value: 'Submit' })
+						),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement(
+							'button',
+							{ onClick: this.guestLogin },
+							'Guest Log In'
 						),
 						_react2.default.createElement('br', null)
 					)

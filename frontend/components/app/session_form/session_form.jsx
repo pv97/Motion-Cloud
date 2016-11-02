@@ -12,6 +12,7 @@ class SessionForm extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.changeToSignup = this.changeToSignup.bind(this);
 		this.changeToLogin = this.changeToLogin.bind(this);
+		this.guestLogin = this.guestLogin.bind(this);
 	}
 
 	update(field) {
@@ -58,6 +59,12 @@ class SessionForm extends React.Component {
 		);
 	}
 
+	guestLogin(){
+		this.setState({username:"Guest",password:"password"})
+	  let user = this.state
+		this.props.login({user});
+	}
+
 	render() {
 		if(this.props.loggedIn){
 			return (<div></div>)
@@ -92,6 +99,8 @@ class SessionForm extends React.Component {
 <br/>
 						<input type="submit" value="Submit" />
 					</div>
+<br/>
+					<button onClick={this.guestLogin}>Guest Log In</button>
 <br/>
 				</form>
 			</div>
