@@ -3,12 +3,12 @@ class Api::VideosController < ApplicationController
 
   def show
     @video = Video.find(params[:id])
-    render "api/videos/show", status :200
+    render "api/videos/show", status: 200
   end
 
   def index
     @videos = Video.all
-    render "api/videos/show", status :200
+    render "api/videos/show", status: 200
   end
 
   def create

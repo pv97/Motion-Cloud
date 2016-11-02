@@ -58,7 +58,7 @@
 	
 	var _root2 = _interopRequireDefault(_root);
 	
-	var _store = __webpack_require__(349);
+	var _store = __webpack_require__(350);
 	
 	var _store2 = _interopRequireDefault(_store);
 	
@@ -28503,7 +28503,7 @@
 	
 	var _video_upload_form2 = _interopRequireDefault(_video_upload_form);
 	
-	var _video_actions = __webpack_require__(356);
+	var _video_actions = __webpack_require__(349);
 	
 	var _video_actions2 = _interopRequireDefault(_video_actions);
 	
@@ -31362,279 +31362,6 @@
 
 /***/ },
 /* 349 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _redux = __webpack_require__(180);
-	
-	var _root_reducer = __webpack_require__(350);
-	
-	var _root_reducer2 = _interopRequireDefault(_root_reducer);
-	
-	var _root_middleware = __webpack_require__(352);
-	
-	var _root_middleware2 = _interopRequireDefault(_root_middleware);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var configureStore = function configureStore() {
-	  var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-	  return (0, _redux.createStore)(_root_reducer2.default, preloadedState, _root_middleware2.default);
-	};
-	
-	exports.default = configureStore;
-
-/***/ },
-/* 350 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _redux = __webpack_require__(180);
-	
-	var _session_reducer = __webpack_require__(351);
-	
-	var _session_reducer2 = _interopRequireDefault(_session_reducer);
-	
-	var _videos_reducer = __webpack_require__(355);
-	
-	var _videos_reducer2 = _interopRequireDefault(_videos_reducer);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var RootReducer = (0, _redux.combineReducers)({
-	  session: _session_reducer2.default,
-	  videos: _videos_reducer2.default
-	});
-	
-	exports.default = RootReducer;
-
-/***/ },
-/* 351 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _session_actions = __webpack_require__(258);
-	
-	var _merge = __webpack_require__(264);
-	
-	var _merge2 = _interopRequireDefault(_merge);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var _nullUser = Object.freeze({
-	  currentUser: null,
-	  errors: []
-	});
-	
-	var SessionReducer = function SessionReducer() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _nullUser;
-	  var action = arguments[1];
-	
-	  Object.freeze(state);
-	  switch (action.type) {
-	    case _session_actions.RECEIVE_CURRENT_USER:
-	      var currentUser = action.currentUser;
-	      return (0, _merge2.default)({}, _nullUser, {
-	        currentUser: currentUser
-	      });
-	
-	    case _session_actions.LOGOUT:
-	      return (0, _merge2.default)({}, _nullUser);
-	
-	    case _session_actions.RECEIVE_ERRORS:
-	      var errors = action.errors;
-	      return (0, _merge2.default)({}, _nullUser, {
-	        errors: errors
-	      });
-	
-	    default:
-	      return state;
-	  }
-	};
-	
-	exports.default = SessionReducer;
-
-/***/ },
-/* 352 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _redux = __webpack_require__(180);
-	
-	var _session_middleware = __webpack_require__(353);
-	
-	var _session_middleware2 = _interopRequireDefault(_session_middleware);
-	
-	var _videos_middleware = __webpack_require__(357);
-	
-	var _videos_middleware2 = _interopRequireDefault(_videos_middleware);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var RootMiddleware = (0, _redux.applyMiddleware)(_session_middleware2.default, _videos_middleware2.default);
-	
-	exports.default = RootMiddleware;
-
-/***/ },
-/* 353 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _session_actions = __webpack_require__(258);
-	
-	var _session_api_util = __webpack_require__(354);
-	
-	// actions
-	exports.default = function (_ref) {
-	  var getState = _ref.getState,
-	      dispatch = _ref.dispatch;
-	  return function (next) {
-	    return function (action) {
-	      var successCallback = function successCallback(user) {
-	        return dispatch((0, _session_actions.receiveCurrentUser)(user));
-	      };
-	      var errorCallback = function errorCallback(xhr) {
-	        return dispatch((0, _session_actions.receiveErrors)(xhr.responseJSON));
-	      };
-	
-	      switch (action.type) {
-	        case _session_actions.LOGIN:
-	          (0, _session_api_util.login)(action.user, successCallback, errorCallback);
-	          return next(action);
-	
-	        case _session_actions.LOGOUT:
-	          (0, _session_api_util.logout)(function () {
-	            return next(action);
-	          });
-	          break;
-	
-	        case _session_actions.SIGNUP:
-	          (0, _session_api_util.signup)(action.user, successCallback, errorCallback);
-	          return next(action);
-	
-	        default:
-	          return next(action);
-	      }
-	    };
-	  };
-	};
-	
-	// api utils
-
-/***/ },
-/* 354 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.logout = exports.signup = exports.login = undefined;
-	
-	var _session_actions = __webpack_require__(258);
-	
-	var login = exports.login = function login(user, success, error) {
-		$.ajax({
-			method: 'POST',
-			url: '/api/session',
-			data: user,
-			success: success,
-			error: error
-		});
-	};
-	
-	var signup = exports.signup = function signup(user, success, error) {
-		$.ajax({
-			method: 'POST',
-			url: '/api/user',
-			data: user,
-			success: success,
-			error: error
-		});
-	};
-	
-	var logout = exports.logout = function logout(success) {
-		$.ajax({
-			method: 'delete',
-			url: '/api/session',
-			success: success,
-			error: function error() {
-				console.log("Logout error in SessionApiUtil#logout");
-			}
-		});
-	};
-
-/***/ },
-/* 355 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _video_actions = __webpack_require__(356);
-	
-	var _merge2 = __webpack_require__(264);
-	
-	var _merge3 = _interopRequireDefault(_merge2);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-	
-	var VideosReducer = function VideosReducer() {
-	  var oldState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-	  var action = arguments[1];
-	
-	  switch (action.type) {
-	    case _video_actions.RECEIVE_ALL_VIDEOS:
-	      return (0, _merge3.default)({}, action.videos);
-	
-	    case _video_actions.RECEIVE_VIDEO:
-	      return (0, _merge3.default)({}, oldState, _defineProperty({}, action.video.id, action.video));
-	
-	    case _video_actions.REMOVE_VIDEO:
-	      var newState = (0, _merge3.default)({}, oldState);
-	      delete newState[action.video.id];
-	      return newState;
-	
-	    default:
-	      return oldState;
-	  }
-	};
-	
-	exports.default = VideosReducer;
-
-/***/ },
-/* 356 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -31707,6 +31434,279 @@
 	};
 
 /***/ },
+/* 350 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _redux = __webpack_require__(180);
+	
+	var _root_reducer = __webpack_require__(351);
+	
+	var _root_reducer2 = _interopRequireDefault(_root_reducer);
+	
+	var _root_middleware = __webpack_require__(354);
+	
+	var _root_middleware2 = _interopRequireDefault(_root_middleware);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var configureStore = function configureStore() {
+	  var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	  return (0, _redux.createStore)(_root_reducer2.default, preloadedState, _root_middleware2.default);
+	};
+	
+	exports.default = configureStore;
+
+/***/ },
+/* 351 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _redux = __webpack_require__(180);
+	
+	var _session_reducer = __webpack_require__(352);
+	
+	var _session_reducer2 = _interopRequireDefault(_session_reducer);
+	
+	var _videos_reducer = __webpack_require__(353);
+	
+	var _videos_reducer2 = _interopRequireDefault(_videos_reducer);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var RootReducer = (0, _redux.combineReducers)({
+	  session: _session_reducer2.default,
+	  videos: _videos_reducer2.default
+	});
+	
+	exports.default = RootReducer;
+
+/***/ },
+/* 352 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _session_actions = __webpack_require__(258);
+	
+	var _merge = __webpack_require__(264);
+	
+	var _merge2 = _interopRequireDefault(_merge);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var _nullUser = Object.freeze({
+	  currentUser: null,
+	  errors: []
+	});
+	
+	var SessionReducer = function SessionReducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _nullUser;
+	  var action = arguments[1];
+	
+	  Object.freeze(state);
+	  switch (action.type) {
+	    case _session_actions.RECEIVE_CURRENT_USER:
+	      var currentUser = action.currentUser;
+	      return (0, _merge2.default)({}, _nullUser, {
+	        currentUser: currentUser
+	      });
+	
+	    case _session_actions.LOGOUT:
+	      return (0, _merge2.default)({}, _nullUser);
+	
+	    case _session_actions.RECEIVE_ERRORS:
+	      var errors = action.errors;
+	      return (0, _merge2.default)({}, _nullUser, {
+	        errors: errors
+	      });
+	
+	    default:
+	      return state;
+	  }
+	};
+	
+	exports.default = SessionReducer;
+
+/***/ },
+/* 353 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _video_actions = __webpack_require__(349);
+	
+	var _merge2 = __webpack_require__(264);
+	
+	var _merge3 = _interopRequireDefault(_merge2);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	var VideosReducer = function VideosReducer() {
+	  var oldState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case _video_actions.RECEIVE_ALL_VIDEOS:
+	      return (0, _merge3.default)({}, action.videos);
+	
+	    case _video_actions.RECEIVE_VIDEO:
+	      return (0, _merge3.default)({}, oldState, _defineProperty({}, action.video.id, action.video));
+	
+	    case _video_actions.REMOVE_VIDEO:
+	      var newState = (0, _merge3.default)({}, oldState);
+	      delete newState[action.video.id];
+	      return newState;
+	
+	    default:
+	      return oldState;
+	  }
+	};
+	
+	exports.default = VideosReducer;
+
+/***/ },
+/* 354 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _redux = __webpack_require__(180);
+	
+	var _session_middleware = __webpack_require__(355);
+	
+	var _session_middleware2 = _interopRequireDefault(_session_middleware);
+	
+	var _videos_middleware = __webpack_require__(357);
+	
+	var _videos_middleware2 = _interopRequireDefault(_videos_middleware);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var RootMiddleware = (0, _redux.applyMiddleware)(_session_middleware2.default, _videos_middleware2.default);
+	
+	exports.default = RootMiddleware;
+
+/***/ },
+/* 355 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _session_actions = __webpack_require__(258);
+	
+	var _session_api_util = __webpack_require__(356);
+	
+	// actions
+	exports.default = function (_ref) {
+	  var getState = _ref.getState,
+	      dispatch = _ref.dispatch;
+	  return function (next) {
+	    return function (action) {
+	      var successCallback = function successCallback(user) {
+	        return dispatch((0, _session_actions.receiveCurrentUser)(user));
+	      };
+	      var errorCallback = function errorCallback(xhr) {
+	        return dispatch((0, _session_actions.receiveErrors)(xhr.responseJSON));
+	      };
+	
+	      switch (action.type) {
+	        case _session_actions.LOGIN:
+	          (0, _session_api_util.login)(action.user, successCallback, errorCallback);
+	          return next(action);
+	
+	        case _session_actions.LOGOUT:
+	          (0, _session_api_util.logout)(function () {
+	            return next(action);
+	          });
+	          break;
+	
+	        case _session_actions.SIGNUP:
+	          (0, _session_api_util.signup)(action.user, successCallback, errorCallback);
+	          return next(action);
+	
+	        default:
+	          return next(action);
+	      }
+	    };
+	  };
+	};
+	
+	// api utils
+
+/***/ },
+/* 356 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.logout = exports.signup = exports.login = undefined;
+	
+	var _session_actions = __webpack_require__(258);
+	
+	var login = exports.login = function login(user, success, error) {
+		$.ajax({
+			method: 'POST',
+			url: '/api/session',
+			data: user,
+			success: success,
+			error: error
+		});
+	};
+	
+	var signup = exports.signup = function signup(user, success, error) {
+		$.ajax({
+			method: 'POST',
+			url: '/api/user',
+			data: user,
+			success: success,
+			error: error
+		});
+	};
+	
+	var logout = exports.logout = function logout(success) {
+		$.ajax({
+			method: 'delete',
+			url: '/api/session',
+			success: success,
+			error: function error() {
+				console.log("Logout error in SessionApiUtil#logout");
+			}
+		});
+	};
+
+/***/ },
 /* 357 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -31716,7 +31716,7 @@
 	  value: true
 	});
 	
-	var _video_actions = __webpack_require__(356);
+	var _video_actions = __webpack_require__(349);
 	
 	var _video_api_util = __webpack_require__(358);
 	
