@@ -15,7 +15,6 @@ class Api::VideosController < ApplicationController
     @video = Video.new(video_params)
     @video.user_id = current_user.id
     if @video.save
-      debugger
       render "api/videos/show"
     else
       render json: @video.errors.full_messages, status: 422

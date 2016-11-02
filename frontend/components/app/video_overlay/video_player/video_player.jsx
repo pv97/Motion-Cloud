@@ -34,7 +34,7 @@ class VideoPlayer extends React.Component {
 		let video = this.props.videos[this.props.query.id];
 		// debugger
 		if (video) {
-			return <ReactPlayer url={video.url} playing />
+			return <ReactPlayer url={video.url} playing controls/>
 		} else {
 			return <div className="display-none"></div>
 		}
