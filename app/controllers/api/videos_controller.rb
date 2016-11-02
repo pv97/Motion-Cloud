@@ -1,6 +1,15 @@
 class Api::VideosController < ApplicationController
-  before_action :require_logged_in, only: [:create,:destroy]
+  before_action :require_logged_in, only: [:create,:destroy,:update]
 
+  def show
+    @video = Video.find(params[:id])
+    render "api/videos/show", status :200
+  end
+
+  def index
+    @videos = Video.all
+    render "api/videos/show", status :200
+  end
 
   def create
     @video = Video.new(video_params)
@@ -13,10 +22,18 @@ class Api::VideosController < ApplicationController
     end
   end
 
-  def destroy
-    if (current_user.nil?)
-    @favorite = Video.find(params[:id])
+  def update
+    @video = Video.find(params[:id])
+    if @video.update(video_params)
+      render "api/videos/show", status: 200
+    else
+      @errors = @video.errors.full_messages
+			render "api/shared/error", status: 422
+    end
+  end
 
+  def destroy
+    @favorite = Video.find(params[:id])
     if(@favorite.destroy)
       render "api/videos/show", status: 200
     else

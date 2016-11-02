@@ -16,12 +16,15 @@ export default ({getState, dispatch}) => next => action => {
     case LOGIN:
       login(action.user, successCallback, errorCallback);
       return next(action);
+
     case LOGOUT:
       logout(() => next(action));
       break;
+
     case SIGNUP:
       signup(action.user, successCallback, errorCallback);
       return next(action);
+      
     default:
       return next(action);
   }

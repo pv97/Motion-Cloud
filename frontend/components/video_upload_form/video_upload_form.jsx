@@ -31,13 +31,13 @@ class VideoUploadForm extends React.Component {
 		);
 	}
 
-	componentWillUpdate() {
+	componentDidUpdate() {
 		this.redirectIfNotLoggedIn();
 	}
 
 	redirectIfNotLoggedIn() {
-	if (!this.props.loggedIn) {
-		this.props.router.push("/");
+		if (!this.props.loggedIn) {
+			this.props.router.push("/");
 		}
 	}
 
@@ -49,7 +49,8 @@ class VideoUploadForm extends React.Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
-
+		const video = this.state;
+		this.props.createVideo({video});
 	}
 
 	renderErrors() {

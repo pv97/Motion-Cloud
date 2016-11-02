@@ -28292,10 +28292,15 @@
 			}
 		}, {
 			key: 'guestLogin',
-			value: function guestLogin() {
-				this.setState({ username: "Guest", password: "password" });
-				var user = this.state;
-				this.props.login({ user: user });
+			value: function guestLogin(e) {
+				e.preventDefault();
+				this.props.login({
+					user: {
+						formType: "Login",
+						username: "Guest",
+						password: "password"
+					}
+				});
 			}
 		}, {
 			key: 'render',
@@ -28498,19 +28503,25 @@
 	
 	var _video_upload_form2 = _interopRequireDefault(_video_upload_form);
 	
+	var _video_actions = __webpack_require__(356);
+	
+	var _video_actions2 = _interopRequireDefault(_video_actions);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var mapStateToProps = function mapStateToProps(_ref) {
-	  var videoForm = _ref.videoForm,
-	      session = _ref.session;
+	  var session = _ref.session;
 	  return {
-	    loggedIn: Boolean(session.currentUser),
-	    videoForm: videoForm
+	    loggedIn: Boolean(session.currentUser)
 	  };
 	};
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {};
+	  return {
+	    createVideo: function createVideo(video) {
+	      return dispatch((0, _video_actions2.default)(video));
+	    }
+	  };
 	};
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_video_upload_form2.default);
@@ -28581,8 +28592,8 @@
 				});
 			}
 		}, {
-			key: 'componentWillUpdate',
-			value: function componentWillUpdate() {
+			key: 'componentDidUpdate',
+			value: function componentDidUpdate() {
 				this.redirectIfNotLoggedIn();
 			}
 		}, {
@@ -28605,6 +28616,8 @@
 			key: 'handleSubmit',
 			value: function handleSubmit(e) {
 				e.preventDefault();
+				var video = this.state;
+				this.props.createVideo({ video: video });
 			}
 		}, {
 			key: 'renderErrors',
@@ -31392,10 +31405,15 @@
 	
 	var _session_reducer2 = _interopRequireDefault(_session_reducer);
 	
+	var _videos_reducer = __webpack_require__(355);
+	
+	var _videos_reducer2 = _interopRequireDefault(_videos_reducer);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var RootReducer = (0, _redux.combineReducers)({
-	  session: _session_reducer2.default
+	  session: _session_reducer2.default,
+	  videos: _videos_reducer2.default
 	});
 	
 	exports.default = RootReducer;
@@ -31434,13 +31452,16 @@
 	      return (0, _merge2.default)({}, _nullUser, {
 	        currentUser: currentUser
 	      });
+	
 	    case _session_actions.LOGOUT:
 	      return (0, _merge2.default)({}, _nullUser);
+	
 	    case _session_actions.RECEIVE_ERRORS:
 	      var errors = action.errors;
 	      return (0, _merge2.default)({}, _nullUser, {
 	        errors: errors
 	      });
+	
 	    default:
 	      return state;
 	  }
@@ -31464,9 +31485,13 @@
 	
 	var _session_middleware2 = _interopRequireDefault(_session_middleware);
 	
+	var _videos_middleware = __webpack_require__(357);
+	
+	var _videos_middleware2 = _interopRequireDefault(_videos_middleware);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var RootMiddleware = (0, _redux.applyMiddleware)(_session_middleware2.default);
+	var RootMiddleware = (0, _redux.applyMiddleware)(_session_middleware2.default, _videos_middleware2.default);
 	
 	exports.default = RootMiddleware;
 
@@ -31501,14 +31526,17 @@
 	        case _session_actions.LOGIN:
 	          (0, _session_api_util.login)(action.user, successCallback, errorCallback);
 	          return next(action);
+	
 	        case _session_actions.LOGOUT:
 	          (0, _session_api_util.logout)(function () {
 	            return next(action);
 	          });
 	          break;
+	
 	        case _session_actions.SIGNUP:
 	          (0, _session_api_util.signup)(action.user, successCallback, errorCallback);
 	          return next(action);
+	
 	        default:
 	          return next(action);
 	      }
@@ -31560,6 +31588,242 @@
 				console.log("Logout error in SessionApiUtil#logout");
 			}
 		});
+	};
+
+/***/ },
+/* 355 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _video_actions = __webpack_require__(356);
+	
+	var _merge2 = __webpack_require__(264);
+	
+	var _merge3 = _interopRequireDefault(_merge2);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	var VideosReducer = function VideosReducer() {
+	  var oldState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case _video_actions.RECEIVE_ALL_VIDEOS:
+	      return (0, _merge3.default)({}, action.videos);
+	
+	    case _video_actions.RECEIVE_VIDEO:
+	      return (0, _merge3.default)({}, oldState, _defineProperty({}, action.video.id, action.video));
+	
+	    case _video_actions.REMOVE_VIDEO:
+	      var newState = (0, _merge3.default)({}, oldState);
+	      delete newState[action.video.id];
+	      return newState;
+	
+	    default:
+	      return oldState;
+	  }
+	};
+	
+	exports.default = VideosReducer;
+
+/***/ },
+/* 356 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var FETCH_VIDEOS = exports.FETCH_VIDEOS = "FETCH_VIDEOS";
+	var FETCH_VIDEO = exports.FETCH_VIDEO = "FETCH_VIDEO";
+	var RECEIVE_ALL_VIDEOS = exports.RECEIVE_ALL_VIDEOS = "RECEIVE_ALL_VIDEOS";
+	var RECEIVE_VIDEO = exports.RECEIVE_VIDEO = "RECEIVE_VIDEO";
+	var REMOVE_VIDEO = exports.REMOVE_VIDEO = "REMOVE_VIDEO";
+	var CREATE_VIDEO = exports.CREATE_VIDEO = "CREATE_VIDEO";
+	var UPDATE_VIDEO = exports.UPDATE_VIDEO = "UPDATE_VIDEO";
+	var DELETE_VIDEO = exports.DELETE_VIDEO = "DELETE_VIDEO";
+	
+	var fetchPosts = exports.fetchPosts = function fetchPosts() {
+	  return {
+	    type: FETCH_VIDEOS
+	  };
+	};
+	
+	var fetchPost = exports.fetchPost = function fetchPost(id) {
+	  return {
+	    type: FETCH_VIDEO,
+	    id: id
+	  };
+	};
+	
+	var createPost = exports.createPost = function createPost(video) {
+	  return {
+	    type: CREATE_VIDEO,
+	    video: video
+	  };
+	};
+	
+	var updatePost = exports.updatePost = function updatePost(video) {
+	  return {
+	    type: UPDATE_VIDEO,
+	    video: video
+	  };
+	};
+	
+	var deletePost = exports.deletePost = function deletePost(id) {
+	  return {
+	    type: DELETE_VIDEO,
+	    id: id
+	  };
+	};
+	
+	var receiveAllPosts = exports.receiveAllPosts = function receiveAllPosts(videos) {
+	  return {
+	    type: RECEIVE_ALL_VIDEOS,
+	    videos: videos
+	  };
+	};
+	
+	var receivePost = exports.receivePost = function receivePost(video) {
+	  return {
+	    type: RECEIVE_VIDEO,
+	    video: video
+	  };
+	};
+	
+	var removePost = exports.removePost = function removePost(video) {
+	  return {
+	    type: REMOVE_VIDEO,
+	    video: video
+	  };
+	};
+
+/***/ },
+/* 357 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _video_actions = __webpack_require__(356);
+	
+	var _video_api_util = __webpack_require__(358);
+	
+	var _reactRouter = __webpack_require__(203);
+	
+	var VideosMiddleware = function VideosMiddleware(_ref) {
+	  var getState = _ref.getState,
+	      dispatch = _ref.dispatch;
+	  return function (next) {
+	    return function (action) {
+	      var success = void 0;
+	      var error = function error(e) {
+	        return console.log(e.responseJSON);
+	      };
+	      var receiveAllVideosSuccess = function receiveAllVideosSuccess(videos) {
+	        return dispatch((0, _video_actions.receiveAllVideos)(videos));
+	      };
+	      var receiveVideoSuccess = function receiveVideoSuccess(video) {
+	        dispatch((0, _video_actions.receiveVideo)(video));
+	        _reactRouter.hashHistory.push("/");
+	      };
+	      var removeVideoSuccess = function removeVideoSuccess(video) {
+	        return dispatch((0, _video_actions.removeVideo)(video));
+	      };
+	
+	      switch (action.type) {
+	        case _video_actions.FETCH_VIDEOS:
+	          (0, _video_api_util.fetchVideos)(receiveAllVideosSuccess, error);
+	          return next(action);
+	
+	        case _video_actions.FETCH_VIDEO:
+	          (0, _video_api_util.fetchVideo)(action.id, receiveVideoSuccess, error);
+	          return next(action);
+	
+	        case _video_actions.CREATE_VIDEO:
+	          (0, _video_api_util.createVideo)(action.video, receiveVideoSuccess, error);
+	          return next(action);
+	
+	        case _video_actions.UPDATE_VIDEO:
+	          (0, _video_api_util.updateVideo)(action.video, receiveVideoSuccess, error);
+	          return next(action);
+	
+	        case _video_actions.DELETE_VIDEO:
+	          (0, _video_api_util.deleteVideo)(action.id, removeVideoSuccess, error);
+	          return next(action);
+	
+	        default:
+	          return next(action);
+	      }
+	    };
+	  };
+	};
+	
+	exports.default = VideosMiddleware;
+
+/***/ },
+/* 358 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var fetchVideos = exports.fetchVideos = function fetchVideos(success, error) {
+	  $.ajax({
+	    url: "api/videos",
+	    success: success,
+	    error: error
+	  });
+	};
+	
+	var fetchVideo = exports.fetchVideo = function fetchVideo(id, success, error) {
+	  $.ajax({
+	    url: "api/videos/" + id,
+	    success: success,
+	    error: error
+	  });
+	};
+	
+	var createVideo = exports.createVideo = function createVideo(video, success, error) {
+	  $.ajax({
+	    url: "api/videos",
+	    type: "POST",
+	    data: { video: video },
+	    success: success,
+	    error: error
+	  });
+	};
+	
+	var updateVideo = exports.updateVideo = function updateVideo(video, success, error) {
+	  $.ajax({
+	    url: "api/videos/" + video.id,
+	    type: "PATCH",
+	    data: { video: video },
+	    success: success,
+	    error: error
+	  });
+	};
+	
+	var deleteVideo = exports.deleteVideo = function deleteVideo(id, success, error) {
+	  $.ajax({
+	    url: "api/videos/" + id,
+	    type: "DELETE",
+	    success: success,
+	    error: error
+	  });
 	};
 
 /***/ }
