@@ -31901,8 +31901,6 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRouter = __webpack_require__(203);
-	
 	var _video_player_container = __webpack_require__(362);
 	
 	var _video_player_container2 = _interopRequireDefault(_video_player_container);
