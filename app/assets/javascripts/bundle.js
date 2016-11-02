@@ -79,7 +79,7 @@
 	    store = (0, _store2.default)();
 	  }
 	  window.setQuery = _query_actions.setQuery;
-	  window.fetchVideo = _video_actions.fetchVideo;
+	  window.createVideo = _video_actions.createVideo;
 	  window.fetchVideos = _video_actions.fetchVideos;
 	  window.store = store;
 	  var root = document.getElementById('root');
@@ -28652,24 +28652,10 @@
 					this.props.setQuery(videoId);
 				}
 			}
-	
-			// componentWillUpdate(){
-			// 	debugger
-			// }
-			//
-			// fetchVideoQuery(){
-			// 	debugger
-			// 	let videoId = this.props.query.id;
-			// 	if (videoId){
-			// 		this.props.fetchVideo(videoId);
-			// 	}
-			// }
-	
 		}, {
 			key: 'videoPlayer',
 			value: function videoPlayer() {
 				var video = this.props.videos[this.props.query.id];
-				// debugger
 				if (video) {
 					return _react2.default.createElement(_reactPlayer2.default, { url: video.url, playing: true, controls: true });
 				} else {

@@ -18,21 +18,10 @@ class VideoPlayer extends React.Component {
 		}
 	}
 
-	// componentWillUpdate(){
-	// 	debugger
-	// }
-	//
-	// fetchVideoQuery(){
-	// 	debugger
-	// 	let videoId = this.props.query.id;
-	// 	if (videoId){
-	// 		this.props.fetchVideo(videoId);
-	// 	}
-	// }
+
 
 	videoPlayer(){
 		let video = this.props.videos[this.props.query.id];
-		// debugger
 		if (video) {
 			return <ReactPlayer url={video.url} playing controls/>
 		} else {

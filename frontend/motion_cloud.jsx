@@ -6,7 +6,7 @@ import Root from './components/root';
 import configureStore from './store/store';
 
 import { setQuery } from './actions/query_actions';
-import { fetchVideos, fetchVideo } from './actions/video_actions';
+import { fetchVideos, createVideo } from './actions/video_actions';
 
 document.addEventListener('DOMContentLoaded', () => {
   let store;
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     store = configureStore();
   }
   window.setQuery = setQuery;
-  window.fetchVideo = fetchVideo;
+  window.createVideo = createVideo;
   window.fetchVideos = fetchVideos;
   window.store = store;
   const root = document.getElementById('root');
