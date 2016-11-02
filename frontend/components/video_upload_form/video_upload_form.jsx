@@ -98,7 +98,7 @@ class VideoUploadForm extends React.Component {
 								<input type="text"
 									value={this.state.title}
 									onChange={this.update("title")}
-									className="login-input" />
+									className="upload-input" />
 							</label>
 <br/>
 							<label> Description:
@@ -106,7 +106,7 @@ class VideoUploadForm extends React.Component {
 								<textarea
 									value={this.state.description}
 									onChange={this.update("description")}
-									className="login-input" />
+									className="upload-input" />
 							</label>
 <br/>
 							<div className = 'upload-box'>

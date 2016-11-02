@@ -9,15 +9,17 @@
     - SessionFormBox
     - Switch form type button
 
- - VideoPlayer
-  + CurrentVideo
+ - VideoPlayerContainer
+  + VideoPlayer
     - CurrentVideoPlayer
     - CurrentVideoDetails
     - LikeVideoButton
     - DislikeVideoButton
-  + CurrentVideoComments (hover to show)
-    - CurrentVideoCommentIndexItem
+  + Comments (hover to show)
+    - CommentItem
     - (Signed In) CreateComment
+
+  - SearchContainer
 
 **VideoIndexContainer**
  - videoIndexItem (displayed according to search bar entry)
