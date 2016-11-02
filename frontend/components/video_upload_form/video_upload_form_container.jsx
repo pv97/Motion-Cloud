@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
 import VideoUploadForm from './video_upload_form';
-import createVideo from '../../actions/video_actions';
+import { createVideo } from '../../actions/video_actions';
 
-const mapStateToProps = ({ session }) => ({
-  loggedIn: Boolean(session.currentUser)
+const mapStateToProps = state => ({
+  loggedIn: Boolean(state.session.currentUser),
+  errors: state.videos.errors
 });
 
 const mapDispatchToProps = (dispatch) => ({

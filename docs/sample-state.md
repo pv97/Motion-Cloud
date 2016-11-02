@@ -2,14 +2,15 @@
 {
   currentUser: {
     id: 1,
-    username: "app-academy"
+    username: "app-academy",
+    errors:[]
   },
   authForm: {
     username: "username",
     password: "password",
     errors: []
   },
-  videoIndex: {
+  videos: {
     1: {
       title: "Sample Video",
       url: "https://www.cloudinary.com"
@@ -25,7 +26,8 @@
           likes: 1,
           dislikes: 1
         }
-      }
+      },
+      errors:[]
     }
   },
   userShow: {
@@ -44,7 +46,8 @@
     }
   },
   commentForm: {
-    body: ""
+    body: "",
+    errors:[]
   }
 }
 ```

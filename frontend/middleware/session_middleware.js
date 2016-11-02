@@ -1,6 +1,6 @@
 // actions
 import { receiveCurrentUser,
-         receiveErrors,
+         receiveUserErrors,
          LOGIN,
          LOGOUT,
          SIGNUP } from '../actions/session_actions';
@@ -10,7 +10,7 @@ import { login, signup, logout } from '../util/session_api_util';
 
 export default ({getState, dispatch}) => next => action => {
   const successCallback = user => dispatch(receiveCurrentUser(user));
-  const errorCallback = xhr => dispatch(receiveErrors(xhr.responseJSON));
+  const errorCallback = xhr => dispatch(receiveUserErrors(xhr.responseJSON));
 
   switch(action.type){
     case LOGIN:
@@ -24,7 +24,7 @@ export default ({getState, dispatch}) => next => action => {
     case SIGNUP:
       signup(action.user, successCallback, errorCallback);
       return next(action);
-      
+
     default:
       return next(action);
   }

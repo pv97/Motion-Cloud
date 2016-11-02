@@ -28144,7 +28144,7 @@
 	var LOGOUT = exports.LOGOUT = "LOGOUT";
 	var SIGNUP = exports.SIGNUP = "SIGNUP";
 	var RECEIVE_CURRENT_USER = exports.RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
-	var RECEIVE_ERRORS = exports.RECEIVE_ERRORS = "RECEIVE_ERRORS";
+	var RECEIVE_USER_ERRORS = exports.RECEIVE_USER_ERRORS = "RECEIVE_USER_ERRORS";
 	
 	var signup = exports.signup = function signup(user) {
 	  return {
@@ -28173,9 +28173,9 @@
 	  };
 	};
 	
-	var receiveErrors = exports.receiveErrors = function receiveErrors(errors) {
+	var receiveUserErrors = exports.receiveUserErrors = function receiveUserErrors(errors) {
 	  return {
-	    type: RECEIVE_ERRORS,
+	    type: RECEIVE_USER_ERRORS,
 	    errors: errors
 	  };
 	};
@@ -28241,7 +28241,10 @@
 			key: 'handleSubmit',
 			value: function handleSubmit(e) {
 				e.preventDefault();
-				var user = this.state;
+				var user = {
+					username: this.state.username,
+					password: this.state.password
+				};
 				if (this.state.formType === "Login") {
 					this.props.login({ user: user });
 				} else {
@@ -28306,7 +28309,7 @@
 			key: 'render',
 			value: function render() {
 				if (this.props.loggedIn) {
-					return _react2.default.createElement('div', null);
+					return _react2.default.createElement('div', { className: 'display-none' });
 				}
 	
 				return _react2.default.createElement(
@@ -28439,7 +28442,10 @@
 		function UserNav(props) {
 			_classCallCheck(this, UserNav);
 	
-			return _possibleConstructorReturn(this, (UserNav.__proto__ || Object.getPrototypeOf(UserNav)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (UserNav.__proto__ || Object.getPrototypeOf(UserNav)).call(this, props));
+	
+			_this.toUploadVideo = _this.toUploadVideo.bind(_this);
+			return _this;
 		}
 	
 		_createClass(UserNav, [{
@@ -28458,10 +28464,16 @@
 				);
 			}
 		}, {
+			key: 'toUploadVideo',
+			value: function toUploadVideo(e) {
+				e.preventDefault();
+				this.props.router.push("/videos/new");
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				if (!this.props.loggedIn) {
-					return _react2.default.createElement('div', null);
+					return _react2.default.createElement('div', { className: 'display-none' });
 				}
 	
 				return _react2.default.createElement(
@@ -28472,6 +28484,11 @@
 						null,
 						'Hello ',
 						this.props.currentUser.username
+					),
+					_react2.default.createElement(
+						'button',
+						{ onClick: this.toUploadVideo },
+						'Upload'
 					),
 					_react2.default.createElement(
 						'button',
@@ -28505,21 +28522,19 @@
 	
 	var _video_actions = __webpack_require__(349);
 	
-	var _video_actions2 = _interopRequireDefault(_video_actions);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var mapStateToProps = function mapStateToProps(_ref) {
-	  var session = _ref.session;
+	var mapStateToProps = function mapStateToProps(state) {
 	  return {
-	    loggedIn: Boolean(session.currentUser)
+	    loggedIn: Boolean(state.session.currentUser),
+	    errors: state.videos.errors
 	  };
 	};
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
 	    createVideo: function createVideo(video) {
-	      return dispatch((0, _video_actions2.default)(video));
+	      return dispatch((0, _video_actions.createVideo)(video));
 	    }
 	  };
 	};
@@ -28569,7 +28584,8 @@
 			_this.state = {
 				title: "",
 				description: "",
-				url: ""
+				url: "",
+				uploadSuccess: ""
 			};
 			_this.handleSubmit = _this.handleSubmit.bind(_this);
 			return _this;
@@ -28585,11 +28601,15 @@
 			value: function mountUploadInput() {
 				var _this2 = this;
 	
-				cloudinary.openUploadWidget((0, _merge2.default)({}, window.CLOUDINARY_OPTIONS, { theme: 'minimal', inline_container: '.upload-box' }), function (error, results) {
+				this.uploadWidget = cloudinary.createUploadWidget((0, _merge2.default)({}, window.CLOUDINARY_OPTIONS, { theme: 'minimal', inline_container: '.upload-widget' }), function (error, results) {
 					if (!error) {
-						_this2.state[url] = results[0].url;
+						_this2.state.url = results[0].url;
+						_this2.uploadWidget.close();
+						_this2.setState({ uploadSuccess: "Successfully uploaded!" });
+						console.log(_this2.state);
 					}
 				});
+				this.uploadWidget.open();
 			}
 		}, {
 			key: 'componentDidUpdate',
@@ -28616,8 +28636,13 @@
 			key: 'handleSubmit',
 			value: function handleSubmit(e) {
 				e.preventDefault();
-				var video = this.state;
-				this.props.createVideo({ video: video });
+				var video = {
+					title: this.state.title,
+					description: this.state.description,
+					url: this.state.url
+				};
+				console.log(video);
+				this.props.createVideo(video);
 			}
 		}, {
 			key: 'renderErrors',
@@ -28634,9 +28659,19 @@
 					})
 				);
 			}
-	
-			// {this.renderErrors()}
-	
+		}, {
+			key: 'renderUploadBox',
+			value: function renderUploadBox() {
+				if (this.state.uploadSuccess === "") {
+					return _react2.default.createElement('div', { className: 'upload-widget' });
+				} else {
+					return _react2.default.createElement(
+						'div',
+						{ className: 'upload-success' },
+						'Successfully Uploaded!'
+					);
+				}
+			}
 		}, {
 			key: 'render',
 			value: function render() {
@@ -28648,9 +28683,11 @@
 						null,
 						'Upload a Video'
 					),
+					_react2.default.createElement('br', null),
 					_react2.default.createElement(
 						'form',
 						{ onSubmit: this.handleSubmit, className: 'upload-form-box' },
+						this.renderErrors(),
 						_react2.default.createElement('br', null),
 						_react2.default.createElement(
 							'div',
@@ -28677,7 +28714,11 @@
 									className: 'login-input' })
 							),
 							_react2.default.createElement('br', null),
-							_react2.default.createElement('div', { className: 'upload-box' }),
+							_react2.default.createElement(
+								'div',
+								{ className: 'upload-box' },
+								this.renderUploadBox()
+							),
 							_react2.default.createElement('br', null),
 							_react2.default.createElement('input', { type: 'submit', value: 'Submit' })
 						),
@@ -31377,59 +31418,67 @@
 	var CREATE_VIDEO = exports.CREATE_VIDEO = "CREATE_VIDEO";
 	var UPDATE_VIDEO = exports.UPDATE_VIDEO = "UPDATE_VIDEO";
 	var DELETE_VIDEO = exports.DELETE_VIDEO = "DELETE_VIDEO";
+	var RECEIVE_VIDEO_ERRORS = exports.RECEIVE_VIDEO_ERRORS = "RECEIVE_VIDEO_ERRORS";
 	
-	var fetchPosts = exports.fetchPosts = function fetchPosts() {
+	var fetchVideos = exports.fetchVideos = function fetchVideos() {
 	  return {
 	    type: FETCH_VIDEOS
 	  };
 	};
 	
-	var fetchPost = exports.fetchPost = function fetchPost(id) {
+	var fetchVideo = exports.fetchVideo = function fetchVideo(id) {
 	  return {
 	    type: FETCH_VIDEO,
 	    id: id
 	  };
 	};
 	
-	var createPost = exports.createPost = function createPost(video) {
+	var createVideo = exports.createVideo = function createVideo(video) {
 	  return {
 	    type: CREATE_VIDEO,
 	    video: video
 	  };
 	};
 	
-	var updatePost = exports.updatePost = function updatePost(video) {
+	var updateVideo = exports.updateVideo = function updateVideo(video) {
 	  return {
 	    type: UPDATE_VIDEO,
 	    video: video
 	  };
 	};
 	
-	var deletePost = exports.deletePost = function deletePost(id) {
+	var deleteVideo = exports.deleteVideo = function deleteVideo(id) {
 	  return {
 	    type: DELETE_VIDEO,
 	    id: id
 	  };
 	};
 	
-	var receiveAllPosts = exports.receiveAllPosts = function receiveAllPosts(videos) {
+	var receiveAllVideos = exports.receiveAllVideos = function receiveAllVideos(videos) {
 	  return {
 	    type: RECEIVE_ALL_VIDEOS,
 	    videos: videos
 	  };
 	};
 	
-	var receivePost = exports.receivePost = function receivePost(video) {
+	var receiveVideo = exports.receiveVideo = function receiveVideo(video) {
 	  return {
 	    type: RECEIVE_VIDEO,
 	    video: video
 	  };
 	};
 	
-	var removePost = exports.removePost = function removePost(video) {
+	var removeVideo = exports.removeVideo = function removeVideo(video) {
 	  return {
 	    type: REMOVE_VIDEO,
 	    video: video
+	  };
+	};
+	
+	var receiveVideoErrors = exports.receiveVideoErrors = function receiveVideoErrors(errors) {
+	  return {
+	    type: RECEIVE_VIDEO_ERRORS,
+	    errors: errors
 	  };
 	};
 
@@ -31522,18 +31571,14 @@
 	  switch (action.type) {
 	    case _session_actions.RECEIVE_CURRENT_USER:
 	      var currentUser = action.currentUser;
-	      return (0, _merge2.default)({}, _nullUser, {
-	        currentUser: currentUser
-	      });
+	      return (0, _merge2.default)({}, _nullUser, { currentUser: currentUser });
 	
 	    case _session_actions.LOGOUT:
 	      return (0, _merge2.default)({}, _nullUser);
 	
-	    case _session_actions.RECEIVE_ERRORS:
+	    case _session_actions.RECEIVE_USER_ERRORS:
 	      var errors = action.errors;
-	      return (0, _merge2.default)({}, _nullUser, {
-	        errors: errors
-	      });
+	      return (0, _merge2.default)({}, _nullUser, { errors: errors });
 	
 	    default:
 	      return state;
@@ -31563,8 +31608,9 @@
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
 	var VideosReducer = function VideosReducer() {
-	  var oldState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	  var oldState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { errors: [] };
 	  var action = arguments[1];
+	
 	
 	  switch (action.type) {
 	    case _video_actions.RECEIVE_ALL_VIDEOS:
@@ -31577,6 +31623,10 @@
 	      var newState = (0, _merge3.default)({}, oldState);
 	      delete newState[action.video.id];
 	      return newState;
+	
+	    case _video_actions.RECEIVE_VIDEO_ERRORS:
+	      var errors = action.errors;
+	      return (0, _merge3.default)({}, oldState, { errors: errors });
 	
 	    default:
 	      return oldState;
@@ -31635,7 +31685,7 @@
 	        return dispatch((0, _session_actions.receiveCurrentUser)(user));
 	      };
 	      var errorCallback = function errorCallback(xhr) {
-	        return dispatch((0, _session_actions.receiveErrors)(xhr.responseJSON));
+	        return dispatch((0, _session_actions.receiveUserErrors)(xhr.responseJSON));
 	      };
 	
 	      switch (action.type) {
@@ -31728,8 +31778,8 @@
 	  return function (next) {
 	    return function (action) {
 	      var success = void 0;
-	      var error = function error(e) {
-	        return console.log(e.responseJSON);
+	      var errorCallback = function errorCallback(xhr) {
+	        return dispatch((0, _video_actions.receiveVideoErrors)(xhr.responseJSON));
 	      };
 	      var receiveAllVideosSuccess = function receiveAllVideosSuccess(videos) {
 	        return dispatch((0, _video_actions.receiveAllVideos)(videos));
@@ -31744,23 +31794,23 @@
 	
 	      switch (action.type) {
 	        case _video_actions.FETCH_VIDEOS:
-	          (0, _video_api_util.fetchVideos)(receiveAllVideosSuccess, error);
+	          (0, _video_api_util.fetchVideos)(receiveAllVideosSuccess, errorCallback);
 	          return next(action);
 	
 	        case _video_actions.FETCH_VIDEO:
-	          (0, _video_api_util.fetchVideo)(action.id, receiveVideoSuccess, error);
+	          (0, _video_api_util.fetchVideo)(action.id, receiveVideoSuccess, errorCallback);
 	          return next(action);
 	
 	        case _video_actions.CREATE_VIDEO:
-	          (0, _video_api_util.createVideo)(action.video, receiveVideoSuccess, error);
+	          (0, _video_api_util.createVideo)(action.video, receiveVideoSuccess, errorCallback);
 	          return next(action);
 	
 	        case _video_actions.UPDATE_VIDEO:
-	          (0, _video_api_util.updateVideo)(action.video, receiveVideoSuccess, error);
+	          (0, _video_api_util.updateVideo)(action.video, receiveVideoSuccess, errorCallback);
 	          return next(action);
 	
 	        case _video_actions.DELETE_VIDEO:
-	          (0, _video_api_util.deleteVideo)(action.id, removeVideoSuccess, error);
+	          (0, _video_api_util.deleteVideo)(action.id, removeVideoSuccess, errorCallback);
 	          return next(action);
 	
 	        default:

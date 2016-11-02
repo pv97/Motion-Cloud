@@ -2,6 +2,7 @@ import {
   receiveVideo,
   receiveAllVideos,
   removeVideo,
+  receiveVideoErrors,
   FETCH_VIDEOS,
   FETCH_VIDEO,
   CREATE_VIDEO,
@@ -20,7 +21,7 @@ import { hashHistory } from 'react-router';
 
 const VideosMiddleware = ({getState, dispatch}) => next => action => {
   let success;
-  let error = e => console.log(e.responseJSON);
+  const errorCallback = xhr => dispatch(receiveVideoErrors(xhr.responseJSON));
   let receiveAllVideosSuccess = videos => dispatch(receiveAllVideos(videos));
   let receiveVideoSuccess = video => {
     dispatch(receiveVideo(video));
@@ -30,23 +31,23 @@ const VideosMiddleware = ({getState, dispatch}) => next => action => {
 
   switch (action.type) {
     case FETCH_VIDEOS:
-      fetchVideos(receiveAllVideosSuccess, error);
+      fetchVideos(receiveAllVideosSuccess, errorCallback);
       return next(action);
 
     case FETCH_VIDEO:
-      fetchVideo(action.id, receiveVideoSuccess, error);
+      fetchVideo(action.id, receiveVideoSuccess, errorCallback);
       return next(action);
 
     case CREATE_VIDEO:
-      createVideo(action.video, receiveVideoSuccess, error);
+      createVideo(action.video, receiveVideoSuccess, errorCallback);
       return next(action);
 
     case UPDATE_VIDEO:
-      updateVideo(action.video, receiveVideoSuccess, error);
+      updateVideo(action.video, receiveVideoSuccess, errorCallback);
       return next(action);
 
     case DELETE_VIDEO:
-      deleteVideo(action.id, removeVideoSuccess, error);
+      deleteVideo(action.id, removeVideoSuccess, errorCallback);
       return next(action);
 
     default:

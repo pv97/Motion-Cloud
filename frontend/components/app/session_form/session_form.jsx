@@ -23,7 +23,10 @@ class SessionForm extends React.Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
-		const user = this.state;
+		const user = {
+			username: this.state.username,
+			password: this.state.password
+		};
 		if (this.state.formType==="Login"){
 			this.props.login({user});
 		} else {
@@ -72,7 +75,7 @@ class SessionForm extends React.Component {
 
 	render() {
 		if(this.props.loggedIn){
-			return (<div></div>)
+			return (<div className="display-none"></div>)
 		}
 
 		return (

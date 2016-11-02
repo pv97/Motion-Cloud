@@ -8,7 +8,8 @@ class VideoUploadForm extends React.Component {
 		this.state = {
 			title: "",
 			description: "",
-			url:""
+			url:"",
+			uploadSuccess:""
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
@@ -18,17 +19,22 @@ class VideoUploadForm extends React.Component {
 	}
 
 	mountUploadInput(){
-		cloudinary.openUploadWidget(
-      merge(
+		this.uploadWidget = cloudinary.createUploadWidget(
+			merge(
 				{},window.CLOUDINARY_OPTIONS,
-				{theme:'minimal',inline_container:'.upload-box'}
+				{theme:'minimal',inline_container:'.upload-widget'}
 			),
-      (error, results) => {
-        if(!error){
-          this.state[url] = results[0].url
-        }
-      }
+			(error, results) => {
+				if(!error){
+					this.state.url = results[0].url
+					this.uploadWidget.close();
+					this.setState({uploadSuccess:"Successfully uploaded!"});
+					console.log(this.state);
+
+				}
+			}
 		);
+		this.uploadWidget.open();
 	}
 
 	componentDidUpdate() {
@@ -49,8 +55,13 @@ class VideoUploadForm extends React.Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
-		const video = this.state;
-		this.props.createVideo({video});
+		const video = {
+			title: this.state.title,
+			description: this.state.description,
+			url: this.state.url
+		};
+		console.log(video)
+		this.props.createVideo(video);
 	}
 
 	renderErrors() {
@@ -65,12 +76,21 @@ class VideoUploadForm extends React.Component {
 		);
 	}
 
-	// {this.renderErrors()}
+	renderUploadBox() {
+		if(this.state.uploadSuccess === ""){
+			return <div className = 'upload-widget'/>
+		} else {
+			return <div className = 'upload-success'>Successfully Uploaded!</div>
+		}
+	}
+
 	render() {
 		return (
 			<div className="video-upload-form-container">
 				<h1>Upload a Video</h1>
+<br/>
 					<form onSubmit={this.handleSubmit} className="upload-form-box">
+						{this.renderErrors()}
 <br/>
 						<div className="video-upload-form">
 							<label> Title:
@@ -89,7 +109,9 @@ class VideoUploadForm extends React.Component {
 									className="login-input" />
 							</label>
 <br/>
-							<div className = 'upload-box'/>
+							<div className = 'upload-box'>
+								{this.renderUploadBox()}
+							</div>
 <br/>
 							<input type="submit" value="Submit" />
 						</div>

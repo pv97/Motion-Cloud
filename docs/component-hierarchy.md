@@ -37,6 +37,6 @@
 |Path   | Component   |
 |-------|-------------|
 | "/" | "App" |
-| "/videos/" | "VideoIndexContainer" |
+| "/" | "routeindex: VideoIndexContainer" |
 | "/videos/new" | "VideoUploadFormContainer" |
 | "/users/:id" | "UserContainer" |
