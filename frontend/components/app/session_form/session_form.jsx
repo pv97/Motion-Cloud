@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router';
+import { RaisedButton, TextField } from 'material-ui';
 
 class SessionForm extends React.Component {
 	constructor(props) {
@@ -13,6 +14,10 @@ class SessionForm extends React.Component {
 		this.changeToSignup = this.changeToSignup.bind(this);
 		this.changeToLogin = this.changeToLogin.bind(this);
 		this.guestLogin = this.guestLogin.bind(this);
+
+		this.style = {
+		  margin: 5
+		};
 	}
 
 	update(field) {
@@ -44,9 +49,17 @@ class SessionForm extends React.Component {
 
 	navButton() {
 		if (this.state.formType === "Login") {
-			return <button onClick={this.changeToSignup}>Sign up instead</button>;
+			return <RaisedButton
+				label="Sign up instead"
+				secondary={true}
+				style={this.style}
+				onClick={this.changeToSignup}></RaisedButton>;
 		} else {
-			return <button onClick={this.changeToLogin}>Log in instead</button>;
+			return <RaisedButton
+				label="Log in instead"
+				secondary={true}
+				style={this.style}
+				onClick={this.changeToLogin}></RaisedButton>;
 		}
 	}
 
@@ -73,7 +86,10 @@ class SessionForm extends React.Component {
 		});
 	}
 
+
+
 	render() {
+
 		if(this.props.loggedIn){
 			return (<div className="display-none"></div>)
 		}
@@ -89,26 +105,34 @@ class SessionForm extends React.Component {
 					{this.renderErrors()}
 <br/>
 					<div className="session-form">
-						<label> Username:
 <br/>
-							<input type="text"
+							<TextField
+								id="username-input"
+								placeholder="Username"
 								value={this.state.username}
-								onChange={this.update("username")}
-								className="login-input" />
-						</label>
+								onChange={this.update("username")}/>
 <br/>
-						<label> Password:
-<br/>
-							<input type="password"
+							<TextField
+								id="password-input"
+								placeholder="Password"
 								value={this.state.password}
-								onChange={this.update("password")}
-								className="login-input" />
-						</label>
+								type="password"
+								onChange={this.update("password")}/>
 <br/>
-						<input type="submit" value="Submit" />
+						<RaisedButton
+							label="Submit"
+							name="submit"
+							type="submit"
+							primary={true}
+							style={this.style}
+							onClick={this.handleSubmit}/>
 					</div>
 <br/>
-					<button onClick={this.guestLogin}>Guest Log In</button>
+					<RaisedButton
+						label="Guest Log In"
+						secondary={true}
+						style={this.style}
+						onClick={this.guestLogin}></RaisedButton>
 <br/>
 				</form>
 			</div>

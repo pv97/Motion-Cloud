@@ -8,6 +8,10 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import App from './app/app';
 import VideoUploadFormContainer from './video_upload_form/video_upload_form_container';
 
+//material ui
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
+
 const Root = ({ store }) => {
 
   const _ensureLoggedIn = (nextState, replace) => {

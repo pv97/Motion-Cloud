@@ -36,8 +36,6 @@ class VideoPlayer extends React.Component {
 
 		return (
 			<div className="video-player-box">
-				hihi
-				{this.props.query.id}
 				{this.videoPlayer()}
 			</div>
 		);

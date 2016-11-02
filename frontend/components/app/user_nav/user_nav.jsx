@@ -1,10 +1,14 @@
 import React from 'react';
 import { withRouter } from 'react-router';
+import { RaisedButton, TextField } from 'material-ui';
 
 class UserNav extends React.Component {
 	constructor(props) {
 		super(props);
 		this.toUploadVideo = this.toUploadVideo.bind(this);
+		this.style = {
+			margin: 5
+		};
 	}
 
 	renderErrors() {
@@ -31,9 +35,17 @@ class UserNav extends React.Component {
 
 		return (
 			<div className="user-nav">
-				<h1>Hello {this.props.currentUser.username}</h1>
-				<button onClick={this.toUploadVideo}>Upload</button>
-        <button onClick={this.props.logout}>Log Out</button>
+				<h1>{this.props.currentUser.username}</h1>
+					<RaisedButton
+						label="Upload"
+						primary={true}
+						style={this.style}
+						onClick={this.toUploadVideo}/>
+					<RaisedButton
+						label="Log Out"
+						secondary={true}
+						style={this.style}
+						onClick={this.props.logout}/>
 			</div>
 		);
 	}
