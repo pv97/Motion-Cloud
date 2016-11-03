@@ -15,10 +15,10 @@
  */
 .main-section{
   position:relative;
-  top:60;
+  top:55px;
   margin:0 auto;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   width:100%;
 }
 
@@ -31,6 +31,12 @@
   height:55px !important;
   margin:0 !important;
   position:fixed !important;
+}
+
+.page-content{
+  display:flex;
+  justify-content: center;
+  flex:1;
 }
 
 #motion-cloud-logo{
@@ -46,8 +52,6 @@
   color: #fff;
   box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
 }
-
-
 
 .display-none{
   display:none;

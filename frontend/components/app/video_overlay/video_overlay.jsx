@@ -22,22 +22,32 @@ class VideoOverlay extends React.Component {
 
 	render() {
 		let video = this.props.videos[this.props.query.id];
+		let style = {"object-fit":"fill"}
 		if (video) {
 			return(
-				<div className="video-overlay">
+				<div className="video-dummy">
 
-					<div className="comment-overlay">
-						<div className="show-comment-button">test</div>
-						<div className="comment-index">
-							<p>
-								Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment
-							</p>
+					<div className="video-overlay">
+
+						<div className="comment-overlay">
+							<div className="show-comment-button">
+								<div className="comment-button-text"
+									onselectstart="return false"
+									>COMMENTS</div>
+							</div>
+							<div className="comment-index">
+								<p>
+									Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment
+								</p>
+							</div>
 						</div>
-					</div>
 
-					<div className="video-player-box">
-						<ReactPlayer className="video-player" url={video.url}
-							playing controls/>
+						<div className="video-player-box">
+							<ReactPlayer className="video-player" url={video.url}
+								height={450}
+								width={800}
+								playing controls/>
+						</div>
 					</div>
 				</div>
 			)

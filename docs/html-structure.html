@@ -1,17 +1,18 @@
 <body>
   <main id=root>
-    <div class=main-header>
-      <div id=motion-cloud-logo>
-      <div class=session-form-container>
-      <div class=user-nav>
+    <div class=main-header> fixed
+      <div id=motion-cloud-logo> static
+      <div class=session-form-container> static
+      <div class=user-nav> static
 
-    <div class=main-section>
+    <div class=main-section> relative
 
-      <div class=video-overlay>
-        <div class=comment-overlay>
-          <RaisedButton class=show-comment-button>
-          <div class=comment-index>
-        <div class=video-player-box>
-          <ReactPlayer class=video-player>
-            
-      <div class=page-content>
+      <div className=video-dummy> static
+        <div class=video-overlay> fixed
+          <div class=comment-overlay> relative
+            <RaisedButton class=show-comment-button> static
+            <div class=comment-index> static
+          <div class=video-player-box> relative
+            <ReactPlayer class=video-player> static
+
+      <div class=page-content> static
