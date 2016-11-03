@@ -28319,9 +28319,6 @@
 			_this.guestLogin = _this.guestLogin.bind(_this);
 			_this.dropDownOpen = _this.dropDownOpen.bind(_this);
 			_this.dropDownClose = _this.dropDownClose.bind(_this);
-			_this.usernameError = _this.usernameError.bind(_this);
-			_this.passwordError = _this.passwordError.bind(_this);
-	
 			return _this;
 		}
 	
@@ -28464,7 +28461,7 @@
 								{ className: 'session-form' },
 								_react2.default.createElement(_materialUi.TextField, {
 									id: 'username-input',
-									placeholder: 'Username',
+									floatingLabelText: 'Username',
 									fullWidth: true,
 									errorText: this.usernameError(),
 									value: this.state.username,
@@ -28472,10 +28469,10 @@
 								_react2.default.createElement('br', null),
 								_react2.default.createElement(_materialUi.TextField, {
 									id: 'password-input',
-									placeholder: 'Password',
-									value: this.state.password,
+									floatingLabelText: 'Password',
 									fullWidth: true,
 									errorText: this.passwordError(),
+									value: this.state.password,
 									type: 'password',
 									onChange: this.update("password") })
 							),
@@ -67975,6 +67972,8 @@
 	
 	var _merge2 = _interopRequireDefault(_merge);
 	
+	var _materialUi = __webpack_require__(260);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -68062,21 +68061,6 @@
 				this.props.createVideo(video);
 			}
 		}, {
-			key: 'renderErrors',
-			value: function renderErrors() {
-				return _react2.default.createElement(
-					'ul',
-					null,
-					this.props.errors.map(function (error, i) {
-						return _react2.default.createElement(
-							'li',
-							{ key: 'error-' + i },
-							error
-						);
-					})
-				);
-			}
-		}, {
 			key: 'renderUploadBox',
 			value: function renderUploadBox() {
 				if (this.state.uploadSuccess === "") {
@@ -68087,6 +68071,20 @@
 						{ className: 'upload-success' },
 						'Successfully Uploaded!'
 					);
+				}
+			}
+		}, {
+			key: 'titleError',
+			value: function titleError() {
+				if (this.props.errors.title) {
+					return "You must have a title!";
+				}
+			}
+		}, {
+			key: 'urlError',
+			value: function urlError() {
+				if (this.props.errors.url) {
+					return "You must upload a video!";
 				}
 			}
 		}, {
@@ -68104,40 +68102,31 @@
 					_react2.default.createElement(
 						'form',
 						{ onSubmit: this.handleSubmit, className: 'upload-form-box' },
-						this.renderErrors(),
 						_react2.default.createElement('br', null),
 						_react2.default.createElement(
 							'div',
 							{ className: 'video-upload-form' },
-							_react2.default.createElement(
-								'label',
-								null,
-								' Title:',
-								_react2.default.createElement('br', null),
-								_react2.default.createElement('input', { type: 'text',
-									value: this.state.title,
-									onChange: this.update("title"),
-									className: 'upload-input' })
-							),
+							this.urlError(),
 							_react2.default.createElement('br', null),
-							_react2.default.createElement(
-								'label',
-								null,
-								' Description:',
-								_react2.default.createElement('br', null),
-								_react2.default.createElement('textarea', {
-									value: this.state.description,
-									onChange: this.update("description"),
-									className: 'upload-input' })
-							),
+							_react2.default.createElement(_materialUi.TextField, { type: 'text',
+								value: this.state.title,
+								onChange: this.update("title"),
+								errorText: this.titleError(),
+								floatingLabelText: 'Title',
+								fullWidth: true }),
 							_react2.default.createElement('br', null),
+							_react2.default.createElement(_materialUi.TextField, {
+								value: this.state.description,
+								onChange: this.update("description"),
+								floatingLabelText: 'Description',
+								fullWidth: true }),
 							_react2.default.createElement(
 								'div',
 								{ className: 'upload-box' },
 								this.renderUploadBox()
 							),
 							_react2.default.createElement('br', null),
-							_react2.default.createElement('input', { type: 'submit', value: 'Submit' })
+							_react2.default.createElement(_materialUi.RaisedButton, { value: 'Submit', primary: true, label: 'Upload Video', onClick: this.handleSubmit })
 						),
 						_react2.default.createElement('br', null),
 						_react2.default.createElement('br', null),

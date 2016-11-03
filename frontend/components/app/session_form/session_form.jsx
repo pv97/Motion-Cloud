@@ -17,10 +17,6 @@ class SessionForm extends React.Component {
 		this.guestLogin = this.guestLogin.bind(this);
 		this.dropDownOpen = this.dropDownOpen.bind(this);
 		this.dropDownClose = this.dropDownClose.bind(this);
-		this.usernameError = this.usernameError.bind(this);
-		this.passwordError = this.passwordError.bind(this);
-
-
 	}
 
 	update(field) {
@@ -140,7 +136,7 @@ class SessionForm extends React.Component {
 						<div className="session-form">
 							<TextField
 								id="username-input"
-								placeholder="Username"
+      					floatingLabelText="Username"
 								fullWidth
 								errorText={this.usernameError()}
 								value={this.state.username}
@@ -148,10 +144,10 @@ class SessionForm extends React.Component {
 <br/>
 							<TextField
 								id="password-input"
-								placeholder="Password"
-								value={this.state.password}
+      					floatingLabelText="Password"
 								fullWidth
 								errorText={this.passwordError()}
+								value={this.state.password}
 								type="password"
 								onChange={this.update("password")}/>
 						</div>

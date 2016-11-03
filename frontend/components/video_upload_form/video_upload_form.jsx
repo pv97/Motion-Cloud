@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router';
 import merge from 'lodash/merge'
+import { RaisedButton, TextField } from 'material-ui';
 
 class VideoUploadForm extends React.Component {
 	constructor(props) {
@@ -68,18 +69,6 @@ class VideoUploadForm extends React.Component {
 		this.props.createVideo(video);
 	}
 
-	renderErrors() {
-		return(
-			<ul>
-				{this.props.errors.map((error, i) => (
-					<li key={`error-${i}`}>
-						{error}
-					</li>
-				))}
-			</ul>
-		);
-	}
-
 	renderUploadBox() {
 		if(this.state.uploadSuccess === ""){
 			return <div className = 'upload-widget'/>
@@ -88,36 +77,46 @@ class VideoUploadForm extends React.Component {
 		}
 	}
 
+	titleError(){
+		if(this.props.errors.title){
+			return "You must have a title!"
+		}
+	}
+
+	urlError(){
+		if(this.props.errors.url){
+			return "You must upload a video!"
+		}
+	}
+
+
 	render() {
 		return (
 			<div className="video-upload-form-container">
 				<h1>Upload a Video</h1>
 <br/>
 					<form onSubmit={this.handleSubmit} className="upload-form-box">
-						{this.renderErrors()}
 <br/>
 						<div className="video-upload-form">
-							<label> Title:
+							{this.urlError()}
 <br/>
-								<input type="text"
-									value={this.state.title}
-									onChange={this.update("title")}
-									className="upload-input" />
-							</label>
+							<TextField type="text"
+								value={this.state.title}
+								onChange={this.update("title")}
+								errorText={this.titleError()}
+    						floatingLabelText="Title"
+								fullWidth/>
 <br/>
-							<label> Description:
-<br/>
-								<textarea
-									value={this.state.description}
-									onChange={this.update("description")}
-									className="upload-input" />
-							</label>
-<br/>
+							<TextField
+								value={this.state.description}
+								onChange={this.update("description")}
+    						floatingLabelText="Description"
+								fullWidth/>
 							<div className = 'upload-box'>
 								{this.renderUploadBox()}
 							</div>
 <br/>
-							<input type="submit" value="Submit" />
+							<RaisedButton value="Submit" primary={true} label="Upload Video" onClick={this.handleSubmit} />
 						</div>
 <br/>
 	<br/>
