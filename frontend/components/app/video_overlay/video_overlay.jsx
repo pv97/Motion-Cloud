@@ -27,13 +27,10 @@ class VideoOverlay extends React.Component {
 				<div className="video-overlay">
 
 					<div className="comment-overlay">
-						<div
-							label="Comments"
-							className="show-comment-button"
-							>test</div>
+						<div className="show-comment-button">test</div>
 						<div className="comment-index">
 							<p>
-								CommentCommentCommentCommentCommentCommentCommentCommentCommentCommentCommentCommentCommentCommentCommentCommentCommentComment
+								Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment
 							</p>
 						</div>
 					</div>

@@ -33,8 +33,10 @@ class App extends React.Component {
             }
             >
           </AppBar>
+
           <section className="main-section">
             <VideoOverlayContainer/>
+
             <div className="page-content">
               {this.props.children}
             </div>
