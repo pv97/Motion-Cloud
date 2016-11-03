@@ -63,12 +63,14 @@ sufficient CSS styling:
 * [API endpoints][api-endpoints]
 * [DB schema][schema]
 * [Sample State][sample-state]
+* [HTML structure][html-structure]
 
 [wireframes]: /docs/wireframes
 [components]: component-hierarchy.md
 [sample-state]: sample-state.md
 [api-endpoints]: api-endpoints.md
 [schema]: schema.md
+[html-structure]: html-structure.html
 
 ## Implementation Timeline
 

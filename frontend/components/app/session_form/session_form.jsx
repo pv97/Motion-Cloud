@@ -18,9 +18,7 @@ class SessionForm extends React.Component {
 		this.dropDownOpen = this.dropDownOpen.bind(this);
 		this.dropDownClose = this.dropDownClose.bind(this);
 
-		this.style = {
-		  margin: 5
-		};
+
 	}
 
 	update(field) {
@@ -55,13 +53,11 @@ class SessionForm extends React.Component {
 			return <RaisedButton
 				label="Sign up instead"
 				secondary={true}
-				style={this.style}
 				onClick={this.changeToSignup}></RaisedButton>;
 		} else {
 			return <RaisedButton
 				label="Log in instead"
 				secondary={true}
-				style={this.style}
 				onClick={this.changeToLogin}></RaisedButton>;
 		}
 	}
@@ -133,37 +129,35 @@ class SessionForm extends React.Component {
 					{this.renderErrors()}
 					<div className="session-form">
 <br/>
-							<TextField
-								id="username-input"
-								placeholder="Username"
-								value={this.state.username}
-								onChange={this.update("username")}/>
+						<TextField
+							id="username-input"
+							placeholder="Username"
+							value={this.state.username}
+							onChange={this.update("username")}/>
 <br/>
-							<TextField
-								id="password-input"
-								placeholder="Password"
-								value={this.state.password}
-								type="password"
-								onChange={this.update("password")}/>
-<br/>
-							<RaisedButton
-								label="Submit"
-								name="submit"
-								type="submit"
-								primary={true}
-								style={this.style}
-								onClick={this.handleSubmit}/>
-						</div>
+						<TextField
+							id="password-input"
+							placeholder="Password"
+							value={this.state.password}
+							type="password"
+							onChange={this.update("password")}/>
 <br/>
 						<RaisedButton
-							label="Guest Log In"
-							secondary={true}
-							style={this.style}
-							onClick={this.guestLogin}></RaisedButton>
+							label="Submit"
+							name="submit"
+							type="submit"
+							primary={true}
+							onClick={this.handleSubmit}/>
+					</div>
 <br/>
-					</form>
-				</Popover>
-			</div>
+					<RaisedButton
+						label="Guest Log In"
+						secondary={true}
+						onClick={this.guestLogin}></RaisedButton>
+<br/>
+				</form>
+			</Popover>
+		</div>
 		);
 	}
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import SessionFormContainer from './session_form/session_form_container';
 import UserNavContainer from './user_nav/user_nav_container';
-import VideoOverlay from './video_overlay/video_overlay';
+import VideoOverlayContainer from './video_overlay/video_overlay_container';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { AppBar } from 'material-ui';
 
@@ -34,8 +34,10 @@ class App extends React.Component {
             >
           </AppBar>
           <section className="main-section">
-            <VideoOverlay/>
-            {this.props.children}
+            <VideoOverlayContainer/>
+            <div className="page-content">
+              {this.props.children}
+            </div>
           </section>
         </div>
       </MuiThemeProvider>

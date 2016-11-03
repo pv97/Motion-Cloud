@@ -28091,9 +28091,9 @@
 	
 	var _user_nav_container2 = _interopRequireDefault(_user_nav_container);
 	
-	var _video_overlay = __webpack_require__(622);
+	var _video_overlay_container = __webpack_require__(743);
 	
-	var _video_overlay2 = _interopRequireDefault(_video_overlay);
+	var _video_overlay_container2 = _interopRequireDefault(_video_overlay_container);
 	
 	var _MuiThemeProvider = __webpack_require__(512);
 	
@@ -28152,8 +28152,12 @@
 	          _react2.default.createElement(
 	            'section',
 	            { className: 'main-section' },
-	            _react2.default.createElement(_video_overlay2.default, null),
-	            this.props.children
+	            _react2.default.createElement(_video_overlay_container2.default, null),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'page-content' },
+	              this.props.children
+	            )
 	          )
 	        )
 	      );
@@ -28308,9 +28312,6 @@
 			_this.dropDownOpen = _this.dropDownOpen.bind(_this);
 			_this.dropDownClose = _this.dropDownClose.bind(_this);
 	
-			_this.style = {
-				margin: 5
-			};
 			return _this;
 		}
 	
@@ -28354,13 +28355,11 @@
 					return _react2.default.createElement(_materialUi.RaisedButton, {
 						label: 'Sign up instead',
 						secondary: true,
-						style: this.style,
 						onClick: this.changeToSignup });
 				} else {
 					return _react2.default.createElement(_materialUi.RaisedButton, {
 						label: 'Log in instead',
 						secondary: true,
-						style: this.style,
 						onClick: this.changeToLogin });
 				}
 			}
@@ -28463,14 +28462,12 @@
 									name: 'submit',
 									type: 'submit',
 									primary: true,
-									style: this.style,
 									onClick: this.handleSubmit })
 							),
 							_react2.default.createElement('br', null),
 							_react2.default.createElement(_materialUi.RaisedButton, {
 								label: 'Guest Log In',
 								secondary: true,
-								style: this.style,
 								onClick: this.guestLogin }),
 							_react2.default.createElement('br', null)
 						)
@@ -67650,82 +67647,6 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _video_player_container = __webpack_require__(623);
-	
-	var _video_player_container2 = _interopRequireDefault(_video_player_container);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var App = function App(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
-	      'header',
-	      null,
-	      _react2.default.createElement(_video_player_container2.default, null)
-	    )
-	  );
-	};
-	
-	exports.default = App;
-
-/***/ },
-/* 623 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _reactRedux = __webpack_require__(173);
-	
-	var _video_player = __webpack_require__(624);
-	
-	var _video_player2 = _interopRequireDefault(_video_player);
-	
-	var _video_actions = __webpack_require__(637);
-	
-	var _query_actions = __webpack_require__(638);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var mapStateToProps = function mapStateToProps(state) {
-	  return {
-	    videos: state.videos,
-	    query: state.query
-	  };
-	};
-	
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {
-	    fetchVideo: function fetchVideo(id) {
-	      return dispatch((0, _video_actions.fetchVideo)(id));
-	    },
-	    setQuery: function setQuery(id) {
-	      return dispatch((0, _query_actions.setQuery)(id));
-	    }
-	  };
-	};
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_video_player2.default);
-
-/***/ },
-/* 624 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	
@@ -67741,6 +67662,8 @@
 	
 	var _reactPlayer2 = _interopRequireDefault(_reactPlayer);
 	
+	var _materialUi = __webpack_require__(260);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -67749,16 +67672,16 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var VideoPlayer = function (_React$Component) {
-		_inherits(VideoPlayer, _React$Component);
+	var VideoOverlay = function (_React$Component) {
+		_inherits(VideoOverlay, _React$Component);
 	
-		function VideoPlayer(props) {
-			_classCallCheck(this, VideoPlayer);
+		function VideoOverlay(props) {
+			_classCallCheck(this, VideoOverlay);
 	
-			return _possibleConstructorReturn(this, (VideoPlayer.__proto__ || Object.getPrototypeOf(VideoPlayer)).call(this, props));
+			return _possibleConstructorReturn(this, (VideoOverlay.__proto__ || Object.getPrototypeOf(VideoOverlay)).call(this, props));
 		}
 	
-		_createClass(VideoPlayer, [{
+		_createClass(VideoOverlay, [{
 			key: 'componentWillMount',
 			value: function componentWillMount() {
 				this.setVideoQuery();
@@ -67772,36 +67695,55 @@
 				}
 			}
 		}, {
-			key: 'videoPlayer',
-			value: function videoPlayer() {
+			key: 'render',
+			value: function render() {
 				var video = this.props.videos[this.props.query.id];
 				if (video) {
-					return _react2.default.createElement(_reactPlayer2.default, { url: video.url, playing: true, controls: true });
+					return _react2.default.createElement(
+						'div',
+						{ className: 'video-overlay' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'comment-overlay' },
+							_react2.default.createElement(
+								'div',
+								{
+									label: 'Comments',
+									className: 'show-comment-button'
+								},
+								'test'
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'comment-index' },
+								_react2.default.createElement(
+									'p',
+									null,
+									'CommentCommentCommentCommentCommentCommentCommentCommentCommentCommentCommentCommentCommentCommentCommentCommentCommentComment'
+								)
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'video-player-box' },
+							_react2.default.createElement(_reactPlayer2.default, { className: 'video-player', url: video.url,
+								playing: true, controls: true })
+						)
+					);
 				} else {
 					return _react2.default.createElement('div', { className: 'display-none' });
 				}
 			}
-		}, {
-			key: 'render',
-			value: function render() {
-				if (false) {
-					return _react2.default.createElement('div', { className: 'display-none' });
-				}
-	
-				return _react2.default.createElement(
-					'div',
-					{ className: 'video-player-box' },
-					this.videoPlayer()
-				);
-			}
 		}]);
 	
-		return VideoPlayer;
+		return VideoOverlay;
 	}(_react2.default.Component);
 	
-	exports.default = (0, _reactRouter.withRouter)(VideoPlayer);
+	exports.default = (0, _reactRouter.withRouter)(VideoOverlay);
 
 /***/ },
+/* 623 */,
+/* 624 */,
 /* 625 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -73269,6 +73211,48 @@
 	
 	// api utils
 	// actions
+
+/***/ },
+/* 743 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reactRedux = __webpack_require__(173);
+	
+	var _video_overlay = __webpack_require__(622);
+	
+	var _video_overlay2 = _interopRequireDefault(_video_overlay);
+	
+	var _video_actions = __webpack_require__(637);
+	
+	var _query_actions = __webpack_require__(638);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    videos: state.videos,
+	    query: state.query
+	  };
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    fetchVideo: function fetchVideo(id) {
+	      return dispatch((0, _video_actions.fetchVideo)(id));
+	    },
+	    setQuery: function setQuery(id) {
+	      return dispatch((0, _query_actions.setQuery)(id));
+	    }
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_video_overlay2.default);
 
 /***/ }
 /******/ ]);
