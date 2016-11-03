@@ -28319,6 +28319,8 @@
 			_this.guestLogin = _this.guestLogin.bind(_this);
 			_this.dropDownOpen = _this.dropDownOpen.bind(_this);
 			_this.dropDownClose = _this.dropDownClose.bind(_this);
+			_this.usernameError = _this.usernameError.bind(_this);
+			_this.passwordError = _this.passwordError.bind(_this);
 	
 			return _this;
 		}
@@ -28336,9 +28338,6 @@
 			key: 'handleSubmit',
 			value: function handleSubmit(e) {
 				e.preventDefault();
-				this.setState({
-					open: false
-				});
 				var user = {
 					username: this.state.username,
 					password: this.state.password
@@ -28367,6 +28366,7 @@
 						label: 'Sign up instead',
 						secondary: true,
 						className: 'sign-up-button',
+	
 						onClick: this.changeToSignup });
 				} else {
 					return _react2.default.createElement(_materialUi.RaisedButton, {
@@ -28375,21 +28375,6 @@
 						className: 'log-in-button',
 						onClick: this.changeToLogin });
 				}
-			}
-		}, {
-			key: 'renderErrors',
-			value: function renderErrors() {
-				return _react2.default.createElement(
-					'ul',
-					null,
-					this.props.errors.map(function (error, i) {
-						return _react2.default.createElement(
-							'li',
-							{ key: 'error-' + i },
-							error
-						);
-					})
-				);
 			}
 		}, {
 			key: 'guestLogin',
@@ -28423,13 +28408,25 @@
 				});
 			}
 		}, {
+			key: 'usernameError',
+			value: function usernameError() {
+				if (this.props.errors.username) {
+					return this.props.errors.username[0];
+				}
+			}
+		}, {
+			key: 'passwordError',
+			value: function passwordError() {
+				if (this.props.errors.password) {
+					return this.props.errors.password[0];
+				}
+			}
+		}, {
 			key: 'render',
 			value: function render() {
-	
 				if (this.props.loggedIn) {
 					return _react2.default.createElement('div', { className: 'display-none' });
 				}
-	
 				return _react2.default.createElement(
 					'div',
 					{ className: 'session-form-container' },
@@ -28460,8 +28457,8 @@
 								{ className: 'login-title' },
 								this.state.formType
 							),
-							this.renderErrors(),
 							_react2.default.createElement('br', null),
+							this.props.errors.main,
 							_react2.default.createElement(
 								'div',
 								{ className: 'session-form' },
@@ -28469,6 +28466,7 @@
 									id: 'username-input',
 									placeholder: 'Username',
 									fullWidth: true,
+									errorText: this.usernameError(),
 									value: this.state.username,
 									onChange: this.update("username") }),
 								_react2.default.createElement('br', null),
@@ -28477,6 +28475,7 @@
 									placeholder: 'Password',
 									value: this.state.password,
 									fullWidth: true,
+									errorText: this.passwordError(),
 									type: 'password',
 									onChange: this.update("password") })
 							),
@@ -71290,7 +71289,7 @@
 	
 	var _nullUser = Object.freeze({
 	  currentUser: null,
-	  errors: []
+	  errors: {}
 	});
 	
 	var SessionReducer = function SessionReducer() {
@@ -71307,7 +71306,7 @@
 	      return (0, _merge2.default)({}, _nullUser);
 	
 	    case _session_actions.RECEIVE_USER_ERRORS:
-	      var errors = action.errors;
+	      var errors = action.errors.responseJSON;
 	      return (0, _merge2.default)({}, _nullUser, { errors: errors });
 	
 	    default:
@@ -71338,10 +71337,10 @@
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
 	var VideosReducer = function VideosReducer() {
-	  var oldState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { errors: [] };
+	  var oldState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { errors: {} };
 	  var action = arguments[1];
 	
-	
+	  var newState = void 0;
 	  switch (action.type) {
 	    case _video_actions.RECEIVE_ALL_VIDEOS:
 	      return (0, _merge3.default)({}, action.videos);
@@ -71350,13 +71349,15 @@
 	      return (0, _merge3.default)({}, oldState, _defineProperty({}, action.video.id, action.video));
 	
 	    case _video_actions.REMOVE_VIDEO:
-	      var newState = (0, _merge3.default)({}, oldState);
+	      newState = (0, _merge3.default)({}, oldState);
 	      delete newState[action.video.id];
 	      return newState;
 	
 	    case _video_actions.RECEIVE_VIDEO_ERRORS:
-	      var errors = action.errors;
-	      return (0, _merge3.default)({}, oldState, { errors: errors });
+	      var errors = action.errors.responseJSON;
+	      newState = (0, _merge3.default)({}, oldState);
+	      newState.errors = {};
+	      return (0, _merge3.default)(newState, { errors: errors });
 	
 	    default:
 	      return oldState;
@@ -71452,8 +71453,8 @@
 	      var successCallback = function successCallback(user) {
 	        return dispatch((0, _session_actions.receiveCurrentUser)(user));
 	      };
-	      var errorCallback = function errorCallback(xhr) {
-	        return dispatch((0, _session_actions.receiveUserErrors)(xhr.responseJSON));
+	      var errorCallback = function errorCallback(errors) {
+	        return dispatch((0, _session_actions.receiveUserErrors)(errors));
 	      };
 	
 	      switch (action.type) {
@@ -71546,8 +71547,8 @@
 	  return function (next) {
 	    return function (action) {
 	
-	      var errorCallback = function errorCallback(xhr) {
-	        return dispatch((0, _video_actions.receiveVideoErrors)(xhr.responseJSON));
+	      var errorCallback = function errorCallback(errors) {
+	        return dispatch((0, _video_actions.receiveVideoErrors)(errors));
 	      };
 	      var receiveAllVideosSuccess = function receiveAllVideosSuccess(videos) {
 	        return dispatch((0, _video_actions.receiveAllVideos)(videos));
@@ -71669,7 +71670,7 @@
 	        return dispatch((0, _video_actions.receiveVideo)(video));
 	      };
 	      var errorCallback = function errorCallback(xhr) {
-	        return console.log(xhr.responseJSON);
+	        return console.log(xhr);
 	      };
 	
 	      switch (action.type) {

@@ -17,6 +17,8 @@ class SessionForm extends React.Component {
 		this.guestLogin = this.guestLogin.bind(this);
 		this.dropDownOpen = this.dropDownOpen.bind(this);
 		this.dropDownClose = this.dropDownClose.bind(this);
+		this.usernameError = this.usernameError.bind(this);
+		this.passwordError = this.passwordError.bind(this);
 
 
 	}
@@ -29,9 +31,6 @@ class SessionForm extends React.Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
-		this.setState({
-			 open: false,
-		 });
 		const user = {
 			username: this.state.username,
 			password: this.state.password
@@ -57,27 +56,17 @@ class SessionForm extends React.Component {
 				label="Sign up instead"
 				secondary={true}
 				className="sign-up-button"
-				onClick={this.changeToSignup}></RaisedButton>;
+
+				onClick={this.changeToSignup}/>;
 		} else {
 			return <RaisedButton
 				label="Log in instead"
 				secondary={true}
 				className="log-in-button"
-				onClick={this.changeToLogin}></RaisedButton>;
+				onClick={this.changeToLogin}/>;
 		}
 	}
 
-	renderErrors() {
-		return(
-			<ul>
-				{this.props.errors.map((error, i) => (
-					<li key={`error-${i}`}>
-						{error}
-					</li>
-				))}
-			</ul>
-		);
-	}
 
 	guestLogin(e){
 		e.preventDefault();
@@ -105,15 +94,24 @@ class SessionForm extends React.Component {
 		 this.setState({
 			 open: false,
 		 });
-	 };
+	};
 
+	usernameError(){
+		if(this.props.errors.username){
+			return this.props.errors.username[0]
+		}
+	}
+
+	passwordError(){
+		if(this.props.errors.password){
+			return this.props.errors.password[0]
+		}
+	}
 
 	render() {
-
 		if(this.props.loggedIn){
 			return (<div className="display-none"></div>)
 		}
-
 		return (
 			<div className="session-form-container">
 				<RaisedButton
@@ -137,13 +135,14 @@ class SessionForm extends React.Component {
 						<div className="login-title">
 							{this.state.formType}
 						</div>
-						{this.renderErrors()}
 <br/>
+						{this.props.errors.main}
 						<div className="session-form">
 							<TextField
 								id="username-input"
 								placeholder="Username"
 								fullWidth
+								errorText={this.usernameError()}
 								value={this.state.username}
 								onChange={this.update("username")}/>
 <br/>
@@ -152,6 +151,7 @@ class SessionForm extends React.Component {
 								placeholder="Password"
 								value={this.state.password}
 								fullWidth
+								errorText={this.passwordError()}
 								type="password"
 								onChange={this.update("password")}/>
 						</div>
@@ -165,7 +165,7 @@ class SessionForm extends React.Component {
 						<RaisedButton
 							label="Guest Log In"
 							secondary={true}
-							onClick={this.guestLogin}></RaisedButton>
+							onClick={this.guestLogin}/>
 					</div>
 <br/>
 					</form>

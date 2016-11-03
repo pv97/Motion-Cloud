@@ -5,8 +5,8 @@ import { RECEIVE_ALL_VIDEOS,
        } from '../actions/video_actions';
 import merge from 'lodash/merge';
 
-const VideosReducer = (oldState = {errors:[]}, action) => {
-  
+const VideosReducer = (oldState = {errors:{}}, action) => {
+  let newState;
   switch (action.type) {
     case RECEIVE_ALL_VIDEOS:
       return merge({}, action.videos);
@@ -15,13 +15,15 @@ const VideosReducer = (oldState = {errors:[]}, action) => {
       return merge({}, oldState, {[action.video.id]: action.video});
 
     case REMOVE_VIDEO:
-      let newState = merge({}, oldState);
+      newState = merge({}, oldState);
       delete newState[action.video.id];
       return newState;
 
     case RECEIVE_VIDEO_ERRORS:
-      const errors = action.errors;
-      return merge({}, oldState, {errors});
+      const errors = action.errors.responseJSON;
+      newState = merge({}, oldState);
+      newState.errors = {}
+      return merge(newState, {errors});
 
     default:
       return oldState;

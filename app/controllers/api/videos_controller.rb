@@ -17,7 +17,7 @@ class Api::VideosController < ApplicationController
     if @video.save
       render "api/videos/show"
     else
-      render json: @video.errors.full_messages, status: 422
+      render json: @video.errors, status: 422
     end
   end
 
@@ -26,7 +26,7 @@ class Api::VideosController < ApplicationController
     if @video.update(video_params)
       render "api/videos/show"
     else
-      render json: @video.errors.full_messages, status: 422
+      render json: @video.errors, status: 422
     end
   end
 
@@ -35,7 +35,7 @@ class Api::VideosController < ApplicationController
     if(@favorite.destroy)
       render "api/videos/show"
     else
-      render json: @video.errors.full_messages, status: 422
+      render json: @video.errors, status: 422
     end
   end
 
