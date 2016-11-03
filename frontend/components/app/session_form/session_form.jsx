@@ -29,6 +29,9 @@ class SessionForm extends React.Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
+		this.setState({
+			 open: false,
+		 });
 		const user = {
 			username: this.state.username,
 			password: this.state.password
@@ -53,11 +56,13 @@ class SessionForm extends React.Component {
 			return <RaisedButton
 				label="Sign up instead"
 				secondary={true}
+				className="sign-up-button"
 				onClick={this.changeToSignup}></RaisedButton>;
 		} else {
 			return <RaisedButton
 				label="Log in instead"
 				secondary={true}
+				className="log-in-button"
 				onClick={this.changeToLogin}></RaisedButton>;
 		}
 	}
@@ -76,6 +81,9 @@ class SessionForm extends React.Component {
 
 	guestLogin(e){
 		e.preventDefault();
+		this.setState({
+			 open: false,
+		 });
 		this.props.login({
 			user:{
 				formType:"Login",
@@ -111,53 +119,57 @@ class SessionForm extends React.Component {
 				<RaisedButton
 					onClick={this.dropDownOpen}
 					label="Login / Sign Up"
+					className="login-signup-button"
 				/>
 
-			<Popover
-        open={this.state.open}
-        anchorEl={this.state.anchorEl}
-        anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-        targetOrigin={{horizontal: 'left', vertical: 'top'}}
-        onRequestClose={this.dropDownClose}>
+			<Popover className="session-form-popover"
+	        open={this.state.open}
+	        anchorEl={this.state.anchorEl}
+	        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+	        targetOrigin={{horizontal: 'right', vertical: 'top'}}
+	        onRequestClose={this.dropDownClose}>
 
-				<form onSubmit={this.handleSubmit} className="sesion-form-box">
-					{this.navButton()}
-					<h1>
-						{this.state.formType}
-					</h1>
+					<div className="login-header">
+						{this.navButton()}
+						<div className="login-title">
+							{this.state.formType}
+						</div>
+					</div>
+					<form onSubmit={this.handleSubmit} className="sesion-form-box">
+						{this.renderErrors()}
 <br/>
-					{this.renderErrors()}
-					<div className="session-form">
+						<div className="session-form">
+							<TextField
+								id="username-input"
+								placeholder="Username"
+								fullWidth
+								value={this.state.username}
+								onChange={this.update("username")}/>
 <br/>
-						<TextField
-							id="username-input"
-							placeholder="Username"
-							value={this.state.username}
-							onChange={this.update("username")}/>
+							<TextField
+								id="password-input"
+								placeholder="Password"
+								value={this.state.password}
+								fullWidth
+								type="password"
+								onChange={this.update("password")}/>
+						</div>
 <br/>
-						<TextField
-							id="password-input"
-							placeholder="Password"
-							value={this.state.password}
-							type="password"
-							onChange={this.update("password")}/>
-<br/>
+					<div className="session-form-button-box">
 						<RaisedButton
 							label="Submit"
-							name="submit"
 							type="submit"
 							primary={true}
 							onClick={this.handleSubmit}/>
+						<RaisedButton
+							label="Guest Log In"
+							secondary={true}
+							onClick={this.guestLogin}></RaisedButton>
 					</div>
 <br/>
-					<RaisedButton
-						label="Guest Log In"
-						secondary={true}
-						onClick={this.guestLogin}></RaisedButton>
-<br/>
-				</form>
-			</Popover>
-		</div>
+					</form>
+				</Popover>
+			</div>
 		);
 	}
 

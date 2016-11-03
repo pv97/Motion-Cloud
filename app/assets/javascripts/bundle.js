@@ -28328,6 +28328,9 @@
 			key: 'handleSubmit',
 			value: function handleSubmit(e) {
 				e.preventDefault();
+				this.setState({
+					open: false
+				});
 				var user = {
 					username: this.state.username,
 					password: this.state.password
@@ -28355,11 +28358,13 @@
 					return _react2.default.createElement(_materialUi.RaisedButton, {
 						label: 'Sign up instead',
 						secondary: true,
+						className: 'sign-up-button',
 						onClick: this.changeToSignup });
 				} else {
 					return _react2.default.createElement(_materialUi.RaisedButton, {
 						label: 'Log in instead',
 						secondary: true,
+						className: 'log-in-button',
 						onClick: this.changeToLogin });
 				}
 			}
@@ -28382,6 +28387,9 @@
 			key: 'guestLogin',
 			value: function guestLogin(e) {
 				e.preventDefault();
+				this.setState({
+					open: false
+				});
 				this.props.login({
 					user: {
 						formType: "Login",
@@ -28419,34 +28427,39 @@
 					{ className: 'session-form-container' },
 					_react2.default.createElement(_materialUi.RaisedButton, {
 						onClick: this.dropDownOpen,
-						label: 'Login / Sign Up'
+						label: 'Login / Sign Up',
+						className: 'login-signup-button'
 					}),
 					_react2.default.createElement(
 						_materialUi.Popover,
-						{
+						{ className: 'session-form-popover',
 							open: this.state.open,
 							anchorEl: this.state.anchorEl,
-							anchorOrigin: { horizontal: 'left', vertical: 'bottom' },
-							targetOrigin: { horizontal: 'left', vertical: 'top' },
+							anchorOrigin: { horizontal: 'right', vertical: 'top' },
+							targetOrigin: { horizontal: 'right', vertical: 'top' },
 							onRequestClose: this.dropDownClose },
+						_react2.default.createElement(
+							'div',
+							{ className: 'login-header' },
+							this.navButton(),
+							_react2.default.createElement(
+								'div',
+								{ className: 'login-title' },
+								this.state.formType
+							)
+						),
 						_react2.default.createElement(
 							'form',
 							{ onSubmit: this.handleSubmit, className: 'sesion-form-box' },
-							this.navButton(),
-							_react2.default.createElement(
-								'h1',
-								null,
-								this.state.formType
-							),
-							_react2.default.createElement('br', null),
 							this.renderErrors(),
+							_react2.default.createElement('br', null),
 							_react2.default.createElement(
 								'div',
 								{ className: 'session-form' },
-								_react2.default.createElement('br', null),
 								_react2.default.createElement(_materialUi.TextField, {
 									id: 'username-input',
 									placeholder: 'Username',
+									fullWidth: true,
 									value: this.state.username,
 									onChange: this.update("username") }),
 								_react2.default.createElement('br', null),
@@ -28454,21 +28467,24 @@
 									id: 'password-input',
 									placeholder: 'Password',
 									value: this.state.password,
+									fullWidth: true,
 									type: 'password',
-									onChange: this.update("password") }),
-								_react2.default.createElement('br', null),
-								_react2.default.createElement(_materialUi.RaisedButton, {
-									label: 'Submit',
-									name: 'submit',
-									type: 'submit',
-									primary: true,
-									onClick: this.handleSubmit })
+									onChange: this.update("password") })
 							),
 							_react2.default.createElement('br', null),
-							_react2.default.createElement(_materialUi.RaisedButton, {
-								label: 'Guest Log In',
-								secondary: true,
-								onClick: this.guestLogin }),
+							_react2.default.createElement(
+								'div',
+								{ className: 'session-form-button-box' },
+								_react2.default.createElement(_materialUi.RaisedButton, {
+									label: 'Submit',
+									type: 'submit',
+									primary: true,
+									onClick: this.handleSubmit }),
+								_react2.default.createElement(_materialUi.RaisedButton, {
+									label: 'Guest Log In',
+									secondary: true,
+									onClick: this.guestLogin })
+							),
 							_react2.default.createElement('br', null)
 						)
 					)
@@ -69724,6 +69740,31 @@
 							_react2.default.createElement('br', null),
 							_react2.default.createElement('input', { type: 'submit', value: 'Submit' })
 						),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('br', null),
 						_react2.default.createElement('br', null)
 					)
 				);
