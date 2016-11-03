@@ -1,19 +1,22 @@
 import React from 'react';
 import { withRouter } from 'react-router';
-import { RaisedButton, TextField } from 'material-ui';
+import { RaisedButton, TextField, Popover } from 'material-ui';
 
 class SessionForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			formType:"Login",
 			username: "",
-			password: ""
+			password: "",
+			formType:"Login",
+			open: false
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.changeToSignup = this.changeToSignup.bind(this);
 		this.changeToLogin = this.changeToLogin.bind(this);
 		this.guestLogin = this.guestLogin.bind(this);
+		this.dropDownOpen = this.dropDownOpen.bind(this);
+		this.dropDownClose = this.dropDownClose.bind(this);
 
 		this.style = {
 		  margin: 5
@@ -86,6 +89,19 @@ class SessionForm extends React.Component {
 		});
 	}
 
+	dropDownOpen(e){
+		e.preventDefault();
+    this.setState({
+      open: true,
+      anchorEl: e.currentTarget
+    });
+	}
+
+	dropDownClose(){
+		 this.setState({
+			 open: false,
+		 });
+	 };
 
 
 	render() {
@@ -96,14 +112,25 @@ class SessionForm extends React.Component {
 
 		return (
 			<div className="session-form-container">
-				<h1>
-					{this.state.formType}
-				</h1>
-				{this.navButton()}
-<br/>
+				<RaisedButton
+					onClick={this.dropDownOpen}
+					label="Login / Sign Up"
+				/>
+
+			<Popover
+        open={this.state.open}
+        anchorEl={this.state.anchorEl}
+        anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+        targetOrigin={{horizontal: 'left', vertical: 'top'}}
+        onRequestClose={this.dropDownClose}>
+
 				<form onSubmit={this.handleSubmit} className="sesion-form-box">
-					{this.renderErrors()}
+					{this.navButton()}
+					<h1>
+						{this.state.formType}
+					</h1>
 <br/>
+					{this.renderErrors()}
 					<div className="session-form">
 <br/>
 							<TextField
@@ -119,22 +146,23 @@ class SessionForm extends React.Component {
 								type="password"
 								onChange={this.update("password")}/>
 <br/>
+							<RaisedButton
+								label="Submit"
+								name="submit"
+								type="submit"
+								primary={true}
+								style={this.style}
+								onClick={this.handleSubmit}/>
+						</div>
+<br/>
 						<RaisedButton
-							label="Submit"
-							name="submit"
-							type="submit"
-							primary={true}
+							label="Guest Log In"
+							secondary={true}
 							style={this.style}
-							onClick={this.handleSubmit}/>
-					</div>
+							onClick={this.guestLogin}></RaisedButton>
 <br/>
-					<RaisedButton
-						label="Guest Log In"
-						secondary={true}
-						style={this.style}
-						onClick={this.guestLogin}></RaisedButton>
-<br/>
-				</form>
+					</form>
+				</Popover>
 			</div>
 		);
 	}

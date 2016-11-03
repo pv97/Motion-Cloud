@@ -25,7 +25,7 @@ class UserNav extends React.Component {
 
 	toUploadVideo(e){
 		e.preventDefault();
-		this.props.router.push({pathname:"/videos/new",query:{test:"test123"}});
+		this.props.router.push({pathname:"/videos/new",query:{}});
 	}
 
 	render() {
@@ -35,7 +35,10 @@ class UserNav extends React.Component {
 
 		return (
 			<div className="user-nav">
-				<h1>{this.props.currentUser.username}</h1>
+					<RaisedButton
+						label={this.props.currentUser.username}
+						style={this.style}
+						onClick={this.toUploadVideo}/>
 					<RaisedButton
 						label="Upload"
 						primary={true}
