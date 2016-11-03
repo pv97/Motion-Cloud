@@ -44,8 +44,8 @@ class VideoOverlay extends React.Component {
 
 						<div className="video-player-box">
 							<ReactPlayer className="video-player" url={video.url}
-								height={450}
-								width={800}
+								height={432}
+								width={768}
 								playing controls/>
 						</div>
 					</div>

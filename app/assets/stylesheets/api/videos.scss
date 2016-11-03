@@ -6,7 +6,7 @@
   width: 840px;
 
   .video-overlay{
-    width: 840px;
+    width: 800px;
 
     position:fixed;
     top:55px;
@@ -17,7 +17,7 @@
     .comment-overlay{
       position:relative;
       display:flex;
-      width:840px;
+      width:800px;
       top: 0px;
       bottom: 0px;
       background-color:blue;
@@ -61,17 +61,16 @@
     .video-player-box{
       position:absolute;
       display:flex;
-      width:840px;
+      width:800px;
       top:0px;
       bottom:0px;
-      left:50px; //changes to left 100%;
-      background-color: #fff;
+      left:40px; //changes to left 100%;
       justify-content: center;
       box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
 
       .video-player{
         display:flex;
-        padding:20px;
+        padding:16px;
         background-color: green;
 
       }

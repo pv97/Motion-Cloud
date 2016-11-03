@@ -7,7 +7,7 @@ class UserNav extends React.Component {
 		super(props);
 		this.toUploadVideo = this.toUploadVideo.bind(this);
 		this.style = {
-			margin: 5
+			"margin-left": 10
 		};
 	}
 

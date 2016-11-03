@@ -8,12 +8,7 @@
 
 .login-header{
   box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px !important;
-  height:41px;
-  .login-title{
-    font-size: 24px;
-    padding: 9px;
-    font-weight: 600;
-  }
+  height:42px;
   .sign-up-button, .log-in-button{
     width: 150px !important;
     float:right;
@@ -22,6 +17,10 @@
 
 .session-form-popover{
   width:250px;
+  .login-title{
+    font-size: 24px;
+    font-weight: 600;
+  }
   .sesion-form-box{
     padding:10px 15px;
     .session-form-button-box{

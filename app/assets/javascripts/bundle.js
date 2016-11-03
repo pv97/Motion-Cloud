@@ -28449,16 +28449,17 @@
 						_react2.default.createElement(
 							'div',
 							{ className: 'login-header' },
-							this.navButton(),
-							_react2.default.createElement(
-								'div',
-								{ className: 'login-title' },
-								this.state.formType
-							)
+							this.navButton()
 						),
 						_react2.default.createElement(
 							'form',
 							{ onSubmit: this.handleSubmit, className: 'sesion-form-box' },
+							_react2.default.createElement('br', null),
+							_react2.default.createElement(
+								'div',
+								{ className: 'login-title' },
+								this.state.formType
+							),
 							this.renderErrors(),
 							_react2.default.createElement('br', null),
 							_react2.default.createElement(
@@ -67605,7 +67606,7 @@
 	
 			_this.toUploadVideo = _this.toUploadVideo.bind(_this);
 			_this.style = {
-				margin: 5
+				"margin-left": 10
 			};
 			return _this;
 		}
@@ -67800,8 +67801,8 @@
 								'div',
 								{ className: 'video-player-box' },
 								_react2.default.createElement(_reactPlayer2.default, { className: 'video-player', url: video.url,
-									height: 450,
-									width: 800,
+									height: 432,
+									width: 768,
 									playing: true, controls: true })
 							)
 						)
