@@ -28,11 +28,12 @@ ActiveRecord::Schema.define(version: 20161101235538) do
 
   create_table "videos", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "title",       null: false
+    t.string   "title",         null: false
     t.text     "description"
-    t.string   "url",         null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "url",           null: false
+    t.string   "thumbnail_url"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   add_index "videos", ["user_id"], name: "index_videos_on_user_id", using: :btree

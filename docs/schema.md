@@ -14,6 +14,7 @@ column name  | data type | details
 id           | integer   | not null, primary key
 title        | string    | not null
 url          | string    | not null
+thumbnail_url| string    | not null
 description  | text      | not null
 user_id      | integer   | not null, foreign key (references users), indexed
 archived     | boolean   | not null, default: false

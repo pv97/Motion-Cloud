@@ -18,8 +18,6 @@ class VideoPlayer extends React.Component {
 		}
 	}
 
-
-
 	videoPlayer(){
 		let video = this.props.videos[this.props.query.id];
 		if (video) {

@@ -9,6 +9,7 @@ class VideoUploadForm extends React.Component {
 			title: "",
 			description: "",
 			url:"",
+			thumbnail_url:"",
 			uploadSuccess:""
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -26,11 +27,13 @@ class VideoUploadForm extends React.Component {
 			),
 			(error, results) => {
 				if(!error){
-					this.state.url = results[0].url
 					this.uploadWidget.close();
-					this.setState({uploadSuccess:"Successfully uploaded!"});
+					this.setState({
+						url: results[0].url,
+						thumbnail_url: results[0].thumbnail_url,
+						uploadSuccess:"Successfully uploaded!"
+					});
 					console.log(this.state);
-
 				}
 			}
 		);
