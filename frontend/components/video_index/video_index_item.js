@@ -13,17 +13,14 @@ class VideoIndexItem extends React.Component {
   }
 
   render() {
-    const { average_rating, description, thumbnail_url } = this.props.video;
+    let video = this.props.video;
 
     return (
-      <div className="video-index-item"
-           onClick={this.handleClick}>
-
-        </div>
+      <div className="video-index-item" onClick={this.handleClick}>
         <img src={thumbnail_url}/>
       </div>
     );
   }
 }
 
-export default IndexItem;
+export default VideoIndexItem;

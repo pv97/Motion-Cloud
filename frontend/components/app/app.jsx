@@ -6,7 +6,6 @@ import UserNavContainer from './user_nav/user_nav_container';
 import VideoOverlayContainer from './video_overlay/video_overlay_container';
 //material ui
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { AppBar } from 'material-ui';
 
 class App extends React.Component {

@@ -32,7 +32,6 @@ class VideoOverlay extends React.Component {
 						<div className="comment-overlay">
 							<div className="show-comment-button">
 								<div className="comment-button-text"
-									onselectstart="return false"
 									>COMMENTS</div>
 							</div>
 							<div className="comment-index">
@@ -47,6 +46,12 @@ class VideoOverlay extends React.Component {
 								height={432}
 								width={768}
 								playing controls/>
+							<div className="video-details">
+								<div className="video-title">{video.title}</div>
+								<div className="video-view-count">Views: {video.view_count}</div>
+								<div className="video-description">{video.description}</div>
+								<div className="video-user-username">Uploaded by: {video.user.username}</div>
+							</div>
 						</div>
 					</div>
 				</div>
