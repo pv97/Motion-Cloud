@@ -9,8 +9,8 @@ User.create!({username:"Guest",password:"password"})
 User.create!({username:"Kurzgesagt",password:"password"})
 Video.create!({
   url:"http://res.cloudinary.com/tlcoy4e3/video/upload/v1478141038/fjbplm92cb48efhlqcss.webm",
-  thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/c_limit,h_60,w_90/v1478141038/fjbplm92cb48efhlqcss.jpg",
+  thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/c_limit,w_200/v1478141038/fjbplm92cb48efhlqcss.jpg",
   title:"How Far Will We Go?",
-  description:"",
+  description:"Original video at https://www.youtube.com/watch?v=ZL4yYHdDSWs",
   user_id:2
   })

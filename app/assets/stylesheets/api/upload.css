@@ -10,10 +10,25 @@
   justify-content: center;
   max-width:800px;
   flex:1;
-  padding: 40px;
+  padding: 15px 40px;
   margin: 10px auto;
 }
 
 .upload-video-title{
   margin:0 auto;
+  font-size: 24px;
+}
+
+.upload-widget{
+  height:370px;
+}
+
+.video-requirements{
+  display:flex;
+  justify-content: space-between;
+}
+
+.upload-maximum-size, .upload-formats{
+  color: rgb(169, 169, 169);
+  word-spacing: 3px;  
 }

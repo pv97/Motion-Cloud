@@ -8,7 +8,7 @@ import { fetchVideo } from '../util/video_api_util';
 export default ({getState, dispatch}) => next => action => {
   const successCallback = video => dispatch(receiveVideo(video));
   const errorCallback = xhr => console.log(xhr);
-
+  
   switch(action.type){
     case SET_QUERY:
 

@@ -15,25 +15,12 @@ injectTapEventPlugin();
 
 const Root = ({ store }) => {
 
-  const _ensureLoggedIn = (nextState, replace) => {
-    const currentUser = store.getState().session.currentUser;
-    if (!currentUser) {
-      replace('/');
-    }
-  };
-
-  const _redirectIfLoggedIn = (nextState, replace) => {
-    const currentUser = store.getState().session.currentUser;
-    if (currentUser) {
-      replace('/');
-    }
-  }
-
   return (
     <Provider store={store}>
       <Router history={hashHistory}>
         <Route path="/" component={App}>
-          <Route path="/videos/new" component={VideoUploadFormContainer} onEnter={_ensureLoggedIn}/>
+          <IndexRoute component={VideoIndexContainer}/>
+          <Route path="/videos/new" component={VideoUploadFormContainer}/>
         </Route>
       </Router>
     </Provider>

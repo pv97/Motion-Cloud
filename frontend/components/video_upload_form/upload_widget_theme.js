@@ -2,6 +2,11 @@ export default `#cloudinary-overlay.with_theme {
   display: block;
 }
 
+
+element.style {
+  height: 400px;
+}
+
 #cloudinary-overlay {
   background-color: rgba(0,0,0,0.7);
 }
@@ -17,7 +22,9 @@ export default `#cloudinary-overlay.with_theme {
   box-shadow: none;
 }
 
+
 #cloudinary-navbar {
+  display:none;
   background: #fff;
   border: none;
   border-bottom: 1px solid #eee;
@@ -56,7 +63,7 @@ export default `#cloudinary-overlay.with_theme {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  margin: 30px 20px 0px 20px;
+  margin: 0px 20px 0px 20px;
 }
 
 #cloudinary-widget .drag_area.in {
@@ -96,7 +103,17 @@ export default `#cloudinary-overlay.with_theme {
 }
 
 #cloudinary-widget .panel {
-  height: 479px;
+  height: 400px;
+}
+
+#cloudinary-overlay.inline .widget {
+    margin-top: 0px;
+    top: 0;
+    height: 372px;
+    width: 100%;
+    box-shadow: none;
+    box-sizing: border-box;
+    border: 1px solid #b6ccd9;
 }
 
 #cloudinary-widget .panel.local {

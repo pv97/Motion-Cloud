@@ -11,8 +11,22 @@ class Api::VideosController < ApplicationController
     render "api/videos/index"
   end
 
+  def fix_thumbnail_size(thumbnail_url)
+    #"/video/upload/c_limit,h_60,w_90/v1478141038/fjbplm92cb48efhlqcss.jpg"
+    split_url = thumbnail_url.split("/upload/")
+    #[ "/video" , "_limit,h_60,w_90/v1478141038/fjbplm92cb48efhlqcss.jpg"]
+    split_url2 = split_url[1].split("/")
+    #[ "_limit,h_60,w_90", "v1478141038", "fjbplm92cb48efhlqcss.jpg"]
+    split_url2.shift
+    # ["v1478141038", "fjbplm92cb48efhlqcss.jpg"]
+    split_url3 = split_url2.join("/")
+    # "v1478141038/fjbplm92cb48efhlqcss.jpg"
+    return "#{split_url[0]}/upload/c_limit,w_200/#{split_url3}"
+  end
+
   def create
     @video = Video.new(video_params)
+    @video.thumbnail_url = fix_thumbnail_size(@video.thumbnail_url)
     @video.user_id = current_user.id
     if @video.save
       render "api/videos/show"

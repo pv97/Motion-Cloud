@@ -5,23 +5,31 @@ class VideoIndex extends React.Component {
 
 
   componentWillMount(){
-    this.props.fetchVideos()
+    this.props.fetchVideos();
   }
 
   getVideos(){
-
+    let videos = [];
+    Object.keys(this.props.videos).map((key)=>{
+      if (key!=="errors") {
+        videos.push(this.props.videos[key]);
+      }
+    })
+    return videos;
   }
 
   render() {
-    debugger
-    let videos = this.props.videos;
+    let videos = this.getVideos();
+
     if(videos){
       return(
-        <div>
+        <div className="video-index-container">
           <h1 className="video-index-title">Trending Videos</h1>
-          {videos.map(video => (
-            <VideoIndexItem video={video} key={video.id} />
-          ))}
+          <div className="video-list">
+            {videos.map(video => (
+              <VideoIndexItem video={video} key={video.id} setQuery={this.props.setQuery}/>
+            ))}
+          </div>
         </div>
       )
     } else {

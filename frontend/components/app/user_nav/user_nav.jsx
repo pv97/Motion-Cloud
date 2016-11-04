@@ -22,7 +22,7 @@ class UserNav extends React.Component {
 
 	toUploadVideo(e){
 		e.preventDefault();
-		this.props.router.push({pathname:"/videos/new",query:{}});
+		this.props.router.push({pathname:"/videos/new",query:this.props.query});
 	}
 
 	render() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router';
+import { withRouter } from 'react-router';
 import merge from 'lodash/merge'
 import { RaisedButton, TextField } from 'material-ui';
 import theme from './upload_widget_theme'
@@ -51,7 +51,7 @@ class VideoUploadForm extends React.Component {
 
 	redirectIfNotLoggedIn() {
 		if (!this.props.loggedIn) {
-			this.props.router.push("/");
+			this.props.router.push({pathname:"/",query:this.props.query});
 		}
 	}
 
@@ -112,38 +112,22 @@ class VideoUploadForm extends React.Component {
   						floatingLabelText="Description"
 							multiLine={true}
 							fullWidth/>
+<br/>
 						<div className = 'upload-box'>
 							{this.renderUploadBox()}
 						</div>
 <br/>
+						<div className="video-requirements">
+							<p className="upload-maximum-size">
+								Maximum video size: &nbsp; 42mb
+							</p>
+							<p className="upload-formats">
+								Accepted formats: &nbsp; webm mkv flv vob avi mp4 mpeg
+							</p>
+						</div>
+<br/>
 						<RaisedButton value="Submit" primary={true} label="Upload Video" onClick={this.handleSubmit} />
 					</form>
-<br/>
-	<br/>
-		<br/>
-			<br/>
-				<br/>
-					<br/>
-						<br/>
-							<br/>
-								<br/>
-									<br/>
-										<br/>
-											<br/>
-												<br/>
-													<br/>
-														<br/>
-															<br/>
-																<br/>
-																	<br/>
-																		<br/>
-																			<br/>
-																				<br/>
-																					<br/>
-																						<br/>
-																							<br/>
-																								<br/>
-																									<br/>
 
 			</div>
 		);

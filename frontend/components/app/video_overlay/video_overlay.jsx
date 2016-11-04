@@ -8,8 +8,14 @@ class VideoOverlay extends React.Component {
 		super(props);
 	}
 
-	componentWillMount(){
+	componentDidMount(){
 		this.setVideoQuery();
+	}
+
+	componentWillUpdate(){
+		if(this.props.location.query.id!==this.props.query.id){
+			this.setVideoQuery();
+		}
 	}
 
 	setVideoQuery(){
