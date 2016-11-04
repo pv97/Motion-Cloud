@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 
 // react components
-import App from './app/app';
+import AppContainer from './app/app_container';
 import VideoUploadFormContainer from './video_upload_form/video_upload_form_container';
 import VideoIndexContainer from './video_index/video_index_container';
 
@@ -18,7 +18,7 @@ const Root = ({ store }) => {
   return (
     <Provider store={store}>
       <Router history={hashHistory}>
-        <Route path="/" component={App}>
+        <Route path="/" component={AppContainer}>
           <IndexRoute component={VideoIndexContainer}/>
           <Route path="/videos/new" component={VideoUploadFormContainer}/>
         </Route>

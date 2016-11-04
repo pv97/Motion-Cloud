@@ -15,7 +15,7 @@ class App extends React.Component {
   }
 
   toHomePage(){
-    this.props.router.push("/");
+		this.props.router.push({pathname:"/",query:this.props.query});
   }
 
   render(){

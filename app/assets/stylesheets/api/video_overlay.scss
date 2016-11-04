@@ -4,7 +4,7 @@
 .video-dummy{
   display:flex;
   width: 840px;
-
+  z-index: 100;
   .video-overlay{
     width: 800px;
 
@@ -12,7 +12,6 @@
     top:55px;
     bottom: 0px;
     display:flex;
-    background:purple;
 
     .comment-overlay{
       position:relative;
@@ -20,7 +19,7 @@
       width:800px;
       top: 0px;
       bottom: 0px;
-      background-color:blue;
+      background-color: #fff;
       box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
 
       .show-comment-button{
@@ -29,34 +28,45 @@
         background: yellow;
         align-content: center;
         text-align: center;
+        background-color: rgb(0, 188, 212); /* changes to rgb(255, 64, 129) */
         box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
-
-        .comment-button-text{
-          width:10px;
-          font-size:30;
-          font-weight: 600;
-          writing-mode: tb-rl;
-          padding:15px;
-          background-color: rgb(0, 188, 212);
-          color:#fff;
-
-          -webkit-user-select: none; /* Chrome/Safari */
-          -moz-user-select: none; /* Firefox */
-          -ms-user-select: none; /* IE10+ */
-          /* Rules below not implemented in browsers yet */
-          -o-user-select: none;
-          user-select: none;
-        }
+        border-radius: 2px;
       }
+
+      .hide-comment-button{
+        display:flex;
+        width:50px;
+        background: yellow;
+        align-content: center;
+        text-align: center;
+        background-color: rgb(255, 64, 129); /* changes to rgb(0, 188, 212) */
+        box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+        border-radius: 2px;
+      }
+
+      .comment-button-text{
+        width:10px;
+        font-size:30;
+        font-weight: 600;
+        writing-mode: tb-rl;
+        padding:15px;
+        color:#fff;
+
+        -webkit-user-select: none; /* Chrome/Safari */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* IE10+ */
+        /* Rules below not implemented in browsers yet */
+        -o-user-select: none;
+        user-select: none;
+      }
+
       .comment-index{
         display:flex;
 
         padding: 20px;
         margin:10px;
-        background-color: yellow;
         word-wrap: normal;
         overflow-y: scroll;
-        background-color: green;
       }
     }
     .video-player-box{
@@ -67,19 +77,38 @@
       top:0px;
       bottom:0px;
       left:40px; //changes to left 100%;
+      background-color: #fff;
       box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+    }
 
-      .video-player{
-        display:flex;
-        padding:16px;
-        background-color: green;
+    .video-player-box-right{
+      position:absolute;
+      display:flex;
+      flex-direction: column;
+      width:800px;
+      top:0px;
+      bottom:0px;
+      left:100%; //changes to left 40px;
+      background-color: #fff;
+      box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+    }
 
-      }
+    .video-player{
+      display:flex;
+      margin:16px;
+      border-radius: 2px;
+      box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+    }
+
+    .video-details{
+      margin: 0 16px;
+      padding: 10px;
+      border-radius: 2px;
+      box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
 
     }
   }
 }
-
 video{
   object-fit:fill;
 }

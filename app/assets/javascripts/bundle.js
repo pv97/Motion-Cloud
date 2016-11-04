@@ -21471,9 +21471,9 @@
 	
 	var _reactRouter = __webpack_require__(203);
 	
-	var _app = __webpack_require__(256);
+	var _app_container = __webpack_require__(746);
 	
-	var _app2 = _interopRequireDefault(_app);
+	var _app_container2 = _interopRequireDefault(_app_container);
 	
 	var _video_upload_form_container = __webpack_require__(638);
 	
@@ -21510,7 +21510,7 @@
 	      { history: _reactRouter.hashHistory },
 	      _react2.default.createElement(
 	        _reactRouter.Route,
-	        { path: '/', component: _app2.default },
+	        { path: '/', component: _app_container2.default },
 	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _video_index_container2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: '/videos/new', component: _video_upload_form_container2.default })
 	      )
@@ -28119,7 +28119,7 @@
 	  _createClass(App, [{
 	    key: 'toHomePage',
 	    value: function toHomePage() {
-	      this.props.router.push("/");
+	      this.props.router.push({ pathname: "/", query: this.props.query });
 	    }
 	  }, {
 	    key: 'render',
@@ -67738,7 +67738,14 @@
 		function VideoOverlay(props) {
 			_classCallCheck(this, VideoOverlay);
 	
-			return _possibleConstructorReturn(this, (VideoOverlay.__proto__ || Object.getPrototypeOf(VideoOverlay)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (VideoOverlay.__proto__ || Object.getPrototypeOf(VideoOverlay)).call(this, props));
+	
+			_this.state = {
+				clickToShowComment: true,
+				minimized: false
+			};
+			_this.slideVideoBox = _this.slideVideoBox.bind(_this);
+			return _this;
 		}
 	
 		_createClass(VideoOverlay, [{
@@ -67762,76 +67769,116 @@
 				}
 			}
 		}, {
+			key: 'buttonClass',
+			value: function buttonClass() {
+				if (this.state.clickToShowComment) {
+					return "show-comment-button";
+				} else {
+					return "hide-comment-button";
+				}
+			}
+		}, {
+			key: 'buttonText',
+			value: function buttonText() {
+				if (this.state.clickToShowComment) {
+					return "SHOW COMMENTS";
+				} else {
+					return "HIDE COMMENTS";
+				}
+			}
+		}, {
+			key: 'videoBoxClass',
+			value: function videoBoxClass() {
+				if (this.state.clickToShowComment) {
+					return "video-player-box";
+				} else {
+					return "video-player-box-right";
+				}
+			}
+		}, {
+			key: 'slideVideoBox',
+			value: function slideVideoBox() {
+				var opposite = this.state.clickToShowComment ? false : true;
+				this.setState({ clickToShowComment: opposite });
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				var video = this.props.videos[this.props.query.id];
 				var style = { "object-fit": "fill" };
 				if (video) {
-					return _react2.default.createElement(
-						'div',
-						{ className: 'video-dummy' },
-						_react2.default.createElement(
+					if (this.state.minimized) {
+						return _react2.default.createElement(_reactPlayer2.default, { className: 'video-player', url: video.url,
+							height: 2000,
+							width: 1125,
+							playing: true, controls: true });
+					} else {
+						return _react2.default.createElement(
 							'div',
-							{ className: 'video-overlay' },
+							{ className: 'video-dummy' },
 							_react2.default.createElement(
 								'div',
-								{ className: 'comment-overlay' },
+								{ className: 'video-overlay' },
 								_react2.default.createElement(
 									'div',
-									{ className: 'show-comment-button' },
+									{ className: 'comment-overlay' },
 									_react2.default.createElement(
 										'div',
-										{ className: 'comment-button-text'
-										},
-										'COMMENTS'
+										{ className: this.buttonClass(), onClick: this.slideVideoBox },
+										_react2.default.createElement(
+											'div',
+											{ className: 'comment-button-text'
+											},
+											this.buttonText()
+										)
+									),
+									_react2.default.createElement(
+										'div',
+										{ className: 'comment-index' },
+										_react2.default.createElement(
+											'p',
+											null,
+											'Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment'
+										)
 									)
 								),
 								_react2.default.createElement(
 									'div',
-									{ className: 'comment-index' },
-									_react2.default.createElement(
-										'p',
-										null,
-										'Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment'
-									)
-								)
-							),
-							_react2.default.createElement(
-								'div',
-								{ className: 'video-player-box' },
-								_react2.default.createElement(_reactPlayer2.default, { className: 'video-player', url: video.url,
-									height: 432,
-									width: 768,
-									playing: true, controls: true }),
-								_react2.default.createElement(
-									'div',
-									{ className: 'video-details' },
+									{ className: this.videoBoxClass() },
+									_react2.default.createElement(_reactPlayer2.default, { className: 'video-player', url: video.url,
+										height: 432,
+										width: 768,
+										playing: true, controls: true }),
 									_react2.default.createElement(
 										'div',
-										{ className: 'video-title' },
-										video.title
-									),
-									_react2.default.createElement(
-										'div',
-										{ className: 'video-view-count' },
-										'Views: ',
-										video.view_count
-									),
-									_react2.default.createElement(
-										'div',
-										{ className: 'video-description' },
-										video.description
-									),
-									_react2.default.createElement(
-										'div',
-										{ className: 'video-user-username' },
-										'Uploaded by: ',
-										video.user.username
+										{ className: 'video-details' },
+										_react2.default.createElement(
+											'div',
+											{ className: 'video-title' },
+											video.title
+										),
+										_react2.default.createElement(
+											'div',
+											{ className: 'video-view-count' },
+											'Views: ',
+											video.view_count
+										),
+										_react2.default.createElement(
+											'div',
+											{ className: 'video-description' },
+											video.description
+										),
+										_react2.default.createElement(
+											'div',
+											{ className: 'video-user-username' },
+											'Uploaded by: ',
+											video.user.username
+										)
 									)
 								)
 							)
-						)
-					);
+						);
+					}
 				} else {
 					return _react2.default.createElement('div', { className: 'display-none' });
 				}
@@ -73526,14 +73573,14 @@
 	      var video = this.props.video;
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'video-index-item', onClick: this.handleClick },
-	        _react2.default.createElement('img', { className: 'video-index-item-picture', src: video.thumbnail_url }),
+	        { className: 'video-index-item' },
+	        _react2.default.createElement('img', { className: 'video-index-item-picture', src: video.thumbnail_url, onClick: this.handleClick }),
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'video-index-item-detail' },
 	          _react2.default.createElement(
 	            'p',
-	            { className: 'video-index-item-title' },
+	            { className: 'video-index-item-title', onClick: this.handleClick },
 	            video.title
 	          ),
 	          _react2.default.createElement(
@@ -73565,6 +73612,42 @@
 	}(_react2.default.Component);
 	
 	exports.default = (0, _reactRouter.withRouter)(VideoIndexItem);
+
+/***/ },
+/* 746 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reactRedux = __webpack_require__(173);
+	
+	var _app = __webpack_require__(256);
+	
+	var _app2 = _interopRequireDefault(_app);
+	
+	var _query_actions = __webpack_require__(637);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    query: state.query
+	  };
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    setQuery: function setQuery(id) {
+	      return dispatch((0, _query_actions.setQuery)(id));
+	    }
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_app2.default);
 
 /***/ }
 /******/ ]);

@@ -17,10 +17,10 @@ class VideoIndexItem extends React.Component {
   render() {
     let video = this.props.video;
     return (
-      <div className="video-index-item" onClick={this.handleClick}>
-        <img className="video-index-item-picture"src={video.thumbnail_url}/>
+      <div className="video-index-item">
+        <img className="video-index-item-picture"src={video.thumbnail_url}  onClick={this.handleClick}/>
         <div className="video-index-item-detail">
-          <p className="video-index-item-title">{video.title}</p>
+          <p className="video-index-item-title"  onClick={this.handleClick}>{video.title}</p>
           <p className="video-index-item-user">{video.user.username}</p>
 
           <div className="video-index-sub-details">
