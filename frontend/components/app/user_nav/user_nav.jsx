@@ -6,9 +6,6 @@ class UserNav extends React.Component {
 	constructor(props) {
 		super(props);
 		this.toUploadVideo = this.toUploadVideo.bind(this);
-		this.style = {
-			"margin-left": 10
-		};
 	}
 
 	renderErrors() {
@@ -37,17 +34,16 @@ class UserNav extends React.Component {
 			<div className="user-nav">
 					<RaisedButton
 						label={this.props.currentUser.username}
-						style={this.style}
 						onClick={this.toUploadVideo}/>
 					<RaisedButton
 						label="Upload"
 						primary={true}
-						style={this.style}
+						style={{marginLeft:10}}
 						onClick={this.toUploadVideo}/>
 					<RaisedButton
 						label="Log Out"
 						secondary={true}
-						style={this.style}
+						style={{marginLeft:10}}
 						onClick={this.props.logout}/>
 			</div>
 		);

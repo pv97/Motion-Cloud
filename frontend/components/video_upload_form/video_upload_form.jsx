@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, withRouter } from 'react-router';
 import merge from 'lodash/merge'
 import { RaisedButton, TextField } from 'material-ui';
-import theme from './upload_widget_theme'
 
 class VideoUploadForm extends React.Component {
 	constructor(props) {
@@ -25,8 +24,13 @@ class VideoUploadForm extends React.Component {
 		this.uploadWidget = cloudinary.createUploadWidget(
 			merge(
 				{},window.CLOUDINARY_OPTIONS,
-				{theme:'minimal',
-					stylesheet:theme,
+				{
+					theme:'minimal',
+					stylesheet:`
+						.widget .powered_by_cloudinary.active {
+	    				display: none;
+						}
+					`,
 					inline_container:'.upload-widget'}
 			),
 			(error, results) => {
@@ -110,6 +114,7 @@ class VideoUploadForm extends React.Component {
 							value={this.state.description}
 							onChange={this.update("description")}
   						floatingLabelText="Description"
+							multiLine={true}
 							fullWidth/>
 						<div className = 'upload-box'>
 							{this.renderUploadBox()}
