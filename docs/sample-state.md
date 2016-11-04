@@ -3,12 +3,12 @@
   currentUser: {
     id: 1,
     username: "app-academy",
-    errors:[]
+    errors:{}
   },
   authForm: {
     username: "username",
     password: "password",
-    errors: []
+    errors: {}
   },
   videos: {
     1: {
@@ -21,14 +21,14 @@
       likes: 1,
       dislikes: 1,
       comments: {
-          user_id: 1,
-          video_id: 1,
-          body: "Sample"
-          likes: 1,
-          dislikes: 1
-        }
-      },
-      errors:[]
+        user_id: 1,
+        video_id: 1,
+        body: "Sample"
+        likes: 1,
+        dislikes: 1
+      }
+    },
+    errors:{}
     }
   },
   userShow: {
@@ -56,7 +56,7 @@
   },
   commentForm: {
     body: "",
-    errors:[]
+    errors:{}
   }
 }
 ```

@@ -33,7 +33,6 @@ const Root = ({ store }) => {
     <Provider store={store}>
       <Router history={hashHistory}>
         <Route path="/" component={App}>
-          <IndexRoute component={VideoIndexContainer}/>
           <Route path="/videos/new" component={VideoUploadFormContainer} onEnter={_ensureLoggedIn}/>
         </Route>
       </Router>

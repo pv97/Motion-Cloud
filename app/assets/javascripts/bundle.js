@@ -21525,7 +21525,6 @@
 	      _react2.default.createElement(
 	        _reactRouter.Route,
 	        { path: '/', component: _app2.default },
-	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _video_index_container2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: '/videos/new', component: _video_upload_form_container2.default, onEnter: _ensureLoggedIn })
 	      )
 	    )
@@ -72585,6 +72584,9 @@
 	    value: function componentWillMount() {
 	      this.props.fetchVideos();
 	    }
+	  }, {
+	    key: 'getVideos',
+	    value: function getVideos() {}
 	  }, {
 	    key: 'render',
 	    value: function render() {
