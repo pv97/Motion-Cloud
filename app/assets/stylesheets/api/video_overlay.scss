@@ -100,10 +100,20 @@
       box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
     }
 
-    .minimize-button{
-      width:50px;
-      min-width: 50px !important;
-      float:right;
+    .player-buttons{
+      display:flex;
+      justify-content: flex-end;
+      margin:16px 16px 0 16px;
+      .minimize-button, .close-button{
+        display:block;
+        float:right !important;
+        min-width: 25 !important;
+        height: 25 !important;
+        span{
+          padding-left: 0 !important;
+          padding-right: 0 !important;
+        }
+      }
     }
 
     .video-player{

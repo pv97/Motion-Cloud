@@ -67845,7 +67845,14 @@
 								_react2.default.createElement(
 									'div',
 									{ className: this.videoBoxClass() },
-									_react2.default.createElement(_materialUi.RaisedButton, { className: 'minimize-button', secondary: true, label: '-' }),
+									_react2.default.createElement(
+										'div',
+										{ className: 'player-buttons' },
+										_react2.default.createElement(_materialUi.RaisedButton, { className: 'minimize-button', primary: true, label: '-',
+											style: { width: 25, minWidth: 25, height: 25 } }),
+										_react2.default.createElement(_materialUi.RaisedButton, { className: 'minimize-button', secondary: true, label: 'x',
+											style: { width: 25, minWidth: 25, height: 25 } })
+									),
 									_react2.default.createElement(_reactPlayer2.default, { className: 'video-player', url: video.url,
 										height: 432,
 										width: 768,

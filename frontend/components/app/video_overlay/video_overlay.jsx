@@ -89,7 +89,12 @@ class VideoOverlay extends React.Component {
 							</div>
 
 							<div className={this.videoBoxClass()}>
-								<RaisedButton className="minimize-button" secondary={true} label="-"></RaisedButton>
+								<div className="player-buttons">
+									<RaisedButton className="minimize-button" primary={true} label="-"
+										style={{width:25,minWidth:25,height:25}}></RaisedButton>
+									<RaisedButton className="minimize-button" secondary={true} label="x"
+										style={{width:25,minWidth:25,height:25}}></RaisedButton>
+								</div>
 								<ReactPlayer className="video-player" url={video.url}
 									height={432}
 									width={768}
