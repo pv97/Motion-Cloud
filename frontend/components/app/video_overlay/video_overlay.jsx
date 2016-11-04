@@ -65,9 +65,9 @@ class VideoOverlay extends React.Component {
 		if (video) {
 			if (this.state.minimized){
 				return (
-					<ReactPlayer className="video-player" url={video.url}
-						height={2000}
-						width={1125}
+					<ReactPlayer className="video-player-mini" url={video.url}
+						height={640}
+						width={360}
 						playing controls/>
 				)
 			} else {
@@ -89,15 +89,18 @@ class VideoOverlay extends React.Component {
 							</div>
 
 							<div className={this.videoBoxClass()}>
+								<RaisedButton className="minimize-button" secondary={true} label="-"></RaisedButton>
 								<ReactPlayer className="video-player" url={video.url}
 									height={432}
 									width={768}
 									playing controls/>
 								<div className="video-details">
 									<div className="video-title">{video.title}</div>
-									<div className="video-view-count">Views: {video.view_count}</div>
+									<div className="video-user-view-details">
+										<div className="video-user-username">Uploaded by {video.user.username}</div>
+										<div className="video-view-count">{video.view_count} Views</div>
+									</div>
 									<div className="video-description">{video.description}</div>
-									<div className="video-user-username">Uploaded by: {video.user.username}</div>
 								</div>
 							</div>
 						</div>

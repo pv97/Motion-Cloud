@@ -23,8 +23,8 @@ class VideoIndexItem extends React.Component {
           <p className="video-index-item-title"  onClick={this.handleClick}>{video.title}</p>
           <p className="video-index-item-user">{video.user.username}</p>
 
-          <div className="video-index-sub-details">
-            <p className="video-index-view-count">Views: {video.view_count}</p>
+          <div className="video-index-view-age-detail">
+            <p className="video-index-view-count">{video.view_count} Views</p>
             <p className="video-index-age">{video.age}</p>
           </div>
         </div>

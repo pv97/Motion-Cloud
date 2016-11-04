@@ -67808,9 +67808,9 @@
 				var style = { "object-fit": "fill" };
 				if (video) {
 					if (this.state.minimized) {
-						return _react2.default.createElement(_reactPlayer2.default, { className: 'video-player', url: video.url,
-							height: 2000,
-							width: 1125,
+						return _react2.default.createElement(_reactPlayer2.default, { className: 'video-player-mini', url: video.url,
+							height: 640,
+							width: 360,
 							playing: true, controls: true });
 					} else {
 						return _react2.default.createElement(
@@ -67845,6 +67845,7 @@
 								_react2.default.createElement(
 									'div',
 									{ className: this.videoBoxClass() },
+									_react2.default.createElement(_materialUi.RaisedButton, { className: 'minimize-button', secondary: true, label: '-' }),
 									_react2.default.createElement(_reactPlayer2.default, { className: 'video-player', url: video.url,
 										height: 432,
 										width: 768,
@@ -67859,20 +67860,24 @@
 										),
 										_react2.default.createElement(
 											'div',
-											{ className: 'video-view-count' },
-											'Views: ',
-											video.view_count
+											{ className: 'video-user-view-details' },
+											_react2.default.createElement(
+												'div',
+												{ className: 'video-user-username' },
+												'Uploaded by ',
+												video.user.username
+											),
+											_react2.default.createElement(
+												'div',
+												{ className: 'video-view-count' },
+												video.view_count,
+												' Views'
+											)
 										),
 										_react2.default.createElement(
 											'div',
 											{ className: 'video-description' },
 											video.description
-										),
-										_react2.default.createElement(
-											'div',
-											{ className: 'video-user-username' },
-											'Uploaded by: ',
-											video.user.username
 										)
 									)
 								)
@@ -73590,12 +73595,12 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'video-index-sub-details' },
+	            { className: 'video-index-view-age-detail' },
 	            _react2.default.createElement(
 	              'p',
 	              { className: 'video-index-view-count' },
-	              'Views: ',
-	              video.view_count
+	              video.view_count,
+	              ' Views'
 	            ),
 	            _react2.default.createElement(
 	              'p',
