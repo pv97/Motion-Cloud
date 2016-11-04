@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, withRouter } from 'react-router';
 import merge from 'lodash/merge'
 import { RaisedButton, TextField } from 'material-ui';
+import theme from './upload_widget_theme'
 
 class VideoUploadForm extends React.Component {
 	constructor(props) {
@@ -25,12 +26,7 @@ class VideoUploadForm extends React.Component {
 			merge(
 				{},window.CLOUDINARY_OPTIONS,
 				{
-					theme:'minimal',
-					stylesheet:`
-						.widget .powered_by_cloudinary.active {
-	    				display: none;
-						}
-					`,
+					stylesheet:theme,
 					inline_container:'.upload-widget'}
 			),
 			(error, results) => {
