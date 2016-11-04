@@ -6,6 +6,7 @@ class CreateVideos < ActiveRecord::Migration
       t.text :description
       t.string :url, null:false
       t.string :thumbnail_url
+      t.integer :view_count, :default => 0
 
       t.timestamps null: false
     end
