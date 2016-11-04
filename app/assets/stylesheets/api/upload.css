@@ -1,0 +1,19 @@
+
+.video-upload-form-container{
+  display:flex;
+  flex:1;
+  justify-content: center;
+}
+.upload-form-box{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width:800px;
+  flex:1;
+  padding: 40px;
+  margin: 10px auto;
+}
+
+.upload-video-title{
+  margin:0 auto;
+}

@@ -104,6 +104,13 @@ class SessionForm extends React.Component {
 		}
 	}
 
+	mainError(){
+		if(this.props.errors.main){
+			return <div className="main-session-error">{this.props.errors.main}</div>
+		}
+		return <div><br/><br/></div>
+	}
+
 	render() {
 		if(this.props.loggedIn){
 			return (<div className="display-none"></div>)
@@ -127,12 +134,11 @@ class SessionForm extends React.Component {
 						{this.navButton()}
 					</div>
 					<form onSubmit={this.handleSubmit} className="sesion-form-box">
-<br/>
 						<div className="login-title">
 							{this.state.formType}
 						</div>
-<br/>
-						{this.props.errors.main}
+						<br/>
+						{this.mainError()}
 						<div className="session-form">
 							<TextField
 								id="username-input"
@@ -141,7 +147,6 @@ class SessionForm extends React.Component {
 								errorText={this.usernameError()}
 								value={this.state.username}
 								onChange={this.update("username")}/>
-<br/>
 							<TextField
 								id="password-input"
       					floatingLabelText="Password"
@@ -151,7 +156,7 @@ class SessionForm extends React.Component {
 								type="password"
 								onChange={this.update("password")}/>
 						</div>
-<br/>
+						<br/>
 					<div className="session-form-button-box">
 						<RaisedButton
 							label="Submit"
@@ -163,7 +168,6 @@ class SessionForm extends React.Component {
 							secondary={true}
 							onClick={this.guestLogin}/>
 					</div>
-<br/>
 					</form>
 				</Popover>
 			</div>

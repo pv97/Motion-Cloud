@@ -26,6 +26,7 @@
   box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px !important;
   align-items: center !important;
   width: 100% !important;
+  min-width: 700px !important;
   padding: 0px 40px !important;
   background-color: #fff !important;
   height:55px !important;
@@ -33,10 +34,17 @@
   position:fixed !important;
 }
 
+.page-boundary{
+  display:flex;
+  justify-content: center;
+  flex:1;
+}
 .page-content{
   display:flex;
   justify-content: center;
   flex:1;
+  margin: 0 25px;
+  box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
 }
 
 #motion-cloud-logo{

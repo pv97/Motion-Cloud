@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, withRouter } from 'react-router';
 import merge from 'lodash/merge'
 import { RaisedButton, TextField } from 'material-ui';
+import theme from './upload_widget_theme'
 
 class VideoUploadForm extends React.Component {
 	constructor(props) {
@@ -24,7 +25,9 @@ class VideoUploadForm extends React.Component {
 		this.uploadWidget = cloudinary.createUploadWidget(
 			merge(
 				{},window.CLOUDINARY_OPTIONS,
-				{theme:'minimal',inline_container:'.upload-widget'}
+				{theme:'minimal',
+					stylesheet:theme,
+					inline_container:'.upload-widget'}
 			),
 			(error, results) => {
 				if(!error){
@@ -32,7 +35,8 @@ class VideoUploadForm extends React.Component {
 					this.setState({
 						url: results[0].url,
 						thumbnail_url: results[0].thumbnail_url,
-						uploadSuccess:"Successfully uploaded!"
+						uploadSuccess:"Successfully uploaded!",
+
 					});
 					console.log(this.state);
 				}
@@ -93,31 +97,26 @@ class VideoUploadForm extends React.Component {
 	render() {
 		return (
 			<div className="video-upload-form-container">
-				<h1>Upload a Video</h1>
-<br/>
 					<form onSubmit={this.handleSubmit} className="upload-form-box">
-<br/>
-						<div className="video-upload-form">
-							{this.urlError()}
-<br/>
-							<TextField type="text"
-								value={this.state.title}
-								onChange={this.update("title")}
-								errorText={this.titleError()}
-    						floatingLabelText="Title"
-								fullWidth/>
-<br/>
-							<TextField
-								value={this.state.description}
-								onChange={this.update("description")}
-    						floatingLabelText="Description"
-								fullWidth/>
-							<div className = 'upload-box'>
-								{this.renderUploadBox()}
-							</div>
-<br/>
-							<RaisedButton value="Submit" primary={true} label="Upload Video" onClick={this.handleSubmit} />
+						<h1 className="upload-video-title">Upload a Video</h1>
+						{this.urlError()}
+						<TextField type="text"
+							value={this.state.title}
+							onChange={this.update("title")}
+							errorText={this.titleError()}
+  						floatingLabelText="Title"
+							fullWidth/>
+						<TextField
+							value={this.state.description}
+							onChange={this.update("description")}
+  						floatingLabelText="Description"
+							fullWidth/>
+						<div className = 'upload-box'>
+							{this.renderUploadBox()}
 						</div>
+<br/>
+						<RaisedButton value="Submit" primary={true} label="Upload Video" onClick={this.handleSubmit} />
+					</form>
 <br/>
 	<br/>
 		<br/>
@@ -145,7 +144,6 @@ class VideoUploadForm extends React.Component {
 																								<br/>
 																									<br/>
 
-					</form>
 			</div>
 		);
 	}

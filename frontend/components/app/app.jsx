@@ -39,9 +39,10 @@ class App extends React.Component {
 
           <section className="main-section">
             <VideoOverlayContainer/>
-
-            <div className="page-content">
-              {this.props.children}
+            <div className="page-boundary">
+              <div className="page-content">
+                {this.props.children}
+              </div>
             </div>
           </section>
         </div>
