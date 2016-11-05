@@ -19,14 +19,7 @@
       user_id: 1,
       video_id: 1,
       likes: 1,
-      dislikes: 1,
-      comments: {
-        user_id: 1,
-        video_id: 1,
-        body: "Sample"
-        likes: 1,
-        dislikes: 1
-      }
+      dislikes: 1
     },
     errors:{}
     }
@@ -43,17 +36,15 @@
         video_id: 1,
         likes: 1,
         dislikes: 1,
-        comments: {
-            user_id: 1,
-            video_id: 1,
-            body: "Sample"
-            likes: 1,
-            dislikes: 1
-          }
         }
       }
     }
   },
+  comments:{
+    user_id: 1,
+    video_id: 1,
+    
+  }
   commentForm: {
     body: "",
     errors:{}
