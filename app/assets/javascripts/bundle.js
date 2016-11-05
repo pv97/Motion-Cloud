@@ -67802,6 +67802,11 @@
 				this.setState({ clickToShowComment: opposite });
 			}
 		}, {
+			key: 'closeVideoBox',
+			value: function closeVideoBox() {
+				this.props.router.push({ pathname: "/videos/new", query: this.props.query });
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				var video = this.props.videos[this.props.query.id];
@@ -67848,10 +67853,24 @@
 									_react2.default.createElement(
 										'div',
 										{ className: 'player-buttons' },
-										_react2.default.createElement(_materialUi.RaisedButton, { className: 'minimize-button', primary: true, label: '-',
-											style: { width: 25, minWidth: 25, height: 25 } }),
-										_react2.default.createElement(_materialUi.RaisedButton, { className: 'minimize-button', secondary: true, label: 'x',
-											style: { width: 25, minWidth: 25, height: 25 } })
+										_react2.default.createElement(
+											_materialUi.IconButton,
+											{ tooltip: 'Minimize', className: 'minimize-button' },
+											_react2.default.createElement(
+												_materialUi.FontIcon,
+												{ className: 'material-icons', color: "#fff", tooltipPosition: 'top-center' },
+												'expand_more'
+											)
+										),
+										_react2.default.createElement(
+											_materialUi.IconButton,
+											{ tooltip: 'Close', className: 'close-button' },
+											_react2.default.createElement(
+												_materialUi.FontIcon,
+												{ className: 'material-icons', color: "#fff", tooltipPosition: 'top-center' },
+												'clear'
+											)
+										)
 									),
 									_react2.default.createElement(_reactPlayer2.default, { className: 'video-player', url: video.url,
 										height: 432,

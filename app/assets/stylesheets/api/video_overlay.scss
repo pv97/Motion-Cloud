@@ -104,15 +104,20 @@
       display:flex;
       justify-content: flex-end;
       margin:16px 16px 0 16px;
-      .minimize-button, .close-button{
-        display:block;
-        float:right !important;
-        min-width: 25 !important;
-        height: 25 !important;
-        span{
-          padding-left: 0 !important;
-          padding-right: 0 !important;
-        }
+      .minimize-button{
+        padding:0 !important;
+        height: 26px !important;
+        width: 26px !important;
+        border-radius: 2px;
+        background: #00BCD4 !important;
+      }
+      .close-button{
+        padding:0 !important;
+        height: 26px !important;
+        width: 26px !important;
+        border-radius: 2px;
+        margin-left: 4px!important;
+        background: #FF4081 !important;
       }
     }
 

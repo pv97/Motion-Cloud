@@ -1,7 +1,7 @@
 import { withRouter } from 'react-router';
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player';
-import { RaisedButton } from 'material-ui';
+import { FontIcon, IconButton } from 'material-ui';
 
 class VideoOverlay extends React.Component {
 	constructor(props) {
@@ -59,6 +59,10 @@ class VideoOverlay extends React.Component {
 		this.setState({clickToShowComment:opposite})
 	}
 
+	closeVideoBox(){
+		this.props.router.push({pathname:"/videos/new",query:this.props.query});
+	}
+
 	render() {
 		let video = this.props.videos[this.props.query.id];
 		let style = {"object-fit":"fill"}
@@ -90,10 +94,12 @@ class VideoOverlay extends React.Component {
 
 							<div className={this.videoBoxClass()}>
 								<div className="player-buttons">
-									<RaisedButton className="minimize-button" primary={true} label="-"
-										style={{width:25,minWidth:25,height:25}}></RaisedButton>
-									<RaisedButton className="minimize-button" secondary={true} label="x"
-										style={{width:25,minWidth:25,height:25}}></RaisedButton>
+									<IconButton tooltip="Minimize" className="minimize-button">
+										<FontIcon className="material-icons" color={"#fff"} tooltipPosition="top-center">expand_more</FontIcon>
+									</IconButton>
+									<IconButton tooltip="Close" className="close-button">
+										<FontIcon className="material-icons" color={"#fff"} tooltipPosition="top-center">clear</FontIcon>
+									</IconButton>
 								</div>
 								<ReactPlayer className="video-player" url={video.url}
 									height={432}
