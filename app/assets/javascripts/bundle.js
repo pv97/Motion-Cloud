@@ -67953,10 +67953,26 @@
 											)
 										)
 									),
-									_react2.default.createElement(_reactPlayer2.default, { className: 'video-player', url: video.url,
-										height: 432,
-										width: 768,
-										playing: true, controls: true }),
+									_react2.default.createElement(
+										'div',
+										{ className: 'margin-wrapper' },
+										_react2.default.createElement(
+											'div',
+											{ className: 'ratio-wrapper' },
+											_react2.default.createElement(
+												'div',
+												{ className: 'center-wrapper' },
+												_react2.default.createElement(
+													'div',
+													{ className: 'height-wrapper' },
+													_react2.default.createElement(_reactPlayer2.default, { className: 'video-player', url: video.url,
+														height: "inherit",
+														width: "inherit",
+														playing: true, controls: true })
+												)
+											)
+										)
+									),
 									_react2.default.createElement(
 										'div',
 										{ className: 'video-details' },

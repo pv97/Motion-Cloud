@@ -59,7 +59,6 @@
       .show-comment-button{
         display:flex;
         width:50px;
-        background: yellow;
         align-content: center;
         text-align: center;
         background-color: rgb(0, 188, 212); /* changes to rgb(255, 64, 129) */
@@ -70,7 +69,6 @@
       .hide-comment-button{
         display:flex;
         width:50px;
-        background: yellow;
         align-content: center;
         text-align: center;
         background-color: rgb(255, 64, 129); /* changes to rgb(0, 188, 212) */
@@ -145,37 +143,48 @@
       }
     }
 
-    // .margin-wrapper{
-    //   border-radius: 2px;
-    //   box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
-    //   margin:16px;
-    //
-    //   .ratio-wrapper {
-    //     padding-bottom: 56.25%; /* 16:9 */
-    //     position: relative;
-    //     align-items: center;
-    //     align-text:center;
-    //     display:block;
-    //     padding-bottom: 56%;
-    //     border-radius: 2px;
-    //
-    //     .video-player{
-    //       border-radius: 2px;
-    //       align-items: center;
-    //       align-text:center;
-    //       position: absolute;
-    //     }
-    //   }
-    // }
+    .margin-wrapper{
+      border-radius: 2px;
+      box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+      margin:16px;
 
-        .video-player{
+      .ratio-wrapper {
+        padding-bottom: 56.25%; /* 16:9 */
+        position: relative;
+        align-items: center;
+        align-text:center;
+        display:block;
+        padding-bottom: 56%;
+        border-radius: 2px;
+
+        .center-wrapper{
           border-radius: 2px;
-          border-radius: 2px;
-          box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
-          margin:16px auto;
-          background-color: black;
+          position: absolute;
+          display:flex;
+          justify-content: center;
+          align-items: center;
+          height:100%;
           width:100%;
+          background-color: black;
+
+          .height-wrapper{
+            height:100%;
+            .video-player{
+              display:flex;
+            }
+          }
+
         }
+      }
+    }
+
+        // .video-player{
+        //   border-radius: 2px;
+        //   border-radius: 2px;
+        //   box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+        //   margin:16px auto;
+        //   background-color: black;
+        // }
 
     .video-details{
       margin: 0 16px;
