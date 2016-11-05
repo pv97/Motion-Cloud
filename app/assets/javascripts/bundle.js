@@ -67953,18 +67953,10 @@
 											)
 										)
 									),
-									_react2.default.createElement(
-										'div',
-										{ className: 'margin-wrapper' },
-										_react2.default.createElement(
-											'div',
-											{ className: 'ratio-wrapper' },
-											_react2.default.createElement(_reactPlayer2.default, { className: 'video-player', url: video.url,
-												height: "inherit",
-												width: "inherit",
-												playing: true, controls: true })
-										)
-									),
+									_react2.default.createElement(_reactPlayer2.default, { className: 'video-player', url: video.url,
+										height: 432,
+										width: 768,
+										playing: true, controls: true }),
 									_react2.default.createElement(
 										'div',
 										{ className: 'video-details' },
@@ -72844,34 +72836,38 @@
 	      var video = this.props.video;
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'video-index-item' },
-	        _react2.default.createElement('img', { className: 'video-index-item-picture', src: video.thumbnail_url, onClick: this.handleClick }),
+	        { className: 'video-index-item-margin' },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'video-index-item-detail' },
-	          _react2.default.createElement(
-	            'p',
-	            { className: 'video-index-item-title', onClick: this.handleClick },
-	            video.title
-	          ),
-	          _react2.default.createElement(
-	            'p',
-	            { className: 'video-index-item-user' },
-	            video.user.username
-	          ),
+	          { className: 'video-index-item' },
+	          _react2.default.createElement('img', { className: 'video-index-item-picture', src: video.thumbnail_url, onClick: this.handleClick }),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'video-index-view-age-detail' },
+	            { className: 'video-index-item-detail' },
 	            _react2.default.createElement(
 	              'p',
-	              { className: 'video-index-view-count' },
-	              video.view_count,
-	              ' Views'
+	              { className: 'video-index-item-title', onClick: this.handleClick },
+	              video.title
 	            ),
 	            _react2.default.createElement(
 	              'p',
-	              { className: 'video-index-age' },
-	              video.age
+	              { className: 'video-index-item-user' },
+	              video.user.username
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'video-index-view-age-detail' },
+	              _react2.default.createElement(
+	                'p',
+	                { className: 'video-index-view-count' },
+	                video.view_count,
+	                ' Views'
+	              ),
+	              _react2.default.createElement(
+	                'p',
+	                { className: 'video-index-age' },
+	                video.age
+	              )
 	            )
 	          )
 	        )

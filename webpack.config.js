@@ -22,5 +22,8 @@ module.exports = {
   devtool: 'source-maps',
   resolve: {
     extensions: ["", ".js", ".jsx" ]
+  },
+  "process.env": {
+    NODE_ENV: JSON.stringify("production")
   }
 };

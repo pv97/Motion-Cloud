@@ -17,6 +17,7 @@ class VideoIndexItem extends React.Component {
   render() {
     let video = this.props.video;
     return (
+      <div className="video-index-item-margin">    
       <div className="video-index-item">
         <img className="video-index-item-picture"src={video.thumbnail_url}  onClick={this.handleClick}/>
         <div className="video-index-item-detail">
@@ -29,6 +30,7 @@ class VideoIndexItem extends React.Component {
           </div>
         </div>
       </div>
+    </div>
     );
   }
 }

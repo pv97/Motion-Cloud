@@ -136,14 +136,11 @@ class VideoOverlay extends React.Component {
 									</IconButton>
 								</div>
 
-								<div className="margin-wrapper">
-									<div className="ratio-wrapper">
 										<ReactPlayer className="video-player" url={video.url}
-											height={"inherit"}
-											width={"inherit"}
+											height={432}
+											width={768}
 											playing controls/>
-									</div>
-								</div>
+
 
 								<div className="video-details">
 									<div className="video-title">{video.title}</div>
