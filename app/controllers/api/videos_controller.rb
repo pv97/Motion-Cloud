@@ -21,7 +21,7 @@ class Api::VideosController < ApplicationController
     # ["v1478141038", "fjbplm92cb48efhlqcss.jpg"]
     split_url3 = split_url2.join("/")
     # "v1478141038/fjbplm92cb48efhlqcss.jpg"
-    return "#{split_url[0]}/upload/c_crop,w_200,h_130/#{split_url3}"
+    return "#{split_url[0]}/upload/w_200,h_130/#{split_url3}"
   end
 
   def create
