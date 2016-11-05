@@ -11,6 +11,8 @@ class VideoOverlay extends React.Component {
 			minimized:false
 		}
 		this.slideVideoBox = this.slideVideoBox.bind(this);
+		this.closeVideoBox = this.closeVideoBox.bind(this);
+		this.toggleMini = this.toggleMini.bind(this);
 	}
 
 	componentDidMount(){
@@ -25,9 +27,7 @@ class VideoOverlay extends React.Component {
 
 	setVideoQuery(){
 		let videoId = this.props.location.query.id;
-		if (videoId){
-			this.props.setQuery(videoId);
-		}
+		this.props.setQuery(videoId);
 	}
 
 	buttonClass(){
@@ -60,51 +60,91 @@ class VideoOverlay extends React.Component {
 	}
 
 	closeVideoBox(){
-		this.props.router.push({pathname:"/videos/new",query:this.props.query});
+		let pathname = this.props.location.pathname
+		this.props.router.replace({pathname,query:{}})
+	}
+
+	toggleMini(){
+		let opposite = this.state.minimized ? false : true;
+		this.setState({minimized:opposite})
 	}
 
 	render() {
 		let video = this.props.videos[this.props.query.id];
-		let style = {"object-fit":"fill"}
 		if (video) {
 			if (this.state.minimized){
+
 				return (
-					<ReactPlayer className="video-player-mini" url={video.url}
-						height={640}
-						width={360}
-						playing controls/>
+					<div className="video-player-mini-box">
+
+						<div className="player-buttons">
+							<IconButton tooltip="Expand"
+								className="expand-button"
+								onClick={this.toggleMini}>
+								<FontIcon className="material-icons" color={"#fff"}
+									>expand_more</FontIcon>
+							</IconButton>
+							<IconButton tooltip="Close"
+								className="close-button"
+								onClick={this.closeVideoBox}>
+								<FontIcon className="material-icons" color={"#fff"}
+									>clear</FontIcon>
+							</IconButton>
+						</div>
+
+						<ReactPlayer className="video-player-mini" url={video.url}
+							height={180}
+							width={320}
+							playing controls/>
+					</div>
 				)
+
 			} else {
 				return(
 					<div className="video-dummy">
-
 						<div className="video-overlay">
 
 							<div className="comment-overlay">
+
 								<div className={this.buttonClass()} onClick={this.slideVideoBox}>
 									<div className="comment-button-text"
 										>{this.buttonText()}</div>
 								</div>
+
 								<div className="comment-index">
 									<p>
 										Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment
 									</p>
 								</div>
+
 							</div>
 
 							<div className={this.videoBoxClass()}>
+
 								<div className="player-buttons">
-									<IconButton tooltip="Minimize" className="minimize-button">
-										<FontIcon className="material-icons" color={"#fff"} tooltipPosition="top-center">expand_more</FontIcon>
+									<IconButton tooltip="Collapse"
+										className="collapse-button"
+										onClick={this.toggleMini}>
+										<FontIcon className="material-icons" color={"#fff"}
+											>expand_more</FontIcon>
 									</IconButton>
-									<IconButton tooltip="Close" className="close-button">
-										<FontIcon className="material-icons" color={"#fff"} tooltipPosition="top-center">clear</FontIcon>
+									<IconButton tooltip="Close"
+										className="close-button"
+										onClick={this.closeVideoBox}>
+										<FontIcon className="material-icons" color={"#fff"}
+											>clear</FontIcon>
 									</IconButton>
 								</div>
-								<ReactPlayer className="video-player" url={video.url}
-									height={432}
-									width={768}
-									playing controls/>
+
+								<div className="margin-wrapper">
+									<div className="ratio-wrapper">
+										<ReactPlayer className="video-player" url={video.url}
+											height={"inherit"}
+											width={"inherit"}
+											playing controls/>
+									</div>
+								</div>
+
 								<div className="video-details">
 									<div className="video-title">{video.title}</div>
 									<div className="video-user-view-details">
@@ -113,6 +153,7 @@ class VideoOverlay extends React.Component {
 									</div>
 									<div className="video-description">{video.description}</div>
 								</div>
+
 							</div>
 						</div>
 					</div>
