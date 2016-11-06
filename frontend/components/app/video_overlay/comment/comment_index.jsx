@@ -17,15 +17,13 @@ class CommentIndex extends React.Component {
 
     if(comments){
       return(
-        <div className="comment-index-container">
-          <ul className="comment-list">
-            {comments.map(comment => (
-              <CommentIndexItem comment={comment}
-                key={comment.id}
-                childComments={comment.child_comments}/>
-            ))}
-          </ul>
-        </div>
+        <ul className="comment-index-container">
+          {comments.map(comment => (
+            <CommentIndexItem comment={comment}
+              key={comment.id}
+              childComments={comment.child_comments}/>
+          ))}
+        </ul>
       )
     } else {
       return(

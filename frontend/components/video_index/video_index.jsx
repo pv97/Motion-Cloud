@@ -27,7 +27,7 @@ class VideoIndex extends React.Component {
           <h1 className="video-index-title">Trending Videos</h1>
           <div className="video-list">
             {videos.map(video => (
-              <VideoIndexItem video={video} key={video.id} setQuery={this.props.setQuery}/>
+              <VideoIndexItem video={video} key={video.id}/>
             ))}
           </div>
         </div>

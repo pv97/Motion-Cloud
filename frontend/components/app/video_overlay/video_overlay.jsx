@@ -84,7 +84,7 @@ class VideoOverlay extends React.Component {
 								tooltipPosition="top-center"
 								onClick={this.toggleMini}>
 								<FontIcon className="material-icons" color={"#fff"}
-									>expand_more</FontIcon>
+									>expand_less</FontIcon>
 							</IconButton>
 							<IconButton tooltip="Close"
 								className="close-button"
@@ -155,7 +155,7 @@ class VideoOverlay extends React.Component {
 								<div className="video-details">
 									<div className="video-title">{video.title}</div>
 									<div className="video-user-view-details">
-										<div className="video-user-username">Uploaded by {video.user.username}</div>
+										<div className="video-user-username">Uploaded by {video.user}</div>
 										<div className="video-view-count">{video.view_count} Views</div>
 									</div>
 									<div className="video-description">{video.description}</div>

@@ -26,21 +26,26 @@ class CommentIndexItem extends React.Component {
   render() {
 
     return(
-      <li className="comment-index-container">
-        <div className="comment-details"></div>
-          <div className="comment-user">
-            {this.props.comment.user.username}
+      <li className="parent-comment-container">
+        <div className="parent-comment">
+          <div className="parent-comment-details">
+            <div className="parent-comment-user">
+              {this.props.comment.user}
+            </div>
+            <div className="parent-comment-time-ago">
+              {this.props.comment.age}
+            </div>
           </div>
-          <div className="comment-time-ago">
-            {this.props.comment.age}
+
+          <div className="parent-comment-body">
+            {this.props.comment.body}
           </div>
-        <div className="comment-body">
-          {this.props.comment.body}
         </div>
 
-        {this.getChildComments()}
       </li>
     )
   }
 }
 export default withRouter(CommentIndexItem);
+
+// {this.getChildComments()}

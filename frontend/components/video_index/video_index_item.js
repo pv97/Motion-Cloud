@@ -22,7 +22,7 @@ class VideoIndexItem extends React.Component {
       <div className="video-index-item">
         <img className="video-index-item-picture"src={video.thumbnail_url}  onClick={this.handleClick}>
         </img>
-        
+
         <button className="play-icon-box" onClick={this.handleClick}>
           <FontIcon className="material-icons" color={"#fff"} style={{fontSize:70}}
             >play_circle_outline</FontIcon>
@@ -30,7 +30,7 @@ class VideoIndexItem extends React.Component {
 
         <div className="video-index-item-detail">
           <p className="video-index-item-title"  onClick={this.handleClick}>{video.title}</p>
-          <p className="video-index-item-user">{video.user.username}</p>
+          <p className="video-index-item-user">{video.user}</p>
 
           <div className="video-index-view-age-detail">
             <p className="video-index-view-count">{video.view_count} Views</p>
