@@ -30,29 +30,42 @@
         background: #fff;
         box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
 
-        .video-index-item-picture{
-          width:200px;
-          height:150px;
-          height:auto;
-          border-radius: 2px;
-          box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
-        }
+
         .play-icon-box{
-          position:absolute;
           justify-content: center;
           align-items: center;
-          background:none;
-          height:130px;
+          background:black;
           width:200px;
+          height: 130px;
           border:none;
-          span{
-            opacity: 0 !important;
-            visibility: hidden !important;
+          padding:0;
+          margin:0;
+          box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+          border-radius: 2px;
+
+          .video-index-item-picture{
+            width:200px;
+            height:130px;
+          }
+          .zero-height{
+            height:0;
+            .center-icon{
+              display:flex;
+              justify-content: center;
+              align-items: center;
+              height:130px;
+              width:200px;
+              span{
+                opacity: 0;
+                visibility: hidden;
+              }
+            }
           }
         }
-        .play-icon-box:hover span{
-          opacity: 0.70 !important;
-          visibility: visible !important;
+
+        .play-icon-box:hover .zero-height .center-icon span{
+          opacity: 0.70;
+          visibility: visible;
         }
 
         .play-icon-box:active span{

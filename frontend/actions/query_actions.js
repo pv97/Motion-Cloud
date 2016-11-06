@@ -1,6 +1,7 @@
-export const SET_QUERY = "SET_QUERY";
+export const SET_VIDEO_QUERY = "SET_VIDEO_QUERY";
 
-export const setQuery = (query) => ({
-  type: SET_QUERY,
-  query
+export const setVideoQuery = (id, c) => ({
+  type: SET_VIDEO_QUERY,
+  id,
+  c
 })

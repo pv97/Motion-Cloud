@@ -9,6 +9,7 @@ User.create!({username:"Guest",password:"password"})
 User.create!({username:"Kurzgesagt",password:"password"})
 
 
+
 Video.create!({
   url:"http://res.cloudinary.com/tlcoy4e3/video/upload/v1478141038/fjbplm92cb48efhlqcss.webm",
   thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_200,h_130/v1478141038/fjbplm92cb48efhlqcss.jpg",

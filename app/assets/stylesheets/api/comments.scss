@@ -1,3 +1,50 @@
 // Place all the styles related to the api/Comments controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.comment-index{
+  padding: 10px;
+  margin:5px;
+  flex:1;
+  word-wrap: normal;
+  overflow-y: scroll;
+
+  .parent-comment{
+    border-radius:5px;
+    padding: 10px;
+    background-color: #fff;
+    margin-bottom: 10px;
+
+    .parent-comment-details{
+      display:flex;
+      justify-content: space-between;
+      padding: 3px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.117647); //line below
+    }
+    .parent-comment-body{
+      padding: 0 6px;
+    }
+
+  }
+  .child-comment-index{
+    padding-left: 40px;
+    .child-comment-container{
+      border-radius:5px;
+      padding: 10px;
+      background-color: #fff;
+      margin-bottom: 10px;
+
+      .child-comment-details{
+        display:flex;
+        justify-content: space-between;
+        padding: 3px;
+        margin-bottom: 10px;
+        box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.117647); //line below
+      }
+      .child-comment-body{
+        padding: 0 6px;
+      }
+    }
+
+  }
+}

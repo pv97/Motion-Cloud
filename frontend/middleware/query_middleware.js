@@ -1,5 +1,5 @@
 // actions
-import { SET_QUERY } from '../actions/query_actions';
+import { SET_VIDEO_QUERY } from '../actions/query_actions';
 import { receiveVideo } from '../actions/video_actions';
 import { receiveAllComments } from '../actions/comment_actions';
 
@@ -11,12 +11,12 @@ export default ({getState, dispatch}) => next => action => {
   const receiveVideoSuccess = video => dispatch(receiveVideo(video));
   const receiveCommentsSuccess = comments => dispatch(receiveAllComments(comments));
   const errorCallback = xhr => console.log(xhr);
-
+  
   switch(action.type){
-    case SET_QUERY:
-      if (action.query){
-        fetchVideo(action.query, receiveVideoSuccess, errorCallback);
-        fetchComments(action.query, receiveCommentsSuccess, errorCallback);
+    case SET_VIDEO_QUERY:
+      if (action.id){
+        fetchVideo(action.id, receiveVideoSuccess, errorCallback);
+        fetchComments(action.id, receiveCommentsSuccess, errorCallback);
       }
       return next(action);
 

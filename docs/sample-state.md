@@ -5,13 +5,19 @@
     username: "app-academy",
     errors:{}
   },
+  query: {
+    id: 1,
+    c:true
+  },
   authForm: {
+    id: 1,
     username: "username",
     password: "password",
     errors: {}
   },
   videos: {
     1: {
+      id: 1,
       title: "Sample Video",
       url: "https://www.cloudinary.com"
       thumbnail_url: "https://www.cloudinary.com"
@@ -28,6 +34,7 @@
     username: "username",
     videoIndex: {
       1: {
+        id: 1,
         title: "Sample Video",
         url: "https://www.cloudinary.com"
         thumbnail_url: "https://www.cloudinary.com"
@@ -40,6 +47,7 @@
     },
     commentIndex: {
       1:{
+        id: 1,
         user_id: 1,
         video_id: 1,
         parent_comment_id:-1,
@@ -49,16 +57,20 @@
   },
   comments:{
     1:{
+      id: 1,
       user_id: 1,
       video_id: 1,
       parent_comment_id:-1,
       body:""
-    }
-    2:{
-      user_id: 1,
-      video_id: 1,
-      parent_comment_id:1,
-      body:""
+      childComments:[
+        {     
+          id: 2
+          user_id: 1,
+          video_id: 1,
+          parent_comment_id:1,
+          body:""
+        }
+      ]
     }
   }
   commentForm: {

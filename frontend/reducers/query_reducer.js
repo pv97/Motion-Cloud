@@ -1,11 +1,11 @@
-import { SET_QUERY } from '../actions/query_actions';
+import { SET_VIDEO_QUERY } from '../actions/query_actions';
 import merge from 'lodash/merge';
 
 const QueryReducer = (oldState = {}, action) => {
 
   switch (action.type) {
-    case SET_QUERY:
-      return merge({}, {id:action.query});
+    case SET_VIDEO_QUERY:
+      return merge({}, {id:action.id,c:action.c});
 
     default:
       return oldState;

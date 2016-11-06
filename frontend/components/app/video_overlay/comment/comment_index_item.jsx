@@ -5,17 +5,17 @@ import { withRouter } from 'react-router';
 class CommentIndexItem extends React.Component {
 
   getChildComments(){
-    let childComments = [];
-    Object.keys(this.props.childComments).map((key)=>{
-      childComments.push(
-          <CommentIndexItemChild comment={this.props.childComments[key]}
-            key={comment.id}/>
-        );
-    })
+    let childComments = this.props.childComments
     if(childComments.length>0){
+
       return (
-        <ul className="child-comment-list">
-          {childComments}
+        <ul className="child-comment-index">
+          {
+            childComments.map(comment => (
+              <CommentIndexItemChild comment={comment}
+                key={comment.id}/>
+            ))
+          }
         </ul>
       )
     } else {
@@ -24,6 +24,7 @@ class CommentIndexItem extends React.Component {
   }
 
   render() {
+    let childComments = this.props.childComments;
 
     return(
       <li className="parent-comment-container">
@@ -42,10 +43,9 @@ class CommentIndexItem extends React.Component {
           </div>
         </div>
 
+        {this.getChildComments()}
       </li>
     )
   }
 }
 export default withRouter(CommentIndexItem);
-
-// {this.getChildComments()}

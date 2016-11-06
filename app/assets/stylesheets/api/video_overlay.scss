@@ -6,6 +6,7 @@
   position:fixed;
   bottom:50px;
   left:50px;
+  z-index: 100;
 
   .player-buttons{
     display:flex;
@@ -92,33 +93,6 @@
         /* Rules below not implemented in browsers yet */
         -o-user-select: none;
         user-select: none;
-      }
-
-      .comment-index{
-        padding: 10px;
-        margin:5px;
-        flex:1;
-        word-wrap: normal;
-        overflow-y: scroll;
-
-        .parent-comment{
-          border-radius:5px;
-          padding: 10px;
-          background-color: #fff;
-          margin-bottom: 10px;
-
-          .parent-comment-details{
-            display:flex;
-            justify-content: space-between;
-            padding: 3px;
-            margin-bottom: 10px;
-            box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.117647); //line below
-          }
-          .parent-comment-body{
-            padding: 0 6px;
-          }
-        }
-
       }
     }
     .video-player-box{

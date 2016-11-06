@@ -28065,6 +28065,8 @@
 	
 	var _app2 = _interopRequireDefault(_app);
 	
+	var _query_actions = __webpack_require__(643);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var mapStateToProps = function mapStateToProps(state) {
@@ -28074,7 +28076,11 @@
 	};
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {};
+	  return {
+	    setVideoQuery: function setVideoQuery(id, c) {
+	      return dispatch((0, _query_actions.setVideoQuery)(id, c));
+	    }
+	  };
 	};
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_app2.default);
@@ -28136,6 +28142,7 @@
 	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 	
 	    _this.toHomePage = _this.toHomePage.bind(_this);
+	    _this.slideVideoBox = _this.slideVideoBox.bind(_this);
 	    return _this;
 	  }
 	
@@ -28143,6 +28150,14 @@
 	    key: 'toHomePage',
 	    value: function toHomePage() {
 	      this.props.router.push({ pathname: "/", query: this.props.query });
+	    }
+	  }, {
+	    key: 'slideVideoBox',
+	    value: function slideVideoBox() {
+	      var pathname = this.props.location.pathname;
+	      var query = this.props.location.query;
+	      query.c = undefined;
+	      this.props.router.replace({ pathname: pathname, query: query });
 	    }
 	  }, {
 	    key: 'render',
@@ -67715,8 +67730,8 @@
 	    fetchVideo: function fetchVideo(id) {
 	      return dispatch((0, _video_actions.fetchVideo)(id));
 	    },
-	    setQuery: function setQuery(id) {
-	      return dispatch((0, _query_actions.setQuery)(id));
+	    setVideoQuery: function setVideoQuery(id, c) {
+	      return dispatch((0, _query_actions.setVideoQuery)(id, c));
 	    }
 	  };
 	};
@@ -67768,7 +67783,6 @@
 			var _this = _possibleConstructorReturn(this, (VideoOverlay.__proto__ || Object.getPrototypeOf(VideoOverlay)).call(this, props));
 	
 			_this.state = {
-				clickToShowComment: true,
 				minimized: false
 			};
 			_this.slideVideoBox = _this.slideVideoBox.bind(_this);
@@ -67780,53 +67794,62 @@
 		_createClass(VideoOverlay, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				this.setVideoQuery();
+				this.callVideoQuery();
 			}
 		}, {
-			key: 'componentWillUpdate',
-			value: function componentWillUpdate() {
-				if (this.props.location.query.id !== this.props.query.id) {
-					this.setVideoQuery();
+			key: 'componentDidUpdate',
+			value: function componentDidUpdate() {
+				this.updateQuery();
+			}
+		}, {
+			key: 'updateQuery',
+			value: function updateQuery() {
+				var queryString = this.props.location.query;
+				var queryState = this.props.query;
+				if (queryString.id !== queryState.id || queryString.c !== queryState.c) {
+					this.callVideoQuery();
 				}
 			}
 		}, {
-			key: 'setVideoQuery',
-			value: function setVideoQuery() {
-				var videoId = this.props.location.query.id;
-				this.props.setQuery(videoId);
+			key: 'callVideoQuery',
+			value: function callVideoQuery() {
+				var queryString = this.props.location.query;
+				this.props.setVideoQuery(queryString.id, queryString.c);
 			}
 		}, {
 			key: 'buttonClass',
 			value: function buttonClass() {
-				if (this.state.clickToShowComment) {
-					return "show-comment-button";
-				} else {
+				if (this.props.query.c) {
 					return "hide-comment-button";
+				} else {
+					return "show-comment-button";
 				}
 			}
 		}, {
 			key: 'buttonText',
 			value: function buttonText() {
-				if (this.state.clickToShowComment) {
-					return "SHOW COMMENTS";
-				} else {
+				if (this.props.query.c) {
 					return "HIDE COMMENTS";
+				} else {
+					return "SHOW COMMENTS";
 				}
 			}
 		}, {
 			key: 'videoBoxClass',
 			value: function videoBoxClass() {
-				if (this.state.clickToShowComment) {
-					return "video-player-box";
-				} else {
+				if (this.props.query.c) {
 					return "video-player-box-right";
+				} else {
+					return "video-player-box";
 				}
 			}
 		}, {
 			key: 'slideVideoBox',
 			value: function slideVideoBox() {
-				var opposite = this.state.clickToShowComment ? false : true;
-				this.setState({ clickToShowComment: opposite });
+				var pathname = this.props.location.pathname;
+				var query = this.props.location.query;
+				query.c = query.c ? undefined : true;
+				this.props.router.replace({ pathname: pathname, query: query });
 			}
 		}, {
 			key: 'closeVideoBox',
@@ -67883,6 +67906,7 @@
 							_react2.default.createElement(_reactPlayer2.default, { className: 'video-player-mini', url: video.url,
 								height: 180,
 								width: 320,
+								style: { zIndex: 100 },
 								playing: true, controls: true })
 						);
 					} else {
@@ -67959,6 +67983,7 @@
 													_react2.default.createElement(_reactPlayer2.default, { className: 'video-player', url: video.url,
 														height: "inherit",
 														width: "inherit",
+														style: { zIndex: 100 },
 														playing: true, controls: true })
 												)
 											)
@@ -69786,18 +69811,16 @@
 	  _createClass(CommentIndexItem, [{
 	    key: 'getChildComments',
 	    value: function getChildComments() {
-	      var _this2 = this;
-	
-	      var childComments = [];
-	      Object.keys(this.props.childComments).map(function (key) {
-	        childComments.push(_react2.default.createElement(_comment_index_item_child2.default, { comment: _this2.props.childComments[key],
-	          key: comment.id }));
-	      });
+	      var childComments = this.props.childComments;
 	      if (childComments.length > 0) {
+	
 	        return _react2.default.createElement(
 	          'ul',
-	          { className: 'child-comment-list' },
-	          childComments
+	          { className: 'child-comment-index' },
+	          childComments.map(function (comment) {
+	            return _react2.default.createElement(_comment_index_item_child2.default, { comment: comment,
+	              key: comment.id });
+	          })
 	        );
 	      } else {
 	        return _react2.default.createElement('div', { className: 'display-none' });
@@ -69806,6 +69829,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var childComments = this.props.childComments;
 	
 	      return _react2.default.createElement(
 	        'li',
@@ -69832,7 +69856,8 @@
 	            { className: 'parent-comment-body' },
 	            this.props.comment.body
 	          )
-	        )
+	        ),
+	        this.getChildComments()
 	      );
 	    }
 	  }]);
@@ -69841,8 +69866,6 @@
 	}(_react2.default.Component);
 	
 	exports.default = (0, _reactRouter.withRouter)(CommentIndexItem);
-	
-	// {this.getChildComments()}
 
 /***/ },
 /* 640 */
@@ -69882,20 +69905,22 @@
 	  _createClass(CommentIndexItemChild, [{
 	    key: 'render',
 	    value: function render() {
-	
 	      return _react2.default.createElement(
 	        'li',
-	        { className: 'child-comment-index-container' },
-	        _react2.default.createElement('div', { className: 'child-comment-details' }),
+	        { className: 'child-comment-container' },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'child-comment-user' },
-	          this.props.comment.user
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'child-comment-time-ago' },
-	          this.props.comment.age
+	          { className: 'child-comment-details' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'child-comment-user' },
+	            this.props.comment.user
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'child-comment-time-ago' },
+	            this.props.comment.age
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
@@ -70083,12 +70108,13 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var SET_QUERY = exports.SET_QUERY = "SET_QUERY";
+	var SET_VIDEO_QUERY = exports.SET_VIDEO_QUERY = "SET_VIDEO_QUERY";
 	
-	var setQuery = exports.setQuery = function setQuery(query) {
+	var setVideoQuery = exports.setVideoQuery = function setVideoQuery(id, c) {
 	  return {
-	    type: SET_QUERY,
-	    query: query
+	    type: SET_VIDEO_QUERY,
+	    id: id,
+	    c: c
 	  };
 	};
 
@@ -73204,16 +73230,24 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'video-index-item' },
-	          _react2.default.createElement('img', { className: 'video-index-item-picture', src: video.thumbnail_url, onClick: this.handleClick }),
 	          _react2.default.createElement(
-	            'button',
+	            'div',
 	            { className: 'play-icon-box', onClick: this.handleClick },
 	            _react2.default.createElement(
-	              _materialUi.FontIcon,
-	              { className: 'material-icons', color: "#fff", style: { fontSize: 70 }
-	              },
-	              'play_circle_outline'
-	            )
+	              'div',
+	              { className: 'zero-height' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'center-icon' },
+	                _react2.default.createElement(
+	                  _materialUi.FontIcon,
+	                  { className: 'material-icons', color: "#fff", style: { fontSize: 70 }
+	                  },
+	                  'play_circle_outline'
+	                )
+	              )
+	            ),
+	            _react2.default.createElement('img', { className: 'video-index-item-picture', src: video.thumbnail_url, onClick: this.handleClick })
 	          ),
 	          _react2.default.createElement(
 	            'div',
@@ -73858,8 +73892,8 @@
 	
 	
 	  switch (action.type) {
-	    case _query_actions.SET_QUERY:
-	      return (0, _merge2.default)({}, { id: action.query });
+	    case _query_actions.SET_VIDEO_QUERY:
+	      return (0, _merge2.default)({}, { id: action.id, c: action.c });
 	
 	    default:
 	      return oldState;
@@ -74274,10 +74308,10 @@
 	      };
 	
 	      switch (action.type) {
-	        case _query_actions.SET_QUERY:
-	          if (action.query) {
-	            (0, _video_api_util.fetchVideo)(action.query, receiveVideoSuccess, errorCallback);
-	            (0, _comment_api_util.fetchComments)(action.query, receiveCommentsSuccess, errorCallback);
+	        case _query_actions.SET_VIDEO_QUERY:
+	          if (action.id) {
+	            (0, _video_api_util.fetchVideo)(action.id, receiveVideoSuccess, errorCallback);
+	            (0, _comment_api_util.fetchComments)(action.id, receiveCommentsSuccess, errorCallback);
 	          }
 	          return next(action);
 	

@@ -8,7 +8,6 @@ class VideoOverlay extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state={
-			clickToShowComment:true,
 			minimized:false
 		}
 		this.slideVideoBox = this.slideVideoBox.bind(this);
@@ -17,47 +16,55 @@ class VideoOverlay extends React.Component {
 	}
 
 	componentDidMount(){
-		this.setVideoQuery();
+		this.callVideoQuery();
 	}
 
-	componentWillUpdate(){
-		if(this.props.location.query.id!==this.props.query.id){
-			this.setVideoQuery();
+	componentDidUpdate(){
+		this.updateQuery();
+	}
+
+	updateQuery(){
+		let queryString = this.props.location.query;
+		let queryState = this.props.query;
+		if(queryString.id!==queryState.id || queryString.c!==queryState.c){
+			this.callVideoQuery();
 		}
 	}
 
-	setVideoQuery(){
-		let videoId = this.props.location.query.id;
-		this.props.setQuery(videoId);
+	callVideoQuery(){
+		let queryString = this.props.location.query;
+		this.props.setVideoQuery(queryString.id, queryString.c);
 	}
 
 	buttonClass(){
-		if (this.state.clickToShowComment){
-			return "show-comment-button"
-		} else {
+		if (this.props.query.c){
 			return "hide-comment-button"
+		} else {
+			return "show-comment-button"
 		}
 	}
 
 	buttonText(){
-		if (this.state.clickToShowComment){
-			return "SHOW COMMENTS"
-		} else {
+		if (this.props.query.c){
 			return "HIDE COMMENTS"
+		} else {
+			return "SHOW COMMENTS"
 		}
 	}
 
 	videoBoxClass(){
-		if (this.state.clickToShowComment){
-			return "video-player-box"
-		} else {
+		if (this.props.query.c){
 			return "video-player-box-right"
+		} else {
+			return "video-player-box"
 		}
 	}
 
 	slideVideoBox(){
-		let opposite = this.state.clickToShowComment ? false : true;
-		this.setState({clickToShowComment:opposite})
+		let pathname = this.props.location.pathname
+		let query = this.props.location.query
+		query.c = query.c ? undefined : true;
+		this.props.router.replace({pathname,query:query})
 	}
 
 	closeVideoBox(){
@@ -98,6 +105,7 @@ class VideoOverlay extends React.Component {
 						<ReactPlayer className="video-player-mini" url={video.url}
 							height={180}
 							width={320}
+							style={{zIndex: 100}}
 							playing controls/>
 					</div>
 				)
@@ -145,6 +153,7 @@ class VideoOverlay extends React.Component {
 												<ReactPlayer className="video-player" url={video.url}
 													height={"inherit"}
 													width={"inherit"}
+													style={{zIndex: 100}}
 													playing controls/>
 										</div>
 										</div>

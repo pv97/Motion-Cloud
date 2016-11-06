@@ -20,13 +20,16 @@ class VideoIndexItem extends React.Component {
     return (
       <div className="video-index-item-margin">
       <div className="video-index-item">
-        <img className="video-index-item-picture"src={video.thumbnail_url}  onClick={this.handleClick}>
-        </img>
 
-        <button className="play-icon-box" onClick={this.handleClick}>
-          <FontIcon className="material-icons" color={"#fff"} style={{fontSize:70}}
-            >play_circle_outline</FontIcon>
-        </button>
+        <div className="play-icon-box" onClick={this.handleClick}>
+          <div className="zero-height">
+            <div className="center-icon">
+              <FontIcon className="material-icons" color={"#fff"} style={{fontSize:70}}
+                >play_circle_outline</FontIcon>
+            </div>
+          </div>
+          <img className="video-index-item-picture"src={video.thumbnail_url}  onClick={this.handleClick}/>
+        </div>
 
         <div className="video-index-item-detail">
           <p className="video-index-item-title"  onClick={this.handleClick}>{video.title}</p>
