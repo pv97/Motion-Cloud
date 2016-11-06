@@ -62,10 +62,6 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _query_actions = __webpack_require__(638);
-	
-	var _video_actions = __webpack_require__(637);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	//Components
@@ -78,9 +74,6 @@
 	  } else {
 	    store = (0, _store2.default)();
 	  }
-	  window.setQuery = _query_actions.setQuery;
-	  window.createVideo = _video_actions.createVideo;
-	  window.fetchVideos = _video_actions.fetchVideos;
 	  window.store = store;
 	  var root = document.getElementById('root');
 	  _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), root);
@@ -67760,6 +67753,10 @@
 	
 	var _materialUi = __webpack_require__(261);
 	
+	var _comment_index_container = __webpack_require__(751);
+	
+	var _comment_index_container2 = _interopRequireDefault(_comment_index_container);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -67866,6 +67863,7 @@
 									_materialUi.IconButton,
 									{ tooltip: 'Expand',
 										className: 'expand-button',
+										tooltipPosition: 'top-center',
 										onClick: this.toggleMini },
 									_react2.default.createElement(
 										_materialUi.FontIcon,
@@ -67878,6 +67876,7 @@
 									_materialUi.IconButton,
 									{ tooltip: 'Close',
 										className: 'close-button',
+										tooltipPosition: 'top-center',
 										onClick: this.closeVideoBox },
 									_react2.default.createElement(
 										_materialUi.FontIcon,
@@ -67915,11 +67914,7 @@
 									_react2.default.createElement(
 										'div',
 										{ className: 'comment-index' },
-										_react2.default.createElement(
-											'p',
-											null,
-											'Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment'
-										)
+										_react2.default.createElement(_comment_index_container2.default, { videoId: this.props.query.id })
 									)
 								),
 								_react2.default.createElement(
@@ -67932,6 +67927,7 @@
 											_materialUi.IconButton,
 											{ tooltip: 'Collapse',
 												className: 'collapse-button',
+												tooltipPosition: 'top-center',
 												onClick: this.toggleMini },
 											_react2.default.createElement(
 												_materialUi.FontIcon,
@@ -67944,6 +67940,7 @@
 											_materialUi.IconButton,
 											{ tooltip: 'Close',
 												className: 'close-button',
+												tooltipPosition: 'top-center',
 												onClick: this.closeVideoBox },
 											_react2.default.createElement(
 												_materialUi.FontIcon,
@@ -72819,6 +72816,8 @@
 	
 	var _merge2 = _interopRequireDefault(_merge);
 	
+	var _materialUi = __webpack_require__(261);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -72857,6 +72856,16 @@
 	          'div',
 	          { className: 'video-index-item' },
 	          _react2.default.createElement('img', { className: 'video-index-item-picture', src: video.thumbnail_url, onClick: this.handleClick }),
+	          _react2.default.createElement(
+	            'button',
+	            { className: 'play-icon-box', onClick: this.handleClick },
+	            _react2.default.createElement(
+	              _materialUi.FontIcon,
+	              { className: 'material-icons', color: "#fff", style: { fontSize: 70 }
+	              },
+	              'play_circle_outline'
+	            )
+	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'video-index-item-detail' },
@@ -73275,7 +73284,7 @@
 	
 	var _root_reducer2 = _interopRequireDefault(_root_reducer);
 	
-	var _root_middleware = __webpack_require__(741);
+	var _root_middleware = __webpack_require__(743);
 	
 	var _root_middleware2 = _interopRequireDefault(_root_middleware);
 	
@@ -73308,7 +73317,11 @@
 	
 	var _videos_reducer2 = _interopRequireDefault(_videos_reducer);
 	
-	var _query_reducer = __webpack_require__(740);
+	var _comments_reducer = __webpack_require__(740);
+	
+	var _comments_reducer2 = _interopRequireDefault(_comments_reducer);
+	
+	var _query_reducer = __webpack_require__(742);
 	
 	var _query_reducer2 = _interopRequireDefault(_query_reducer);
 	
@@ -73317,6 +73330,7 @@
 	var RootReducer = (0, _redux.combineReducers)({
 	  session: _session_reducer2.default,
 	  videos: _videos_reducer2.default,
+	  comments: _comments_reducer2.default,
 	  query: _query_reducer2.default
 	});
 	
@@ -73430,6 +73444,139 @@
 	  value: true
 	});
 	
+	var _comment_actions = __webpack_require__(741);
+	
+	var _merge2 = __webpack_require__(641);
+	
+	var _merge3 = _interopRequireDefault(_merge2);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	var CommentsReducer = function CommentsReducer() {
+	  var oldState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { errors: {} };
+	  var action = arguments[1];
+	
+	  var newState = void 0;
+	
+	  switch (action.type) {
+	    case _comment_actions.RECEIVE_ALL_COMMENTS:
+	      return (0, _merge3.default)({}, oldState, action.comments);
+	
+	    case _comment_actions.RECEIVE_COMMENT:
+	      return (0, _merge3.default)({}, oldState, _defineProperty({}, action.comment.id, action.comment));
+	
+	    case _comment_actions.REMOVE_COMMENT:
+	      newState = (0, _merge3.default)({}, oldState);
+	      delete newState[action.comment.id];
+	      return newState;
+	
+	    case _comment_actions.RECEIVE_COMMENT_ERRORS:
+	      var errors = action.errors.responseJSON;
+	      newState = (0, _merge3.default)({}, oldState);
+	      newState.errors = {};
+	      return (0, _merge3.default)(newState, { errors: errors });
+	
+	    default:
+	      return oldState;
+	  }
+	};
+	
+	exports.default = CommentsReducer;
+
+/***/ },
+/* 741 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var FETCH_COMMENTS = exports.FETCH_COMMENTS = "FETCH_COMMENTS";
+	var FETCH_COMMENT = exports.FETCH_COMMENT = "FETCH_COMMENT";
+	var RECEIVE_ALL_COMMENTS = exports.RECEIVE_ALL_COMMENTS = "RECEIVE_ALL_COMMENTS";
+	var RECEIVE_COMMENT = exports.RECEIVE_COMMENT = "RECEIVE_COMMENT";
+	var REMOVE_COMMENT = exports.REMOVE_COMMENT = "REMOVE_COMMENT";
+	var CREATE_COMMENT = exports.CREATE_COMMENT = "CREATE_COMMENT";
+	var UPDATE_COMMENT = exports.UPDATE_COMMENT = "UPDATE_COMMENT";
+	var DELETE_COMMENT = exports.DELETE_COMMENT = "DELETE_COMMENT";
+	var RECEIVE_COMMENT_ERRORS = exports.RECEIVE_COMMENT_ERRORS = "RECEIVE_COMMENT_ERRORS";
+	
+	var fetchComments = exports.fetchComments = function fetchComments(videoId) {
+	  return {
+	    type: FETCH_COMMENTS,
+	    videoId: videoId
+	  };
+	};
+	
+	var fetchComment = exports.fetchComment = function fetchComment(id) {
+	  return {
+	    type: FETCH_COMMENT,
+	    id: id
+	  };
+	};
+	
+	var createComment = exports.createComment = function createComment(comment) {
+	  return {
+	    type: CREATE_COMMENT,
+	    comment: comment
+	  };
+	};
+	
+	var updateComment = exports.updateComment = function updateComment(comment) {
+	  return {
+	    type: UPDATE_COMMENT,
+	    comment: comment
+	  };
+	};
+	
+	var deleteComment = exports.deleteComment = function deleteComment(id) {
+	  return {
+	    type: DELETE_COMMENT,
+	    id: id
+	  };
+	};
+	
+	var receiveAllComments = exports.receiveAllComments = function receiveAllComments(comments) {
+	  return {
+	    type: RECEIVE_ALL_COMMENTS,
+	    comments: comments
+	  };
+	};
+	
+	var receiveComment = exports.receiveComment = function receiveComment(comment) {
+	  return {
+	    type: RECEIVE_COMMENT,
+	    comment: comment
+	  };
+	};
+	
+	var removeComment = exports.removeComment = function removeComment(comment) {
+	  return {
+	    type: REMOVE_COMMENT,
+	    comment: comment
+	  };
+	};
+	
+	var receiveCommentErrors = exports.receiveCommentErrors = function receiveCommentErrors(errors) {
+	  return {
+	    type: RECEIVE_COMMENT_ERRORS,
+	    errors: errors
+	  };
+	};
+
+/***/ },
+/* 742 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
 	var _query_actions = __webpack_require__(638);
 	
 	var _merge = __webpack_require__(641);
@@ -73455,7 +73602,7 @@
 	exports.default = QueryReducer;
 
 /***/ },
-/* 741 */
+/* 743 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -73466,26 +73613,30 @@
 	
 	var _redux = __webpack_require__(180);
 	
-	var _session_middleware = __webpack_require__(742);
+	var _session_middleware = __webpack_require__(744);
 	
 	var _session_middleware2 = _interopRequireDefault(_session_middleware);
 	
-	var _videos_middleware = __webpack_require__(744);
+	var _videos_middleware = __webpack_require__(746);
 	
 	var _videos_middleware2 = _interopRequireDefault(_videos_middleware);
 	
-	var _query_middleware = __webpack_require__(746);
+	var _comments_middleware = __webpack_require__(748);
+	
+	var _comments_middleware2 = _interopRequireDefault(_comments_middleware);
+	
+	var _query_middleware = __webpack_require__(750);
 	
 	var _query_middleware2 = _interopRequireDefault(_query_middleware);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var RootMiddleware = (0, _redux.applyMiddleware)(_session_middleware2.default, _videos_middleware2.default, _query_middleware2.default);
+	var RootMiddleware = (0, _redux.applyMiddleware)(_session_middleware2.default, _videos_middleware2.default, _comments_middleware2.default, _query_middleware2.default);
 	
 	exports.default = RootMiddleware;
 
 /***/ },
-/* 742 */
+/* 744 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -73496,7 +73647,7 @@
 	
 	var _session_actions = __webpack_require__(259);
 	
-	var _session_api_util = __webpack_require__(743);
+	var _session_api_util = __webpack_require__(745);
 	
 	// actions
 	exports.default = function (_ref) {
@@ -73536,7 +73687,7 @@
 	// api utils
 
 /***/ },
-/* 743 */
+/* 745 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -73580,7 +73731,7 @@
 	};
 
 /***/ },
-/* 744 */
+/* 746 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -73591,7 +73742,7 @@
 	
 	var _video_actions = __webpack_require__(637);
 	
-	var _video_api_util = __webpack_require__(745);
+	var _video_api_util = __webpack_require__(747);
 	
 	var _reactRouter = __webpack_require__(203);
 	
@@ -73646,7 +73797,7 @@
 	exports.default = VideosMiddleware;
 
 /***/ },
-/* 745 */
+/* 747 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -73700,7 +73851,127 @@
 	};
 
 /***/ },
-/* 746 */
+/* 748 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _comment_actions = __webpack_require__(741);
+	
+	var _comment_api_util = __webpack_require__(749);
+	
+	var _reactRouter = __webpack_require__(203);
+	
+	var CommentsMiddleware = function CommentsMiddleware(_ref) {
+	  var getState = _ref.getState,
+	      dispatch = _ref.dispatch;
+	  return function (next) {
+	    return function (action) {
+	
+	      var errorCallback = function errorCallback(errors) {
+	        return dispatch((0, _comment_actions.receiveCommentErrors)(errors));
+	      };
+	      var receiveAllCommentsSuccess = function receiveAllCommentsSuccess(comments) {
+	        return dispatch((0, _comment_actions.receiveAllComments)(comments));
+	      };
+	      var receiveCommentSuccess = function receiveCommentSuccess(comment) {
+	        dispatch((0, _comment_actions.receiveComment)(comment));
+	        _reactRouter.hashHistory.push("/");
+	      };
+	      var removeCommentSuccess = function removeCommentSuccess(comment) {
+	        return dispatch((0, _comment_actions.removeComment)(comment));
+	      };
+	
+	      switch (action.type) {
+	        case _comment_actions.FETCH_COMMENTS:
+	          (0, _comment_api_util.fetchComments)(receiveAllCommentsSuccess, errorCallback);
+	          return next(action);
+	
+	        case _comment_actions.FETCH_COMMENT:
+	          (0, _comment_api_util.fetchComment)(action.id, receiveCommentSuccess, errorCallback);
+	          return next(action);
+	
+	        case _comment_actions.CREATE_COMMENT:
+	          (0, _comment_api_util.createComment)(action.comment, receiveCommentSuccess, errorCallback);
+	          return next(action);
+	
+	        case _comment_actions.UPDATE_COMMENT:
+	          (0, _comment_api_util.updateComment)(action.comment, receiveCommentSuccess, errorCallback);
+	          return next(action);
+	
+	        case _comment_actions.DELETE_COMMENT:
+	          (0, _comment_api_util.deleteComment)(action.id, removeCommentSuccess, errorCallback);
+	          return next(action);
+	
+	        default:
+	          return next(action);
+	      }
+	    };
+	  };
+	};
+	
+	exports.default = CommentsMiddleware;
+
+/***/ },
+/* 749 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var fetchComments = exports.fetchComments = function fetchComments(videoId, success, error) {
+	  $.ajax({
+	    url: "api/videos/" + videoId + "/comments",
+	    success: success,
+	    error: error
+	  });
+	};
+	
+	var fetchComment = exports.fetchComment = function fetchComment(id, success, error) {
+	  $.ajax({
+	    url: "api/comments/" + id,
+	    success: success,
+	    error: error
+	  });
+	};
+	
+	var createComment = exports.createComment = function createComment(comment, success, error) {
+	  $.ajax({
+	    url: "api/comments",
+	    type: "POST",
+	    data: { comment: comment },
+	    success: success,
+	    error: error
+	  });
+	};
+	
+	var updateComment = exports.updateComment = function updateComment(comment, success, error) {
+	  $.ajax({
+	    url: "api/comments/" + comment.id,
+	    type: "PATCH",
+	    data: { comment: comment },
+	    success: success,
+	    error: error
+	  });
+	};
+	
+	var deleteComment = exports.deleteComment = function deleteComment(id, success, error) {
+	  $.ajax({
+	    url: "api/comments/" + id,
+	    type: "DELETE",
+	    success: success,
+	    error: error
+	  });
+	};
+
+/***/ },
+/* 750 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -73713,8 +73984,12 @@
 	
 	var _video_actions = __webpack_require__(637);
 	
-	var _video_api_util = __webpack_require__(745);
+	var _video_api_util = __webpack_require__(747);
 	
+	var _comment_api_util = __webpack_require__(749);
+	
+	// api utils
+	// actions
 	exports.default = function (_ref) {
 	  var getState = _ref.getState,
 	      dispatch = _ref.dispatch;
@@ -73731,6 +74006,7 @@
 	        case _query_actions.SET_QUERY:
 	          if (action.query) {
 	            (0, _video_api_util.fetchVideo)(action.query, successCallback, errorCallback);
+	            (0, _comment_api_util.fetchComments)(action.query, successCallback, errorCallback);
 	          }
 	          return next(action);
 	
@@ -73740,9 +74016,282 @@
 	    };
 	  };
 	};
+
+/***/ },
+/* 751 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
 	
-	// api utils
-	// actions
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reactRedux = __webpack_require__(173);
+	
+	var _comment_index = __webpack_require__(752);
+	
+	var _comment_index2 = _interopRequireDefault(_comment_index);
+	
+	var _comment_actions = __webpack_require__(741);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    comments: state.comments,
+	    query: state.query
+	  };
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    createComment: function createComment(comment) {
+	      return dispatch((0, _comment_actions.createComment)(comment));
+	    }
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_comment_index2.default);
+
+/***/ },
+/* 752 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _comment_index_item = __webpack_require__(753);
+	
+	var _comment_index_item2 = _interopRequireDefault(_comment_index_item);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var CommentIndex = function (_React$Component) {
+	  _inherits(CommentIndex, _React$Component);
+	
+	  function CommentIndex() {
+	    _classCallCheck(this, CommentIndex);
+	
+	    return _possibleConstructorReturn(this, (CommentIndex.__proto__ || Object.getPrototypeOf(CommentIndex)).apply(this, arguments));
+	  }
+	
+	  _createClass(CommentIndex, [{
+	    key: 'getComments',
+	    value: function getComments() {
+	      var _this2 = this;
+	
+	      var comments = [];
+	      Object.keys(this.props.comments).map(function (key) {
+	        if (key !== "errors") {
+	          comments.push(_this2.props.comments[key]);
+	        }
+	      });
+	      return comments;
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var comments = this.getComments();
+	
+	      if (comments) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'comment-index-container' },
+	          _react2.default.createElement(
+	            'ul',
+	            { className: 'comment-list' },
+	            comments.map(function (comment) {
+	              return _react2.default.createElement(_comment_index_item2.default, { comment: comment,
+	                key: comment.id,
+	                childComments: comment.child_comments });
+	            })
+	          )
+	        );
+	      } else {
+	        return _react2.default.createElement('div', null);
+	      }
+	    }
+	  }]);
+	
+	  return CommentIndex;
+	}(_react2.default.Component);
+	
+	exports.default = CommentIndex;
+
+/***/ },
+/* 753 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _comment_index_item_child = __webpack_require__(754);
+	
+	var _comment_index_item_child2 = _interopRequireDefault(_comment_index_item_child);
+	
+	var _reactRouter = __webpack_require__(203);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var CommentIndexItem = function (_React$Component) {
+	  _inherits(CommentIndexItem, _React$Component);
+	
+	  function CommentIndexItem() {
+	    _classCallCheck(this, CommentIndexItem);
+	
+	    return _possibleConstructorReturn(this, (CommentIndexItem.__proto__ || Object.getPrototypeOf(CommentIndexItem)).apply(this, arguments));
+	  }
+	
+	  _createClass(CommentIndexItem, [{
+	    key: 'getChildComments',
+	    value: function getChildComments() {
+	      var _this2 = this;
+	
+	      var childComments = [];
+	      Object.keys(this.props.childComments).map(function (key) {
+	        childComments.push(_react2.default.createElement(_comment_index_item_child2.default, { comment: _this2.props.childComments[key],
+	          key: comment.id }));
+	      });
+	      if (childComments.length > 0) {
+	        return _react2.default.createElement(
+	          'ul',
+	          { className: 'child-comment-list' },
+	          childComments
+	        );
+	      } else {
+	        return _react2.default.createElement('div', { className: 'display-none' });
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	
+	      return _react2.default.createElement(
+	        'li',
+	        { className: 'comment-index-container' },
+	        _react2.default.createElement('div', { className: 'comment-details' }),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'comment-user' },
+	          this.props.comment.user.username
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'comment-time-ago' },
+	          this.props.comment.age
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'comment-body' },
+	          this.props.comment.body
+	        ),
+	        this.getChildComments()
+	      );
+	    }
+	  }]);
+	
+	  return CommentIndexItem;
+	}(_react2.default.Component);
+	
+	exports.default = (0, _reactRouter.withRouter)(CommentIndexItem);
+
+/***/ },
+/* 754 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(203);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var CommentIndexItemChild = function (_React$Component) {
+	  _inherits(CommentIndexItemChild, _React$Component);
+	
+	  function CommentIndexItemChild() {
+	    _classCallCheck(this, CommentIndexItemChild);
+	
+	    return _possibleConstructorReturn(this, (CommentIndexItemChild.__proto__ || Object.getPrototypeOf(CommentIndexItemChild)).apply(this, arguments));
+	  }
+	
+	  _createClass(CommentIndexItemChild, [{
+	    key: 'render',
+	    value: function render() {
+	
+	      return _react2.default.createElement(
+	        'li',
+	        { className: 'comment-index-container' },
+	        _react2.default.createElement('div', { className: 'comment-details' }),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'comment-user' },
+	          this.props.comment.user.username
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'comment-time-ago' },
+	          this.props.comment.age
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'comment-body' },
+	          this.props.comment.body
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return CommentIndexItemChild;
+	}(_react2.default.Component);
+	
+	exports.default = (0, _reactRouter.withRouter)(CommentIndexItemChild);
 
 /***/ }
 /******/ ]);

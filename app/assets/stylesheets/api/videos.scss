@@ -18,7 +18,9 @@
 
     .video-index-item-margin{
       padding: 10px;
+
       .video-index-item{
+        display:relative;
         display:flex;
         flex-direction: column;
         font-size:12px;
@@ -34,6 +36,28 @@
           border-radius: 2px;
           box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
         }
+        .play-icon-box{
+          position:absolute;
+          justify-content: center;
+          align-items: center;
+          background:none;
+          height:130px;
+          width:200px;
+          border:none;
+          span{
+            opacity: 0 !important;
+            visibility: hidden !important;
+          }
+        }
+        .play-icon-box:hover span{
+          opacity: 0.70 !important;
+          visibility: visible !important;
+        }
+
+        .play-icon-box:active span{
+          color:rgb(0, 188, 212) !important;
+        }
+
         .video-index-item-title{
           overflow-y: hidden;
           height: 30px;

@@ -8,8 +8,9 @@ export const UPDATE_COMMENT = "UPDATE_COMMENT";
 export const DELETE_COMMENT = "DELETE_COMMENT";
 export const RECEIVE_COMMENT_ERRORS = "RECEIVE_COMMENT_ERRORS";
 
-export const fetchComments = () => ({
-  type: FETCH_COMMENTS
+export const fetchComments = (videoId) => ({
+  type: FETCH_COMMENTS,
+  videoId
 });
 
 export const fetchComment = id => ({

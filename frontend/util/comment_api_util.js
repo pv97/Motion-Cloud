@@ -1,7 +1,7 @@
 
-export const fetchComments = (success, error) => {
+export const fetchComments = (videoId, success, error) => {
   $.ajax({
-    url: "api/comments",
+    url: `api/videos/${videoId}/comments`,
     success,
     error
   });

@@ -2,6 +2,7 @@ import { withRouter } from 'react-router';
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player';
 import { FontIcon, IconButton } from 'material-ui';
+import CommentIndexContainer from './comment/comment_index_container'
 
 class VideoOverlay extends React.Component {
 	constructor(props) {
@@ -80,12 +81,14 @@ class VideoOverlay extends React.Component {
 						<div className="player-buttons">
 							<IconButton tooltip="Expand"
 								className="expand-button"
+								tooltipPosition="top-center"
 								onClick={this.toggleMini}>
 								<FontIcon className="material-icons" color={"#fff"}
 									>expand_more</FontIcon>
 							</IconButton>
 							<IconButton tooltip="Close"
 								className="close-button"
+								tooltipPosition="top-center"
 								onClick={this.closeVideoBox}>
 								<FontIcon className="material-icons" color={"#fff"}
 									>clear</FontIcon>
@@ -112,9 +115,7 @@ class VideoOverlay extends React.Component {
 								</div>
 
 								<div className="comment-index">
-									<p>
-										Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment
-									</p>
+									<CommentIndexContainer videoId={this.props.query.id}/>
 								</div>
 
 							</div>
@@ -124,12 +125,14 @@ class VideoOverlay extends React.Component {
 								<div className="player-buttons">
 									<IconButton tooltip="Collapse"
 										className="collapse-button"
+										tooltipPosition="top-center"
 										onClick={this.toggleMini}>
 										<FontIcon className="material-icons" color={"#fff"}
 											>expand_more</FontIcon>
 									</IconButton>
 									<IconButton tooltip="Close"
 										className="close-button"
+										tooltipPosition="top-center"
 										onClick={this.closeVideoBox}>
 										<FontIcon className="material-icons" color={"#fff"}
 											>clear</FontIcon>

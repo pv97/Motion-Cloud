@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import merge from 'lodash/merge';
+import { FontIcon } from 'material-ui';
 
 class VideoIndexItem extends React.Component {
   constructor(props) {
@@ -17,9 +18,16 @@ class VideoIndexItem extends React.Component {
   render() {
     let video = this.props.video;
     return (
-      <div className="video-index-item-margin">    
+      <div className="video-index-item-margin">
       <div className="video-index-item">
-        <img className="video-index-item-picture"src={video.thumbnail_url}  onClick={this.handleClick}/>
+        <img className="video-index-item-picture"src={video.thumbnail_url}  onClick={this.handleClick}>
+        </img>
+        
+        <button className="play-icon-box" onClick={this.handleClick}>
+          <FontIcon className="material-icons" color={"#fff"} style={{fontSize:70}}
+            >play_circle_outline</FontIcon>
+        </button>
+
         <div className="video-index-item-detail">
           <p className="video-index-item-title"  onClick={this.handleClick}>{video.title}</p>
           <p className="video-index-item-user">{video.user.username}</p>
