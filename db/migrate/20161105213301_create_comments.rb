@@ -4,7 +4,6 @@ class CreateComments < ActiveRecord::Migration
       t.integer :user_id
       t.integer :video_id
       t.integer :parent_comment_id, :default => -1
-      t.integer :comment_id
       t.text :body, null:false
 
       t.timestamps null: false
