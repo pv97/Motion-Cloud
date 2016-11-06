@@ -7,6 +7,7 @@
 # Ignore bundler config.
 /.bundle
 
+
 # Ignore all logfiles and tempfiles.
 /log/*
 !/log/.keep
@@ -14,3 +15,7 @@
 
 # Ignore application configuration
 /config/application.yml
+
+bundle.js
+bundle.js.map
+node_modules/
