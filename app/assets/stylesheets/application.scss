@@ -69,7 +69,8 @@
   display:flex;
   justify-content: center;
   flex:1;
-  background: #f1f1f1;
+  background: #dddddd;
+  min-height: 100vh;
 
 
   .hide-comment-section{
@@ -88,7 +89,6 @@
     flex:1;
     margin: 0 25px 50px 25px;
     box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
-    min-height: 800px;
     background: #fefeff;
   }
 }

@@ -94,7 +94,7 @@ class CommentIndexItem extends React.Component {
               {comment.user}
             </div>
             <div className="parent-comment-time-ago">
-              {comment.age}
+              Posted {comment.age} ago
             </div>
           </div>
 

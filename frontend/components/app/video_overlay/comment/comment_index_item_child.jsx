@@ -70,7 +70,7 @@ class CommentIndexItemChild extends React.Component {
               {comment.user}
             </div>
             <div className="child-comment-time-ago">
-              {comment.age}
+              Posted {comment.age} ago
             </div>
           </div>
 

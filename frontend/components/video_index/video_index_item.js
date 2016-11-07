@@ -7,12 +7,20 @@ class VideoIndexItem extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.handleUserClick = this.handleUserClick.bind(this);
   }
 
   handleClick() {
     let videoId = this.props.video.id;
+    let pathname = this.props.location.pathname;
     let newQuery = merge({},this.props.query,{id:videoId});
-    this.props.router.replace({pathname:"/",query:newQuery});
+    this.props.router.replace({pathname:pathname,query:newQuery});
+  }
+
+  handleUserClick() {
+    let userId = this.props.video.user_id;
+    let query = this.props.location.query;
+    this.props.router.replace({pathname:`users/${userId}`,query:query});
   }
 
   render() {
@@ -32,13 +40,15 @@ class VideoIndexItem extends React.Component {
         </div>
 
         <div className="video-index-item-detail">
-          <p className="video-index-item-title"  onClick={this.handleClick}>{video.title}</p>
-          <p className="video-index-item-user">{video.user}</p>
+          <p className="video-index-item-title" onClick={this.handleClick}>{video.title}</p>
+          <p className="video-index-item-user" onClick={this.handleUserClick}>{video.user}</p>
 
           <div className="video-index-view-age-detail">
             <p className="video-index-view-count">{video.view_count} Views</p>
-            <p className="video-index-age">{video.age}</p>
+            <p className="video-index-age">Uploaded {video.age} ago</p>
+            <p className="video-index-description">{video.description}</p>
           </div>
+
         </div>
       </div>
     </div>

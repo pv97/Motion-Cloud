@@ -6,6 +6,7 @@ class UserNav extends React.Component {
 	constructor(props) {
 		super(props);
 		this.toUploadVideo = this.toUploadVideo.bind(this);
+		this.toUserPage = this.toUserPage.bind(this);
 	}
 
 	renderErrors() {
@@ -25,6 +26,11 @@ class UserNav extends React.Component {
 		this.props.router.push({pathname:"/videos/new",query:this.props.query});
 	}
 
+	toUserPage(e){
+		e.preventDefault();
+		this.props.router.push({pathname:`/users/${currentUser.id}`,query:this.props.query});
+	}
+
 	render() {
 		if(!this.props.loggedIn){
 			return (<div className="display-none"></div>)
@@ -34,7 +40,7 @@ class UserNav extends React.Component {
 			<div className="user-nav">
 					<RaisedButton
 						label={this.props.currentUser.username}
-						onClick={this.toUploadVideo}/>
+						onClick={this.toUserPage}/>
 					<RaisedButton
 						label="Upload"
 						primary={true}

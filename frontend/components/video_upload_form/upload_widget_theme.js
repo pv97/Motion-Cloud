@@ -21,7 +21,10 @@ element.style {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
-
+@media screen and (max-width: 767px)
+.widget .panel.local .drag_area .drag_content .label.label_multiple, .widget .panel.local .drag_area .drag_content .label.label_single, .widget .panel.local .drag_area .drag_content .or {
+    display: static;
+}
 
 #cloudinary-navbar {
   display:none;

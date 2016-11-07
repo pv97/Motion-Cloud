@@ -67654,6 +67654,7 @@
 			var _this = _possibleConstructorReturn(this, (UserNav.__proto__ || Object.getPrototypeOf(UserNav)).call(this, props));
 	
 			_this.toUploadVideo = _this.toUploadVideo.bind(_this);
+			_this.toUserPage = _this.toUserPage.bind(_this);
 			return _this;
 		}
 	
@@ -67679,6 +67680,12 @@
 				this.props.router.push({ pathname: "/videos/new", query: this.props.query });
 			}
 		}, {
+			key: 'toUserPage',
+			value: function toUserPage(e) {
+				e.preventDefault();
+				this.props.router.push({ pathname: '/users/' + currentUser.id, query: this.props.query });
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				if (!this.props.loggedIn) {
@@ -67690,7 +67697,7 @@
 					{ className: 'user-nav' },
 					_react2.default.createElement(_materialUi.RaisedButton, {
 						label: this.props.currentUser.username,
-						onClick: this.toUploadVideo }),
+						onClick: this.toUserPage }),
 					_react2.default.createElement(_materialUi.RaisedButton, {
 						label: 'Upload',
 						primary: true,
@@ -69944,7 +69951,9 @@
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'parent-comment-time-ago' },
-	              comment.age
+	              'Posted ',
+	              comment.age,
+	              ' ago'
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -70111,7 +70120,9 @@
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'child-comment-time-ago' },
-	              comment.age
+	              'Posted ',
+	              comment.age,
+	              ' ago'
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -73594,7 +73605,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = "#cloudinary-overlay.with_theme {\n  display: block;\n}\n\n\nelement.style {\n  height: 400px;\n}\n\n#cloudinary-overlay {\n  background-color: rgba(0,0,0,0.7);\n}\n\n#cloudinary-widget {\n  background: #ffffff;\n  -moz-border-radius: 0;\n  -webkit-border-radius: 0;\n  border-radius: 0;\n  border: none;\n  -moz-box-shadow: none;\n  -webkit-box-shadow: none;\n  box-shadow: none;\n}\n\n\n#cloudinary-navbar {\n  display:none;\n  background: #fff;\n  border: none;\n  border-bottom: 1px solid #eee;\n  margin: 0 0 10px 0;\n  height: 30px;\n}\n\n#cloudinary-navbar .source {\n  border-color: none;\n  border-right: 0px;\n  border-bottom: 3px solid none;\n  height: 30px;\n}\n\n#cloudinary-navbar .source .label {\n  font-size: 14px;\n  line-height: 22px;\n}\n\n#cloudinary-navbar .source .icon {\n  display: none;\n}\n\n#cloudinary-navbar .source.active {\n  background: none;\n  border-bottom: 3px solid #037FCB;\n}\n\n#cloudinary-navbar .source.active .label {\n  color: #000;\n}\n\n#cloudinary-widget .drag_area {\n  background: #fff;\n  border: 2px dashed #ddd;\n  -webkit-border-radius: 4px;\n  -moz-border-radius: 4px;\n  border-radius: 4px;\n  margin: 0px 20px 0px 20px;\n}\n\n#cloudinary-widget .drag_area.in {\n  border-color: #01BB16\n}\n\n#cloudinary-navbar .sources .icon {\n  background-position-x: 0px ;\n}\n\n#cloudinary-navbar .close {\n  color: rgb(85, 85, 85);\n}\n\n#cloudinary-widget .button, #cloudinary-widget .button.small_button {\n  box-sizing: border-box;\n  color: #037FCB;\n  background: none;\n  border: 2px solid #037FCB;\n}\n\n#cloudinary-widget .button {\n  height: 45px;\n  width: 180px;\n  line-height: 30px;\n}\n\n#cloudinary-widget .button.small_button {\n  height: 35px;\n  width: 140px;\n  line-height: 25px;\n}\n\n#cloudinary-widget .button:hover, #cloudinary-widget .button.small_button:hover, #cloudinary-widget .upload_button_holder:hover .button {\n  background: #037FCB;\n  color: #fff;\n}\n\n#cloudinary-widget .panel {\n  height: 400px;\n}\n\n#cloudinary-overlay.inline .widget {\n    margin-top: 0px;\n    top: 0;\n    height: 372px;\n    width: 100%;\n    box-shadow: none;\n    box-sizing: border-box;\n    border: 1px solid #b6ccd9;\n}\n\n#cloudinary-widget .panel.local {\n  margin-top: 20px;\n}\n\n#cloudinary-widget .panel.local .drag_area .drag_content .label {\n  color: #00619D;\n  font-size: 22px;\n}\n\n#cloudinary-widget .panel.progress .thumbnails {\n  margin-top: 4px;\n}\n\n#cloudinary-widget .panel.camera .form .button_holder {\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n\n#cloudinary-widget .panel.camera .note {\n  font-weight: normal;\n  font-size: 13px;\n  padding: 4px 20px 4px 20px;\n}\n\n\n#cloudinary-widget .panel.camera video {\n  border-width:0px;\n}\n\n#cloudinary-widget .camera .form {\n  background:#fff;\n  border: 1px solid #eee;\n  -webkit-border-radius: 4px;\n  -moz-border-radius: 4px;\n  border-radius: 4px;\n  margin: 0px 20px 0px 20px;\n  padding-top: 10px;\n}\n\n\n#cloudinary-overlay.inline .widget {\n  border: 1px solid #ddd;\n}\n\n@media screen and (max-width: 767px) {\n  #cloudinary-widget .drag_area {\n    border: none;\n    background: none;\n  }\n}\n.widget .powered_by_cloudinary.active {\n    display: none;\n}\n";
+	exports.default = "#cloudinary-overlay.with_theme {\n  display: block;\n}\n\n\nelement.style {\n  height: 400px;\n}\n\n#cloudinary-overlay {\n  background-color: rgba(0,0,0,0.7);\n}\n\n#cloudinary-widget {\n  background: #ffffff;\n  -moz-border-radius: 0;\n  -webkit-border-radius: 0;\n  border-radius: 0;\n  border: none;\n  -moz-box-shadow: none;\n  -webkit-box-shadow: none;\n  box-shadow: none;\n}\n@media screen and (max-width: 767px)\n.widget .panel.local .drag_area .drag_content .label.label_multiple, .widget .panel.local .drag_area .drag_content .label.label_single, .widget .panel.local .drag_area .drag_content .or {\n    display: static;\n}\n\n#cloudinary-navbar {\n  display:none;\n  background: #fff;\n  border: none;\n  border-bottom: 1px solid #eee;\n  margin: 0 0 10px 0;\n  height: 30px;\n}\n\n#cloudinary-navbar .source {\n  border-color: none;\n  border-right: 0px;\n  border-bottom: 3px solid none;\n  height: 30px;\n}\n\n#cloudinary-navbar .source .label {\n  font-size: 14px;\n  line-height: 22px;\n}\n\n#cloudinary-navbar .source .icon {\n  display: none;\n}\n\n#cloudinary-navbar .source.active {\n  background: none;\n  border-bottom: 3px solid #037FCB;\n}\n\n#cloudinary-navbar .source.active .label {\n  color: #000;\n}\n\n#cloudinary-widget .drag_area {\n  background: #fff;\n  border: 2px dashed #ddd;\n  -webkit-border-radius: 4px;\n  -moz-border-radius: 4px;\n  border-radius: 4px;\n  margin: 0px 20px 0px 20px;\n}\n\n#cloudinary-widget .drag_area.in {\n  border-color: #01BB16\n}\n\n#cloudinary-navbar .sources .icon {\n  background-position-x: 0px ;\n}\n\n#cloudinary-navbar .close {\n  color: rgb(85, 85, 85);\n}\n\n#cloudinary-widget .button, #cloudinary-widget .button.small_button {\n  box-sizing: border-box;\n  color: #037FCB;\n  background: none;\n  border: 2px solid #037FCB;\n}\n\n#cloudinary-widget .button {\n  height: 45px;\n  width: 180px;\n  line-height: 30px;\n}\n\n#cloudinary-widget .button.small_button {\n  height: 35px;\n  width: 140px;\n  line-height: 25px;\n}\n\n#cloudinary-widget .button:hover, #cloudinary-widget .button.small_button:hover, #cloudinary-widget .upload_button_holder:hover .button {\n  background: #037FCB;\n  color: #fff;\n}\n\n#cloudinary-widget .panel {\n  height: 400px;\n}\n\n#cloudinary-overlay.inline .widget {\n    margin-top: 0px;\n    top: 0;\n    height: 372px;\n    width: 100%;\n    box-shadow: none;\n    box-sizing: border-box;\n    border: 1px solid #b6ccd9;\n}\n\n#cloudinary-widget .panel.local {\n  margin-top: 20px;\n}\n\n#cloudinary-widget .panel.local .drag_area .drag_content .label {\n  color: #00619D;\n  font-size: 22px;\n}\n\n#cloudinary-widget .panel.progress .thumbnails {\n  margin-top: 4px;\n}\n\n#cloudinary-widget .panel.camera .form .button_holder {\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n\n#cloudinary-widget .panel.camera .note {\n  font-weight: normal;\n  font-size: 13px;\n  padding: 4px 20px 4px 20px;\n}\n\n\n#cloudinary-widget .panel.camera video {\n  border-width:0px;\n}\n\n#cloudinary-widget .camera .form {\n  background:#fff;\n  border: 1px solid #eee;\n  -webkit-border-radius: 4px;\n  -moz-border-radius: 4px;\n  border-radius: 4px;\n  margin: 0px 20px 0px 20px;\n  padding-top: 10px;\n}\n\n\n#cloudinary-overlay.inline .widget {\n  border: 1px solid #ddd;\n}\n\n@media screen and (max-width: 767px) {\n  #cloudinary-widget .drag_area {\n    border: none;\n    background: none;\n  }\n}\n.widget .powered_by_cloudinary.active {\n    display: none;\n}\n";
 
 /***/ },
 /* 736 */
@@ -74932,6 +74943,15 @@
 	              { className: 'align-right' },
 	              _react2.default.createElement(
 	                'div',
+	                { className: 'user-username' },
+	                user.username
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'align-right' },
+	              _react2.default.createElement(
+	                'div',
 	                { className: this.videosButtonClass(), onClick: this.showVideos },
 	                'VIDEOS'
 	              )
@@ -74952,13 +74972,7 @@
 	            { id: 'user-page-main' },
 	            _react2.default.createElement(
 	              'div',
-	              { className: this.videosClass() },
-	              _react2.default.createElement(
-	                'h1',
-	                { id: 'user-comments-title' },
-	                user.username + '\'s',
-	                ' Comments'
-	              ),
+	              { className: this.commentsClass() },
 	              _react2.default.createElement(
 	                'div',
 	                { id: 'user-comment-list' },
@@ -74969,13 +74983,7 @@
 	            ),
 	            _react2.default.createElement(
 	              'div',
-	              { className: this.commentsClass() },
-	              _react2.default.createElement(
-	                'h1',
-	                { id: 'user-videos-title' },
-	                user.username + '\'s',
-	                ' Videos'
-	              ),
+	              { className: this.videosClass() },
 	              _react2.default.createElement(
 	                'div',
 	                { id: 'user-video-list' },
@@ -75038,6 +75046,7 @@
 	    var _this = _possibleConstructorReturn(this, (VideoIndexItem.__proto__ || Object.getPrototypeOf(VideoIndexItem)).call(this, props));
 	
 	    _this.handleClick = _this.handleClick.bind(_this);
+	    _this.handleUserClick = _this.handleUserClick.bind(_this);
 	    return _this;
 	  }
 	
@@ -75045,8 +75054,16 @@
 	    key: 'handleClick',
 	    value: function handleClick() {
 	      var videoId = this.props.video.id;
+	      var pathname = this.props.location.pathname;
 	      var newQuery = (0, _merge2.default)({}, this.props.query, { id: videoId });
-	      this.props.router.replace({ pathname: "/", query: newQuery });
+	      this.props.router.replace({ pathname: pathname, query: newQuery });
+	    }
+	  }, {
+	    key: 'handleUserClick',
+	    value: function handleUserClick() {
+	      var userId = this.props.video.user_id;
+	      var query = this.props.location.query;
+	      this.props.router.replace({ pathname: 'users/' + userId, query: query });
 	    }
 	  }, {
 	    key: 'render',
@@ -75087,7 +75104,7 @@
 	            ),
 	            _react2.default.createElement(
 	              'p',
-	              { className: 'video-index-item-user' },
+	              { className: 'video-index-item-user', onClick: this.handleUserClick },
 	              video.user
 	            ),
 	            _react2.default.createElement(
@@ -75102,7 +75119,14 @@
 	              _react2.default.createElement(
 	                'p',
 	                { className: 'video-index-age' },
-	                video.age
+	                'Uploaded ',
+	                video.age,
+	                ' ago'
+	              ),
+	              _react2.default.createElement(
+	                'p',
+	                { className: 'video-index-description' },
+	                video.description
 	              )
 	            )
 	          )
@@ -75172,7 +75196,9 @@
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'parent-comment-time-ago' },
-	              comment.age
+	              'Posted ',
+	              comment.age,
+	              ' ago'
 	            )
 	          ),
 	          _react2.default.createElement(

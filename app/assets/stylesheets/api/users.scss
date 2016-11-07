@@ -5,11 +5,9 @@
 #user-page{
   display:flex;
   flex:1;
-  justify-content: flex-end;;
-  height:100%;
+  justify-content: flex-end;
 
   #user-page-nav{
-    height:100%;
     padding-top: 50px;
     flex:1;
     box-shadow: 4px 0px 2px -2px rgba(0, 0, 0, 0.117647); //line below
@@ -17,6 +15,11 @@
 
     .anchor{
       width:200px;
+    }
+    .user-username{
+      font-size: 30px;
+      font-weight: 500;
+      padding: 40px 20px;
     }
     .align-right{
       width:100%;
@@ -28,6 +31,7 @@
         justify-content: flex-end;
         padding: 10px 20px;
         width:150px;
+        font-weight: 500;
         background: #f0f0f0;
       }
       .show-user-comment-button, .show-user-video-button {
@@ -35,6 +39,7 @@
         justify-content: flex-end;
         padding: 10px 20px;
         width:100px;
+        font-weight: 500;
         background: #fff;
       }
       .show-user-comment-button:hover, .show-user-video-button:hover{
@@ -51,6 +56,121 @@
   #user-page-main{
     flex:5;
 
-    
+    .user-comments{
+      background: #f1f1f1;
+
+      #user-comment-list{
+        padding: 30px;
+
+        .parent-comment{
+          border-radius:5px;
+          padding: 10px;
+          background-color: #fff;
+          margin-bottom: 10px;
+
+          .parent-comment-details{
+            display:flex;
+            justify-content: space-between;
+            padding: 3px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.117647); //line below
+            .parent-comment-time-ago{
+              color: rgb(120, 120, 120);
+              font-size:13px;
+            }
+          }
+          .parent-comment-body{
+            padding: 0 6px;
+          }
+
+        }
+      }
+    }
+
+
+    .user-videos{
+      background: #f1f1f1;
+
+      #user-video-list{
+        padding: 30px;
+        .video-index-item-margin{
+          padding: 10px;
+
+
+
+          .video-index-item{
+            display:relative;
+            display:flex;
+            width:100%;
+            padding:10px;
+            border-radius: 2px;
+            background: #fff;
+            box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+
+
+            .play-icon-box{
+              justify-content: center;
+              align-items: center;
+              background:black;
+              width:300px;
+              height: 190px;
+              border:none;
+              padding:0;
+              margin:0;
+              box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+              border-radius: 2px;
+
+              .video-index-item-picture{
+                width:300px;
+                height:190px;
+              }
+              .zero-height{
+                height:0;
+                .center-icon{
+                  display:flex;
+                  justify-content: center;
+                  align-items: center;
+                  height:190px;
+                  width:300px;
+                  span{
+                    opacity: 0;
+                    visibility: hidden;
+                  }
+                }
+              }
+            }
+
+            .play-icon-box:hover .zero-height .center-icon span{
+              opacity: 0.70;
+              visibility: visible;
+            }
+
+            .play-icon-box:active span{
+              color:rgb(0, 188, 212) !important;
+            }
+
+            .video-index-item-detail{
+              height:190px;
+
+              .video-index-item-title{
+                font-weight: 500;
+                font-size: 19px;
+                padding: 5px 10px;
+              }
+              .video-index-item-title:hover{
+                color: rgb(0, 188, 212);
+              }
+              .video-index-view-age-detail{
+                padding: 10px;
+              }
+              .video-index-view-count, .video-index-age, .video-index-item-user, .video-index-description{
+                color: rgb(120, 120, 120);
+                margin-bottom: 4px;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

@@ -67,6 +67,11 @@ class UserPage extends React.Component {
       return(
         <div id="user-page">
           <div id="user-page-nav">
+
+            <div className="align-right">
+              <div className="user-username">{user.username}</div>
+            </div>
+
             <div className="align-right">
               <div className={this.videosButtonClass()} onClick={this.showVideos}>
                 VIDEOS
@@ -83,8 +88,7 @@ class UserPage extends React.Component {
 
           <div id="user-page-main">
 
-            <div className={this.videosClass()}>
-              <h1 id="user-comments-title">{user.username+'\'s'} Comments</h1>
+            <div className={this.commentsClass()}>
               <div id="user-comment-list">
                 {comments.map(comment => (
                   <CommentItem comment={comment} key={comment.id}/>
@@ -92,8 +96,7 @@ class UserPage extends React.Component {
               </div>
             </div>
 
-            <div className={this.commentsClass()}>
-              <h1 id="user-videos-title">{user.username+'\'s'} Videos</h1>
+            <div className={this.videosClass()}>
               <div id="user-video-list">
                 {videos.map(video => (
                   <VideoIndexItem video={video} key={video.id}/>
