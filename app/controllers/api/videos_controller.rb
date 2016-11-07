@@ -12,16 +12,18 @@ class Api::VideosController < ApplicationController
   end
 
   def fix_thumbnail_size(thumbnail_url)
-    #"/video/upload/c_limit,h_60,w_90/v1478141038/fjbplm92cb48efhlqcss.jpg"
-    split_url = thumbnail_url.split("/upload/")
-    #[ "/video" , "_limit,h_60,w_90/v1478141038/fjbplm92cb48efhlqcss.jpg"]
-    split_url2 = split_url[1].split("/")
-    #[ "_limit,h_60,w_90", "v1478141038", "fjbplm92cb48efhlqcss.jpg"]
-    split_url2.shift
-    # ["v1478141038", "fjbplm92cb48efhlqcss.jpg"]
-    split_url3 = split_url2.join("/")
-    # "v1478141038/fjbplm92cb48efhlqcss.jpg"
-    return "#{split_url[0]}/upload/w_200,h_130/#{split_url3}"
+    if thumbnail_url!=""
+      #"/video/upload/c_limit,h_60,w_90/v1478141038/fjbplm92cb48efhlqcss.jpg"
+      split_url = thumbnail_url.split("/upload/")
+      #[ "/video" , "_limit,h_60,w_90/v1478141038/fjbplm92cb48efhlqcss.jpg"]
+      split_url2 = split_url[1].split("/")
+      #[ "_limit,h_60,w_90", "v1478141038", "fjbplm92cb48efhlqcss.jpg"]
+      split_url2.shift
+      # ["v1478141038", "fjbplm92cb48efhlqcss.jpg"]
+      split_url3 = split_url2.join("/")
+      # "v1478141038/fjbplm92cb48efhlqcss.jpg"
+      return "#{split_url[0]}/upload/w_200,h_130/#{split_url3}"
+    end
   end
 
   def create
@@ -33,6 +35,7 @@ class Api::VideosController < ApplicationController
     else
       render json: @video.errors, status: 422
     end
+
   end
 
   def update

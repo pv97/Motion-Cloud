@@ -19,6 +19,14 @@ class App extends React.Component {
 		this.props.router.push({pathname:"/",query:this.props.query})
   }
 
+  hideCommentClass(){
+    if(this.props.location.query.c){
+      return "hide-comment-section"
+    } else {
+      return "display-none"
+    }
+  }
+
   slideVideoBox(){
     let pathname = this.props.location.pathname
     let query = this.props.location.query
@@ -46,7 +54,11 @@ class App extends React.Component {
 
           <section className="main-section">
             <VideoOverlayContainer/>
-            <div className="page-boundary" >
+
+            <div className="page-boundary">
+              <div className="zero-height">
+                <div className={this.hideCommentClass()} onClick={this.slideVideoBox}></div>
+              </div>
               <div className="page-content">
                 {this.props.children}
               </div>

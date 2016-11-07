@@ -36,9 +36,8 @@
   display:flex;
   width:45%;
   min-width: 800px;
-  z-index: 0;
   padding-right: 40px;
-  background: #f1f1f1;
+  z-index: 100;
 
   .video-overlay{
     width:45%;
@@ -47,7 +46,6 @@
     top:57px;
     bottom: 4px;
     display:flex;
-    z-index:100;
 
     .comment-overlay{
       position:relative;

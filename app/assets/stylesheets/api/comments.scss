@@ -8,6 +8,26 @@
   word-wrap: normal;
   overflow-y: scroll;
 
+  .comment-form-box{
+    border-radius:5px;
+    padding: 10px;
+    background-color: #fff;
+    margin-bottom: 10px;
+
+    .comment-button-section{
+      display:flex;
+      justify-content: flex-end;
+      height:35px;
+    }
+
+    .invisible{
+      display:flex;
+      justify-content: flex-end;
+      height:0;
+      opacity:0;
+    }
+  }
+
   .parent-comment{
     border-radius:5px;
     padding: 10px;

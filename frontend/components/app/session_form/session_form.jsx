@@ -108,7 +108,7 @@ class SessionForm extends React.Component {
 		if(this.props.errors.main){
 			return <div className="main-session-error">{this.props.errors.main}</div>
 		}
-		return <div><br/><br/></div>
+		return <br/>
 	}
 
 	render() {
@@ -141,14 +141,12 @@ class SessionForm extends React.Component {
 						{this.mainError()}
 						<div className="session-form">
 							<TextField
-								id="username-input"
       					floatingLabelText="Username"
 								fullWidth
 								errorText={this.usernameError()}
 								value={this.state.username}
 								onChange={this.update("username")}/>
 							<TextField
-								id="password-input"
       					floatingLabelText="Password"
 								fullWidth
 								errorText={this.passwordError()}

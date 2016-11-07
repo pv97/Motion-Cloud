@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: comments
+#
+#  id                :integer          not null, primary key
+#  user_id           :integer
+#  video_id          :integer
+#  parent_comment_id :integer          default(-1)
+#  body              :text             not null
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
+
 require 'test_helper'
 
 class CommentTest < ActiveSupport::TestCase

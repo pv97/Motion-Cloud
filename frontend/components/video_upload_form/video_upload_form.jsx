@@ -89,7 +89,9 @@ class VideoUploadForm extends React.Component {
 
 	urlError(){
 		if(this.props.errors.url){
-			return "You must upload a video!"
+			return <div className="upload-error">You must upload a video!</div>
+		} else {
+			return <br/>
 		}
 	}
 
@@ -99,7 +101,6 @@ class VideoUploadForm extends React.Component {
 			<div className="video-upload-form-container">
 					<form onSubmit={this.handleSubmit} className="upload-form-box">
 						<h1 className="upload-video-title">Upload a Video</h1>
-						{this.urlError()}
 						<TextField type="text"
 							value={this.state.title}
 							onChange={this.update("title")}
@@ -113,6 +114,7 @@ class VideoUploadForm extends React.Component {
 							multiLine={true}
 							fullWidth/>
 <br/>
+						{this.urlError()}
 						<div className = 'upload-box'>
 							{this.renderUploadBox()}
 						</div>
@@ -126,7 +128,8 @@ class VideoUploadForm extends React.Component {
 							</p>
 						</div>
 <br/>
-						<RaisedButton value="Submit" primary={true} label="Upload Video" onClick={this.handleSubmit} />
+						<RaisedButton value="Submit" primary={true} label="Upload Video"
+							style={{zIndex:0, position:"static"}} onClick={this.handleSubmit} />
 					</form>
 
 			</div>

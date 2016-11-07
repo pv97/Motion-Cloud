@@ -1,5 +1,6 @@
 import React from 'react';
 import CommentIndexItem from './comment_index_item';
+import CommentFormContainer from './comment_form_container';
 
 class CommentIndex extends React.Component {
   getComments(){
@@ -18,6 +19,7 @@ class CommentIndex extends React.Component {
     if(comments){
       return(
         <ul className="comment-index-container">
+          <CommentFormContainer videoId={this.props.videoId}/>
           {comments.map(comment => (
             <CommentIndexItem comment={comment}
               key={comment.id}

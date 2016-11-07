@@ -28152,6 +28152,15 @@
 	      this.props.router.push({ pathname: "/", query: this.props.query });
 	    }
 	  }, {
+	    key: 'hideCommentClass',
+	    value: function hideCommentClass() {
+	      if (this.props.location.query.c) {
+	        return "hide-comment-section";
+	      } else {
+	        return "display-none";
+	      }
+	    }
+	  }, {
 	    key: 'slideVideoBox',
 	    value: function slideVideoBox() {
 	      var pathname = this.props.location.pathname;
@@ -28189,6 +28198,11 @@
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'page-boundary' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'zero-height' },
+	                _react2.default.createElement('div', { className: this.hideCommentClass(), onClick: this.slideVideoBox })
+	              ),
 	              _react2.default.createElement(
 	                'div',
 	                { className: 'page-content' },
@@ -28455,12 +28469,7 @@
 						this.props.errors.main
 					);
 				}
-				return _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement('br', null),
-					_react2.default.createElement('br', null)
-				);
+				return _react2.default.createElement('br', null);
 			}
 		}, {
 			key: 'render',
@@ -28503,14 +28512,12 @@
 								'div',
 								{ className: 'session-form' },
 								_react2.default.createElement(_materialUi.TextField, {
-									id: 'username-input',
 									floatingLabelText: 'Username',
 									fullWidth: true,
 									errorText: this.usernameError(),
 									value: this.state.username,
 									onChange: this.update("username") }),
 								_react2.default.createElement(_materialUi.TextField, {
-									id: 'password-input',
 									floatingLabelText: 'Password',
 									fullWidth: true,
 									errorText: this.passwordError(),
@@ -69713,6 +69720,10 @@
 	
 	var _comment_index_item2 = _interopRequireDefault(_comment_index_item);
 	
+	var _comment_form_container = __webpack_require__(755);
+	
+	var _comment_form_container2 = _interopRequireDefault(_comment_form_container);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -69752,6 +69763,7 @@
 	        return _react2.default.createElement(
 	          'ul',
 	          { className: 'comment-index-container' },
+	          _react2.default.createElement(_comment_form_container2.default, { videoId: this.props.videoId }),
 	          comments.map(function (comment) {
 	            return _react2.default.createElement(_comment_index_item2.default, { comment: comment,
 	              key: comment.id,
@@ -70297,7 +70309,13 @@
 			key: 'urlError',
 			value: function urlError() {
 				if (this.props.errors.url) {
-					return "You must upload a video!";
+					return _react2.default.createElement(
+						'div',
+						{ className: 'upload-error' },
+						'You must upload a video!'
+					);
+				} else {
+					return _react2.default.createElement('br', null);
 				}
 			}
 		}, {
@@ -70314,7 +70332,6 @@
 							{ className: 'upload-video-title' },
 							'Upload a Video'
 						),
-						this.urlError(),
 						_react2.default.createElement(_materialUi.TextField, { type: 'text',
 							value: this.state.title,
 							onChange: this.update("title"),
@@ -70328,6 +70345,7 @@
 							multiLine: true,
 							fullWidth: true }),
 						_react2.default.createElement('br', null),
+						this.urlError(),
 						_react2.default.createElement(
 							'div',
 							{ className: 'upload-box' },
@@ -70349,7 +70367,8 @@
 							)
 						),
 						_react2.default.createElement('br', null),
-						_react2.default.createElement(_materialUi.RaisedButton, { value: 'Submit', primary: true, label: 'Upload Video', onClick: this.handleSubmit })
+						_react2.default.createElement(_materialUi.RaisedButton, { value: 'Submit', primary: true, label: 'Upload Video',
+							style: { zIndex: 0, position: "static" }, onClick: this.handleSubmit })
 					)
 				);
 			}
@@ -74321,6 +74340,157 @@
 	    };
 	  };
 	}; // actions
+
+/***/ },
+/* 755 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reactRedux = __webpack_require__(173);
+	
+	var _comment_form = __webpack_require__(756);
+	
+	var _comment_form2 = _interopRequireDefault(_comment_form);
+	
+	var _comment_actions = __webpack_require__(641);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    loggedIn: Boolean(state.session.currentUser),
+	    errors: state.comments.errors,
+	    query: state.query
+	  };
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    createComment: function createComment(comment) {
+	      return dispatch((0, _comment_actions.createComment)(comment));
+	    }
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_comment_form2.default);
+
+/***/ },
+/* 756 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(203);
+	
+	var _materialUi = __webpack_require__(261);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var CommentForm = function (_React$Component) {
+		_inherits(CommentForm, _React$Component);
+	
+		function CommentForm(props) {
+			_classCallCheck(this, CommentForm);
+	
+			var _this = _possibleConstructorReturn(this, (CommentForm.__proto__ || Object.getPrototypeOf(CommentForm)).call(this, props));
+	
+			_this.state = {
+				body: ""
+			};
+			_this.handleSubmit = _this.handleSubmit.bind(_this);
+			return _this;
+		}
+	
+		_createClass(CommentForm, [{
+			key: 'update',
+			value: function update(field) {
+				var _this2 = this;
+	
+				return function (e) {
+					return _this2.setState(_defineProperty({}, field, e.currentTarget.value));
+				};
+			}
+		}, {
+			key: 'handleSubmit',
+			value: function handleSubmit(e) {
+				e.preventDefault();
+				var comment = {
+					body: this.state.body,
+					video_id: this.props.videoId
+				};
+				this.props.createComment(comment);
+			}
+		}, {
+			key: 'errors',
+			value: function errors() {
+				var errors = "";
+				if (this.props.errors.body) {
+					errors += "You must enter a comment! ";
+				}
+				if (this.props.errors.base) {
+					errors += "You must be logged in to comment!";
+				}
+				return errors;
+			}
+		}, {
+			key: 'buttonClass',
+			value: function buttonClass() {
+				if (this.state.body !== "") {
+					return "comment-button-section";
+				} else {
+					return "invisible";
+				}
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'form',
+					{ onSubmit: this.handleSubmit, className: 'comment-form-box' },
+					_react2.default.createElement(_materialUi.TextField, { type: 'text',
+						value: this.state.body,
+						onChange: this.update("body"),
+						errorText: this.errors(),
+						floatingLabelText: 'Post a comment',
+						multiLine: true,
+						fullWidth: true }),
+					_react2.default.createElement(
+						'div',
+						{ className: this.buttonClass() },
+						_react2.default.createElement(_materialUi.RaisedButton, { className: 'comment-submit-button', value: 'Submit',
+							primary: true, label: 'Post Comment', onClick: this.handleSubmit })
+					)
+				);
+			}
+		}]);
+	
+		return CommentForm;
+	}(_react2.default.Component);
+	
+	exports.default = (0, _reactRouter.withRouter)(CommentForm);
 
 /***/ }
 /******/ ]);
