@@ -32,7 +32,7 @@
   },
   userShow: {
     username: "username",
-    videoIndex: {
+    videos: {
       1: {
         id: 1,
         title: "Sample Video",
@@ -45,7 +45,7 @@
         dislikes: 1,
       },
     },
-    commentIndex: {
+    comments: {
       1:{
         id: 1,
         user_id: 1,

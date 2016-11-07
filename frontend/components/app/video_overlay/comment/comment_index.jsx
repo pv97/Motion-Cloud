@@ -19,7 +19,6 @@ class CommentIndex extends React.Component {
     if(comments){
       return(
         <ul className="comment-index-container">
-          <CommentFormContainer videoId={this.props.videoId}/>
           {comments.map(comment => (
             <CommentIndexItem comment={comment}
               key={comment.id}
@@ -27,6 +26,7 @@ class CommentIndex extends React.Component {
               errors={this.props.errors}
               createReply={this.props.createReply}/>
           ))}
+          <CommentFormContainer videoId={this.props.videoId}/>
         </ul>
       )
     } else {

@@ -1,9 +1,7 @@
-// actions
 import { SET_VIDEO_QUERY } from '../actions/query_actions';
 import { receiveVideo } from '../actions/video_actions';
 import { receiveAllComments } from '../actions/comment_actions';
 
-// api utils
 import { fetchVideo } from '../util/video_api_util';
 import { fetchComments } from '../util/comment_api_util';
 

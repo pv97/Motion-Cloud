@@ -19,6 +19,7 @@ import {
   fetchComments,
   fetchComment
 } from '../util/comment_api_util';
+
 import { hashHistory } from 'react-router';
 
 const CommentsMiddleware = ({getState, dispatch}) => next => action => {

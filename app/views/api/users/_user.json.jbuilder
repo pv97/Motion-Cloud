@@ -1,4 +1,4 @@
-json.extract! user, :id, :username, :videos
+json.extract! user, :id, :username
 
 json.comments user.comments.each do |comment|
   json.extract! comment, :id, :user_id, :video_id, :parent_comment_id, :body

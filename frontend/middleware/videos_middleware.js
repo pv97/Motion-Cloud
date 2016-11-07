@@ -17,6 +17,7 @@ import {
   fetchVideos,
   fetchVideo
 } from '../util/video_api_util';
+
 import { hashHistory } from 'react-router';
 
 const VideosMiddleware = ({getState, dispatch}) => next => action => {

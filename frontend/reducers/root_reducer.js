@@ -4,12 +4,14 @@ import SessionReducer from './session_reducer';
 import VideosReducer from './videos_reducer';
 import CommentsReducer from './comments_reducer';
 import QueryReducer from './query_reducer';
+import UserReducer from './user_reducer';
 
 const RootReducer = combineReducers({
   session: SessionReducer,
   videos: VideosReducer,
   comments: CommentsReducer,
-  query: QueryReducer
+  query: QueryReducer,
+  user: UserReducer
 });
 
 export default RootReducer;

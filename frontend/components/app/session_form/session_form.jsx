@@ -19,6 +19,14 @@ class SessionForm extends React.Component {
 		this.dropDownClose = this.dropDownClose.bind(this);
 	}
 
+	componentDidUpdate(){
+		if(this.props.loggedIn && this.state.open){
+			this.setState({
+				open: false,
+			});
+		}
+	}
+
 	update(field) {
 		return e => this.setState({
 			[field]: e.currentTarget.value
@@ -67,8 +75,8 @@ class SessionForm extends React.Component {
 	guestLogin(e){
 		e.preventDefault();
 		this.setState({
-			 open: false,
-		 });
+			open: false,
+		});
 		this.props.login({
 			user:{
 				formType:"Login",

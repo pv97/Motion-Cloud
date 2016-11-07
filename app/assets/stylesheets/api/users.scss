@@ -1,3 +1,56 @@
 // Place all the styles related to the api/Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#user-page{
+  display:flex;
+  flex:1;
+  justify-content: flex-end;;
+  height:100%;
+
+  #user-page-nav{
+    height:100%;
+    padding-top: 50px;
+    flex:1;
+    box-shadow: 4px 0px 2px -2px rgba(0, 0, 0, 0.117647); //line below
+    justify-content: flex-end;
+
+    .anchor{
+      width:200px;
+    }
+    .align-right{
+      width:100%;
+      display:flex;
+      justify-content: flex-end;
+
+      .clicked{
+        display:flex;
+        justify-content: flex-end;
+        padding: 10px 20px;
+        width:150px;
+        background: #f0f0f0;
+      }
+      .show-user-comment-button, .show-user-video-button {
+        display:flex;
+        justify-content: flex-end;
+        padding: 10px 20px;
+        width:100px;
+        background: #fff;
+      }
+      .show-user-comment-button:hover, .show-user-video-button:hover{
+        background: #f0f0f0;
+      }
+      .show-user-comment-button:active, .show-user-video-button:active{
+        background: #fff;
+      }
+    }
+
+
+  }
+
+  #user-page-main{
+    flex:5;
+
+    
+  }
+}

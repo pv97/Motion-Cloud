@@ -58,14 +58,14 @@
 	
 	var _root2 = _interopRequireDefault(_root);
 	
-	var _store = __webpack_require__(745);
+	var _store = __webpack_require__(743);
 	
 	var _store2 = _interopRequireDefault(_store);
 	
+	var _user_actions = __webpack_require__(750);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	//Components
-	//React
 	document.addEventListener('DOMContentLoaded', function () {
 	  var store = void 0;
 	  if (window.currentUser) {
@@ -75,9 +75,12 @@
 	    store = (0, _store2.default)();
 	  }
 	  window.store = store;
+	  window.fetchUser = _user_actions.fetchUser;
 	  var root = document.getElementById('root');
 	  _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), root);
 	});
+	//Components
+	//React
 
 /***/ },
 /* 1 */
@@ -21472,23 +21475,27 @@
 	
 	var _video_upload_form_container2 = _interopRequireDefault(_video_upload_form_container);
 	
-	var _video_index_container = __webpack_require__(736);
+	var _user_page_container = __webpack_require__(736);
+	
+	var _user_page_container2 = _interopRequireDefault(_user_page_container);
+	
+	var _video_index_container = __webpack_require__(764);
 	
 	var _video_index_container2 = _interopRequireDefault(_video_index_container);
 	
-	var _reactTapEventPlugin = __webpack_require__(739);
+	var _reactTapEventPlugin = __webpack_require__(737);
 	
 	var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// react components
+	// react router
 	(0, _reactTapEventPlugin2.default)();
 	
 	//material ui
 	
 	
-	// react router
+	// react components
 	
 	
 	var Root = function Root(_ref) {
@@ -21505,6 +21512,7 @@
 	        _reactRouter.Route,
 	        { path: '/', component: _app_container2.default },
 	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _video_index_container2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: '/users/:userId', component: _user_page_container2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: '/videos/new', component: _video_upload_form_container2.default })
 	      )
 	    )
@@ -28065,8 +28073,6 @@
 	
 	var _app2 = _interopRequireDefault(_app);
 	
-	var _query_actions = __webpack_require__(647);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var mapStateToProps = function mapStateToProps(state) {
@@ -28076,11 +28082,7 @@
 	};
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {
-	    setVideoQuery: function setVideoQuery(id, c) {
-	      return dispatch((0, _query_actions.setVideoQuery)(id, c));
-	    }
-	  };
+	  return {};
 	};
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_app2.default);
@@ -28360,6 +28362,15 @@
 		}
 	
 		_createClass(SessionForm, [{
+			key: 'componentDidUpdate',
+			value: function componentDidUpdate() {
+				if (this.props.loggedIn && this.state.open) {
+					this.setState({
+						open: false
+					});
+				}
+			}
+		}, {
 			key: 'update',
 			value: function update(field) {
 				var _this2 = this;
@@ -69762,14 +69773,14 @@
 	        return _react2.default.createElement(
 	          'ul',
 	          { className: 'comment-index-container' },
-	          _react2.default.createElement(_comment_form_container2.default, { videoId: this.props.videoId }),
 	          comments.map(function (comment) {
 	            return _react2.default.createElement(_comment_index_item2.default, { comment: comment,
 	              key: comment.id,
 	              childComments: comment.child_comments,
 	              errors: _this3.props.errors,
 	              createReply: _this3.props.createReply });
-	          })
+	          }),
+	          _react2.default.createElement(_comment_form_container2.default, { videoId: this.props.videoId })
 	        );
 	      } else {
 	        return _react2.default.createElement('div', null);
@@ -73597,249 +73608,37 @@
 	
 	var _reactRedux = __webpack_require__(173);
 	
-	var _video_index = __webpack_require__(737);
+	var _user_page = __webpack_require__(761);
 	
-	var _video_index2 = _interopRequireDefault(_video_index);
+	var _user_page2 = _interopRequireDefault(_user_page);
 	
-	var _video_actions = __webpack_require__(646);
-	
-	var _merge = __webpack_require__(650);
-	
-	var _merge2 = _interopRequireDefault(_merge);
+	var _user_actions = __webpack_require__(750);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var mapStateToProps = function mapStateToProps(state) {
 	  return {
-	    loggedIn: Boolean(state.session.currentUser),
-	    videos: state.videos,
+	    user: state.user,
 	    query: state.query
 	  };
 	};
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
-	    fetchVideos: function fetchVideos() {
-	      return dispatch((0, _video_actions.fetchVideos)());
+	    fetchUser: function fetchUser(id) {
+	      return dispatch((0, _user_actions.fetchUser)(id));
 	    }
 	  };
 	};
 	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_video_index2.default);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_user_page2.default);
 
 /***/ },
 /* 737 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _video_index_item = __webpack_require__(738);
-	
-	var _video_index_item2 = _interopRequireDefault(_video_index_item);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var VideoIndex = function (_React$Component) {
-	  _inherits(VideoIndex, _React$Component);
-	
-	  function VideoIndex() {
-	    _classCallCheck(this, VideoIndex);
-	
-	    return _possibleConstructorReturn(this, (VideoIndex.__proto__ || Object.getPrototypeOf(VideoIndex)).apply(this, arguments));
-	  }
-	
-	  _createClass(VideoIndex, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.props.fetchVideos();
-	    }
-	  }, {
-	    key: 'getVideos',
-	    value: function getVideos() {
-	      var _this2 = this;
-	
-	      var videos = [];
-	      Object.keys(this.props.videos).map(function (key) {
-	        if (key !== "errors") {
-	          videos.push(_this2.props.videos[key]);
-	        }
-	      });
-	      return videos;
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var videos = this.getVideos();
-	
-	      if (videos) {
-	        return _react2.default.createElement(
-	          'div',
-	          { id: 'video-index-container' },
-	          _react2.default.createElement(
-	            'h1',
-	            { id: 'video-index-title' },
-	            'Trending Videos'
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { id: 'video-list' },
-	            videos.map(function (video) {
-	              return _react2.default.createElement(_video_index_item2.default, { video: video, key: video.id });
-	            })
-	          )
-	        );
-	      } else {
-	        return _react2.default.createElement('div', null);
-	      }
-	    }
-	  }]);
-	
-	  return VideoIndex;
-	}(_react2.default.Component);
-	
-	exports.default = VideoIndex;
-
-/***/ },
-/* 738 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(203);
-	
-	var _merge = __webpack_require__(650);
-	
-	var _merge2 = _interopRequireDefault(_merge);
-	
-	var _materialUi = __webpack_require__(261);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var VideoIndexItem = function (_React$Component) {
-	  _inherits(VideoIndexItem, _React$Component);
-	
-	  function VideoIndexItem(props) {
-	    _classCallCheck(this, VideoIndexItem);
-	
-	    var _this = _possibleConstructorReturn(this, (VideoIndexItem.__proto__ || Object.getPrototypeOf(VideoIndexItem)).call(this, props));
-	
-	    _this.handleClick = _this.handleClick.bind(_this);
-	    return _this;
-	  }
-	
-	  _createClass(VideoIndexItem, [{
-	    key: 'handleClick',
-	    value: function handleClick() {
-	      var videoId = this.props.video.id;
-	      var newQuery = (0, _merge2.default)({}, this.props.query, { id: videoId });
-	      this.props.router.replace({ pathname: "/", query: newQuery });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var video = this.props.video;
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'video-index-item-margin' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'video-index-item' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'play-icon-box', onClick: this.handleClick },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'zero-height' },
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'center-icon' },
-	                _react2.default.createElement(
-	                  _materialUi.FontIcon,
-	                  { className: 'material-icons', color: "#fff", style: { fontSize: 70 }
-	                  },
-	                  'play_circle_outline'
-	                )
-	              )
-	            ),
-	            _react2.default.createElement('img', { className: 'video-index-item-picture', src: video.thumbnail_url, onClick: this.handleClick })
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'video-index-item-detail' },
-	            _react2.default.createElement(
-	              'p',
-	              { className: 'video-index-item-title', onClick: this.handleClick },
-	              video.title
-	            ),
-	            _react2.default.createElement(
-	              'p',
-	              { className: 'video-index-item-user' },
-	              video.user
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'video-index-view-age-detail' },
-	              _react2.default.createElement(
-	                'p',
-	                { className: 'video-index-view-count' },
-	                video.view_count,
-	                ' Views'
-	              ),
-	              _react2.default.createElement(
-	                'p',
-	                { className: 'video-index-age' },
-	                video.age
-	              )
-	            )
-	          )
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return VideoIndexItem;
-	}(_react2.default.Component);
-	
-	exports.default = (0, _reactRouter.withRouter)(VideoIndexItem);
-
-/***/ },
-/* 739 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {var invariant = __webpack_require__(740);
-	var defaultClickRejectionStrategy = __webpack_require__(741);
+	/* WEBPACK VAR INJECTION */(function(process) {var invariant = __webpack_require__(738);
+	var defaultClickRejectionStrategy = __webpack_require__(739);
 	
 	var alreadyInjected = false;
 	
@@ -73861,14 +73660,14 @@
 	  alreadyInjected = true;
 	
 	  __webpack_require__(43).injection.injectEventPluginsByName({
-	    'TapEventPlugin':       __webpack_require__(742)(shouldRejectClick)
+	    'TapEventPlugin':       __webpack_require__(740)(shouldRejectClick)
 	  });
 	};
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 740 */
+/* 738 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -73923,7 +73722,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 741 */
+/* 739 */
 /***/ function(module, exports) {
 
 	module.exports = function(lastTouchEvent, clickTimestamp) {
@@ -73934,7 +73733,7 @@
 
 
 /***/ },
-/* 742 */
+/* 740 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -73962,10 +73761,10 @@
 	var EventPluginUtils = __webpack_require__(45);
 	var EventPropagators = __webpack_require__(42);
 	var SyntheticUIEvent = __webpack_require__(76);
-	var TouchEventUtils = __webpack_require__(743);
+	var TouchEventUtils = __webpack_require__(741);
 	var ViewportMetrics = __webpack_require__(77);
 	
-	var keyOf = __webpack_require__(744);
+	var keyOf = __webpack_require__(742);
 	var topLevelTypes = EventConstants.topLevelTypes;
 	
 	var isStartish = EventPluginUtils.isStartish;
@@ -74110,7 +73909,7 @@
 
 
 /***/ },
-/* 743 */
+/* 741 */
 /***/ function(module, exports) {
 
 	/**
@@ -74158,7 +73957,7 @@
 
 
 /***/ },
-/* 744 */
+/* 742 */
 /***/ function(module, exports) {
 
 	/**
@@ -74198,7 +73997,7 @@
 	module.exports = keyOf;
 
 /***/ },
-/* 745 */
+/* 743 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -74209,7 +74008,7 @@
 	
 	var _redux = __webpack_require__(180);
 	
-	var _root_reducer = __webpack_require__(746);
+	var _root_reducer = __webpack_require__(744);
 	
 	var _root_reducer2 = _interopRequireDefault(_root_reducer);
 	
@@ -74227,7 +74026,7 @@
 	exports.default = configureStore;
 
 /***/ },
-/* 746 */
+/* 744 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -74238,21 +74037,25 @@
 	
 	var _redux = __webpack_require__(180);
 	
-	var _session_reducer = __webpack_require__(747);
+	var _session_reducer = __webpack_require__(745);
 	
 	var _session_reducer2 = _interopRequireDefault(_session_reducer);
 	
-	var _videos_reducer = __webpack_require__(748);
+	var _videos_reducer = __webpack_require__(746);
 	
 	var _videos_reducer2 = _interopRequireDefault(_videos_reducer);
 	
-	var _comments_reducer = __webpack_require__(749);
+	var _comments_reducer = __webpack_require__(747);
 	
 	var _comments_reducer2 = _interopRequireDefault(_comments_reducer);
 	
-	var _query_reducer = __webpack_require__(750);
+	var _query_reducer = __webpack_require__(748);
 	
 	var _query_reducer2 = _interopRequireDefault(_query_reducer);
+	
+	var _user_reducer = __webpack_require__(749);
+	
+	var _user_reducer2 = _interopRequireDefault(_user_reducer);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -74260,13 +74063,14 @@
 	  session: _session_reducer2.default,
 	  videos: _videos_reducer2.default,
 	  comments: _comments_reducer2.default,
-	  query: _query_reducer2.default
+	  query: _query_reducer2.default,
+	  user: _user_reducer2.default
 	});
 	
 	exports.default = RootReducer;
 
 /***/ },
-/* 747 */
+/* 745 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -74313,7 +74117,7 @@
 	exports.default = SessionReducer;
 
 /***/ },
-/* 748 */
+/* 746 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -74367,7 +74171,7 @@
 	exports.default = VideosReducer;
 
 /***/ },
-/* 749 */
+/* 747 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -74392,10 +74196,10 @@
 	
 	  Object.freeze(oldState);
 	  var newState = void 0;
-	  console.log(action);
+	
 	  switch (action.type) {
 	    case _comment_actions.RECEIVE_ALL_COMMENTS:
-	      return (0, _merge3.default)({}, action.comments);
+	      return action.comments;
 	
 	    case _comment_actions.RECEIVE_COMMENT:
 	      _newState = (0, _merge3.default)({}, oldState, _defineProperty({}, action.comment.id, action.comment));
@@ -74427,7 +74231,7 @@
 	exports.default = CommentsReducer;
 
 /***/ },
-/* 750 */
+/* 748 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -74451,7 +74255,7 @@
 	  Object.freeze(oldState);
 	  switch (action.type) {
 	    case _query_actions.SET_VIDEO_QUERY:
-	      return (0, _merge2.default)({}, { id: action.id });
+	      return { id: action.id };
 	
 	    case _query_actions.SET_COMMENT_QUERY:
 	      var newState = (0, _merge2.default)({}, oldState);
@@ -74464,6 +74268,68 @@
 	};
 	
 	exports.default = QueryReducer;
+
+/***/ },
+/* 749 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _user_actions = __webpack_require__(750);
+	
+	var _merge = __webpack_require__(650);
+	
+	var _merge2 = _interopRequireDefault(_merge);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var UserReducer = function UserReducer() {
+	  var oldState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	  var action = arguments[1];
+	
+	  Object.freeze(oldState);
+	  var newState = void 0;
+	
+	  switch (action.type) {
+	
+	    case _user_actions.RECEIVE_USER:
+	      return action.user;
+	
+	    default:
+	      return oldState;
+	  }
+	};
+	
+	exports.default = UserReducer;
+
+/***/ },
+/* 750 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var FETCH_USER = exports.FETCH_USER = "FETCH_USER";
+	var RECEIVE_USER = exports.RECEIVE_USER = "RECEIVE_USER";
+	
+	var fetchUser = exports.fetchUser = function fetchUser(id) {
+	  return {
+	    type: FETCH_USER,
+	    id: id
+	  };
+	};
+	var receiveUser = exports.receiveUser = function receiveUser(user) {
+	  return {
+	    type: RECEIVE_USER,
+	    user: user
+	  };
+	};
 
 /***/ },
 /* 751 */
@@ -74493,9 +74359,13 @@
 	
 	var _query_middleware2 = _interopRequireDefault(_query_middleware);
 	
+	var _user_middleware = __webpack_require__(759);
+	
+	var _user_middleware2 = _interopRequireDefault(_user_middleware);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var RootMiddleware = (0, _redux.applyMiddleware)(_session_middleware2.default, _videos_middleware2.default, _comments_middleware2.default, _query_middleware2.default);
+	var RootMiddleware = (0, _redux.applyMiddleware)(_session_middleware2.default, _videos_middleware2.default, _comments_middleware2.default, _query_middleware2.default, _user_middleware2.default);
 	
 	exports.default = RootMiddleware;
 
@@ -74513,7 +74383,6 @@
 	
 	var _session_api_util = __webpack_require__(753);
 	
-	// actions
 	exports.default = function (_ref) {
 	  var getState = _ref.getState,
 	      dispatch = _ref.dispatch;
@@ -74547,8 +74416,6 @@
 	    };
 	  };
 	};
-	
-	// api utils
 
 /***/ },
 /* 753 */
@@ -74576,7 +74443,7 @@
 	var signup = exports.signup = function signup(user, success, error) {
 		$.ajax({
 			method: 'POST',
-			url: '/api/user',
+			url: '/api/users',
 			data: user,
 			success: success,
 			error: error
@@ -74860,7 +74727,6 @@
 	
 	var _comment_api_util = __webpack_require__(757);
 	
-	// api utils
 	exports.default = function (_ref) {
 	  var getState = _ref.getState,
 	      dispatch = _ref.dispatch;
@@ -74889,7 +74755,570 @@
 	      }
 	    };
 	  };
-	}; // actions
+	};
+
+/***/ },
+/* 759 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _user_actions = __webpack_require__(750);
+	
+	var _user_api_util = __webpack_require__(760);
+	
+	exports.default = function (_ref) {
+	  var getState = _ref.getState,
+	      dispatch = _ref.dispatch;
+	  return function (next) {
+	    return function (action) {
+	      var successCallback = function successCallback(user) {
+	        return dispatch((0, _user_actions.receiveUser)(user));
+	      };
+	      var errorCallback = function errorCallback(xhr) {
+	        return console.log(xhr);
+	      };
+	
+	      switch (action.type) {
+	        case _user_actions.FETCH_USER:
+	          (0, _user_api_util.fetchUser)(action.id, successCallback, errorCallback);
+	          return next(action);
+	
+	        default:
+	          return next(action);
+	      }
+	    };
+	  };
+	};
+
+/***/ },
+/* 760 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var fetchUser = exports.fetchUser = function fetchUser(id, success, error) {
+	  $.ajax({
+	    url: "api/users/" + id,
+	    success: success,
+	    error: error
+	  });
+	};
+
+/***/ },
+/* 761 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(203);
+	
+	var _video_index_item = __webpack_require__(762);
+	
+	var _video_index_item2 = _interopRequireDefault(_video_index_item);
+	
+	var _comment_item = __webpack_require__(763);
+	
+	var _comment_item2 = _interopRequireDefault(_comment_item);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var UserPage = function (_React$Component) {
+	  _inherits(UserPage, _React$Component);
+	
+	  function UserPage(props) {
+	    _classCallCheck(this, UserPage);
+	
+	    var _this = _possibleConstructorReturn(this, (UserPage.__proto__ || Object.getPrototypeOf(UserPage)).call(this, props));
+	
+	    _this.state = {
+	      show: "videos"
+	    };
+	    _this.showVideos = _this.showVideos.bind(_this);
+	    _this.showComments = _this.showComments.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(UserPage, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.fetchUser(this.props.params.userId);
+	    }
+	  }, {
+	    key: 'commentsClass',
+	    value: function commentsClass() {
+	      if (this.state.show === "videos") {
+	        return "display-none";
+	      } else {
+	        return "user-comments";
+	      }
+	    }
+	  }, {
+	    key: 'videosClass',
+	    value: function videosClass() {
+	      if (this.state.show === "videos") {
+	        return "user-videos";
+	      } else {
+	        return "display-none";
+	      }
+	    }
+	  }, {
+	    key: 'videosButtonClass',
+	    value: function videosButtonClass() {
+	      if (this.state.show === "videos") {
+	        return "clicked";
+	      } else {
+	        return "show-user-video-button";
+	      }
+	    }
+	  }, {
+	    key: 'commentsButtonClass',
+	    value: function commentsButtonClass() {
+	      if (this.state.show === "videos") {
+	        return "show-user-comment-button";
+	      } else {
+	        return "clicked";
+	      }
+	    }
+	  }, {
+	    key: 'showVideos',
+	    value: function showVideos() {
+	      this.setState({ show: "videos" });
+	    }
+	  }, {
+	    key: 'showComments',
+	    value: function showComments() {
+	      this.setState({ show: "comments" });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var user = this.props.user;
+	      var videos = user.videos;
+	      var comments = user.comments;
+	
+	      if (videos) {
+	        return _react2.default.createElement(
+	          'div',
+	          { id: 'user-page' },
+	          _react2.default.createElement(
+	            'div',
+	            { id: 'user-page-nav' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'align-right' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: this.videosButtonClass(), onClick: this.showVideos },
+	                'VIDEOS'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'align-right' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: this.commentsButtonClass(), onClick: this.showComments },
+	                'COMMENTS'
+	              )
+	            ),
+	            _react2.default.createElement('div', { className: 'anchor' })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { id: 'user-page-main' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: this.videosClass() },
+	              _react2.default.createElement(
+	                'h1',
+	                { id: 'user-comments-title' },
+	                user.username + '\'s',
+	                ' Comments'
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { id: 'user-comment-list' },
+	                comments.map(function (comment) {
+	                  return _react2.default.createElement(_comment_item2.default, { comment: comment, key: comment.id });
+	                })
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: this.commentsClass() },
+	              _react2.default.createElement(
+	                'h1',
+	                { id: 'user-videos-title' },
+	                user.username + '\'s',
+	                ' Videos'
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { id: 'user-video-list' },
+	                videos.map(function (video) {
+	                  return _react2.default.createElement(_video_index_item2.default, { video: video, key: video.id });
+	                })
+	              )
+	            )
+	          )
+	        );
+	      } else {
+	        return _react2.default.createElement('div', null);
+	      }
+	    }
+	  }]);
+	
+	  return UserPage;
+	}(_react2.default.Component);
+	
+	exports.default = (0, _reactRouter.withRouter)(UserPage);
+
+/***/ },
+/* 762 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(203);
+	
+	var _merge = __webpack_require__(650);
+	
+	var _merge2 = _interopRequireDefault(_merge);
+	
+	var _materialUi = __webpack_require__(261);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var VideoIndexItem = function (_React$Component) {
+	  _inherits(VideoIndexItem, _React$Component);
+	
+	  function VideoIndexItem(props) {
+	    _classCallCheck(this, VideoIndexItem);
+	
+	    var _this = _possibleConstructorReturn(this, (VideoIndexItem.__proto__ || Object.getPrototypeOf(VideoIndexItem)).call(this, props));
+	
+	    _this.handleClick = _this.handleClick.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(VideoIndexItem, [{
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      var videoId = this.props.video.id;
+	      var newQuery = (0, _merge2.default)({}, this.props.query, { id: videoId });
+	      this.props.router.replace({ pathname: "/", query: newQuery });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var video = this.props.video;
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'video-index-item-margin' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'video-index-item' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'play-icon-box', onClick: this.handleClick },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'zero-height' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'center-icon' },
+	                _react2.default.createElement(
+	                  _materialUi.FontIcon,
+	                  { className: 'material-icons', color: "#fff", style: { fontSize: 70 }
+	                  },
+	                  'play_circle_outline'
+	                )
+	              )
+	            ),
+	            _react2.default.createElement('img', { className: 'video-index-item-picture', src: video.thumbnail_url, onClick: this.handleClick })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'video-index-item-detail' },
+	            _react2.default.createElement(
+	              'p',
+	              { className: 'video-index-item-title', onClick: this.handleClick },
+	              video.title
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              { className: 'video-index-item-user' },
+	              video.user
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'video-index-view-age-detail' },
+	              _react2.default.createElement(
+	                'p',
+	                { className: 'video-index-view-count' },
+	                video.view_count,
+	                ' Views'
+	              ),
+	              _react2.default.createElement(
+	                'p',
+	                { className: 'video-index-age' },
+	                video.age
+	              )
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return VideoIndexItem;
+	}(_react2.default.Component);
+	
+	exports.default = (0, _reactRouter.withRouter)(VideoIndexItem);
+
+/***/ },
+/* 763 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(203);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var CommentItem = function (_React$Component) {
+	  _inherits(CommentItem, _React$Component);
+	
+	  function CommentItem() {
+	    _classCallCheck(this, CommentItem);
+	
+	    return _possibleConstructorReturn(this, (CommentItem.__proto__ || Object.getPrototypeOf(CommentItem)).apply(this, arguments));
+	  }
+	
+	  _createClass(CommentItem, [{
+	    key: 'render',
+	    value: function render() {
+	      var comment = this.props.comment;
+	      return _react2.default.createElement(
+	        'li',
+	        { className: 'parent-comment-container' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'parent-comment' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'parent-comment-details' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'parent-comment-user' },
+	              comment.user
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'parent-comment-time-ago' },
+	              comment.age
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'parent-comment-body' },
+	            comment.body
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return CommentItem;
+	}(_react2.default.Component);
+	
+	exports.default = (0, _reactRouter.withRouter)(CommentItem);
+
+/***/ },
+/* 764 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reactRedux = __webpack_require__(173);
+	
+	var _video_index = __webpack_require__(765);
+	
+	var _video_index2 = _interopRequireDefault(_video_index);
+	
+	var _video_actions = __webpack_require__(646);
+	
+	var _merge = __webpack_require__(650);
+	
+	var _merge2 = _interopRequireDefault(_merge);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    loggedIn: Boolean(state.session.currentUser),
+	    videos: state.videos,
+	    query: state.query
+	  };
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    fetchVideos: function fetchVideos() {
+	      return dispatch((0, _video_actions.fetchVideos)());
+	    }
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_video_index2.default);
+
+/***/ },
+/* 765 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _video_index_item = __webpack_require__(762);
+	
+	var _video_index_item2 = _interopRequireDefault(_video_index_item);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var VideoIndex = function (_React$Component) {
+	  _inherits(VideoIndex, _React$Component);
+	
+	  function VideoIndex() {
+	    _classCallCheck(this, VideoIndex);
+	
+	    return _possibleConstructorReturn(this, (VideoIndex.__proto__ || Object.getPrototypeOf(VideoIndex)).apply(this, arguments));
+	  }
+	
+	  _createClass(VideoIndex, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.fetchVideos();
+	    }
+	  }, {
+	    key: 'getVideos',
+	    value: function getVideos() {
+	      var _this2 = this;
+	
+	      var videos = [];
+	      Object.keys(this.props.videos).map(function (key) {
+	        if (key !== "errors") {
+	          videos.push(_this2.props.videos[key]);
+	        }
+	      });
+	      return videos;
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var videos = this.getVideos();
+	
+	      if (videos) {
+	        return _react2.default.createElement(
+	          'div',
+	          { id: 'video-index-container' },
+	          _react2.default.createElement(
+	            'h1',
+	            { id: 'video-index-title' },
+	            'Trending Videos'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { id: 'video-list' },
+	            videos.map(function (video) {
+	              return _react2.default.createElement(_video_index_item2.default, { video: video, key: video.id });
+	            })
+	          )
+	        );
+	      } else {
+	        return _react2.default.createElement('div', null);
+	      }
+	    }
+	  }]);
+	
+	  return VideoIndex;
+	}(_react2.default.Component);
+	
+	exports.default = VideoIndex;
 
 /***/ }
 /******/ ]);

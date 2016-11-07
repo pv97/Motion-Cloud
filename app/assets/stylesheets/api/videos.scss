@@ -74,17 +74,20 @@
 
         .video-index-item-title{
           overflow-y: hidden;
-          height: 34px;
+          height: 17px;
           font-weight: 500;
           font-size: 14px;
-          margin: 3px 0px;
+          margin: 5px 0px;
         }
         .video-index-item-title:hover{
-           color: blue;
+           color: rgb(0, 188, 212);
         }
         .video-index-view-age-detail{
           display:flex;
           justify-content: space-between;
+        }
+        .video-index-view-count, .video-index-age, .video-index-item-user{
+          color: rgb(120, 120, 120);
         }
       }
     }

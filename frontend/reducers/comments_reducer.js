@@ -1,18 +1,19 @@
-import { RECEIVE_ALL_COMMENTS,
-         RECEIVE_COMMENT,
-         RECEIVE_REPLY,
-         REMOVE_COMMENT,
-         RECEIVE_COMMENT_ERRORS
-       } from '../actions/comment_actions';
+import {
+  RECEIVE_ALL_COMMENTS,
+  RECEIVE_COMMENT,
+  RECEIVE_REPLY,
+  REMOVE_COMMENT,
+  RECEIVE_COMMENT_ERRORS
+} from '../actions/comment_actions';
 import merge from 'lodash/merge';
 
 const CommentsReducer = (oldState = {errors:{}}, action) => {
   Object.freeze(oldState)
   let newState;
-  console.log(action);
+  
   switch (action.type) {
     case RECEIVE_ALL_COMMENTS:
-      return merge({}, action.comments);
+      return action.comments;
 
     case RECEIVE_COMMENT:
       newState = merge({}, oldState, {[action.comment.id]: action.comment})
