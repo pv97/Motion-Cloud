@@ -3,6 +3,8 @@ class Api::VideosController < ApplicationController
 
   def show
     @video = Video.find(params[:id])
+    @video.view_count += 1
+    @video.save
     render "api/videos/show"
   end
 
@@ -22,7 +24,7 @@ class Api::VideosController < ApplicationController
       # ["v1478141038", "fjbplm92cb48efhlqcss.jpg"]
       split_url3 = split_url2.join("/")
       # "v1478141038/fjbplm92cb48efhlqcss.jpg"
-      return "#{split_url[0]}/upload/w_200,h_130/#{split_url3}"
+      return "#{split_url[0]}/upload/w_300,h_180/#{split_url3}"
     end
   end
 
