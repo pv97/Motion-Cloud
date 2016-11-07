@@ -16,7 +16,7 @@ class VideoOverlay extends React.Component {
 	}
 
 	componentDidMount(){
-		this.callVideoQuery();
+		this.updateQuery();
 	}
 
 	componentDidUpdate(){
@@ -26,14 +26,12 @@ class VideoOverlay extends React.Component {
 	updateQuery(){
 		let queryString = this.props.location.query;
 		let queryState = this.props.query;
-		if(queryString.id!==queryState.id || queryString.c!==queryState.c){
-			this.callVideoQuery();
+		if(queryString.id!==queryState.id){
+			this.props.setVideoQuery(queryString.id);
 		}
-	}
-
-	callVideoQuery(){
-		let queryString = this.props.location.query;
-		this.props.setVideoQuery(queryString.id, queryString.c);
+		if(queryString.c!==queryState.c){
+			this.props.setCommentQuery(queryString.c);
+		}
 	}
 
 	buttonClass(){

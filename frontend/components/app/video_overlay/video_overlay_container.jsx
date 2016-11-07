@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import VideoOverlay from './video_overlay';
 import { fetchVideo } from '../../../actions/video_actions';
-import { setVideoQuery } from '../../../actions/query_actions';
+import { setVideoQuery, setCommentQuery } from '../../../actions/query_actions';
 
 const mapStateToProps = state => ({
   videos: state.videos,
@@ -10,7 +10,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchVideo: (id) => dispatch(fetchVideo(id)),
-  setVideoQuery: (id,c) => dispatch(setVideoQuery(id,c))
+  setVideoQuery: (id) => dispatch(setVideoQuery(id)),
+  setCommentQuery: (c) => dispatch(setCommentQuery(c))
 });
 
 export default connect(

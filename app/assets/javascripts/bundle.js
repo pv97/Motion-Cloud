@@ -67733,8 +67733,11 @@
 	    fetchVideo: function fetchVideo(id) {
 	      return dispatch((0, _video_actions.fetchVideo)(id));
 	    },
-	    setVideoQuery: function setVideoQuery(id, c) {
-	      return dispatch((0, _query_actions.setVideoQuery)(id, c));
+	    setVideoQuery: function setVideoQuery(id) {
+	      return dispatch((0, _query_actions.setVideoQuery)(id));
+	    },
+	    setCommentQuery: function setCommentQuery(c) {
+	      return dispatch((0, _query_actions.setCommentQuery)(c));
 	    }
 	  };
 	};
@@ -67797,7 +67800,7 @@
 		_createClass(VideoOverlay, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				this.callVideoQuery();
+				this.updateQuery();
 			}
 		}, {
 			key: 'componentDidUpdate',
@@ -67809,15 +67812,12 @@
 			value: function updateQuery() {
 				var queryString = this.props.location.query;
 				var queryState = this.props.query;
-				if (queryString.id !== queryState.id || queryString.c !== queryState.c) {
-					this.callVideoQuery();
+				if (queryString.id !== queryState.id) {
+					this.props.setVideoQuery(queryString.id);
 				}
-			}
-		}, {
-			key: 'callVideoQuery',
-			value: function callVideoQuery() {
-				var queryString = this.props.location.query;
-				this.props.setVideoQuery(queryString.id, queryString.c);
+				if (queryString.c !== queryState.c) {
+					this.props.setCommentQuery(queryString.c);
+				}
 			}
 		}, {
 			key: 'buttonClass',
@@ -69682,14 +69682,15 @@
 	var mapStateToProps = function mapStateToProps(state) {
 	  return {
 	    comments: state.comments,
-	    query: state.query
+	    query: state.query,
+	    errors: state.comments.errors
 	  };
 	};
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
-	    createComment: function createComment(comment) {
-	      return dispatch((0, _comment_actions.createComment)(comment));
+	    createReply: function createReply(reply) {
+	      return dispatch((0, _comment_actions.createReply)(reply));
 	    }
 	  };
 	};
@@ -69753,6 +69754,8 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this3 = this;
+	
 	      var comments = this.getComments();
 	
 	      if (comments) {
@@ -69763,7 +69766,9 @@
 	          comments.map(function (comment) {
 	            return _react2.default.createElement(_comment_index_item2.default, { comment: comment,
 	              key: comment.id,
-	              childComments: comment.child_comments });
+	              childComments: comment.child_comments,
+	              errors: _this3.props.errors,
+	              createReply: _this3.props.createReply });
 	          })
 	        );
 	      } else {
@@ -69803,7 +69808,11 @@
 	
 	var _reactRouter = __webpack_require__(203);
 	
+	var _materialUi = __webpack_require__(261);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -69820,16 +69829,68 @@
 	    var _this = _possibleConstructorReturn(this, (CommentIndexItem.__proto__ || Object.getPrototypeOf(CommentIndexItem)).call(this, props));
 	
 	    _this.state = {
-	      reply: "display-none"
+	      replyFormClass: "display-none",
+	      body: ""
 	    };
 	    _this.toggleReplyForm = _this.toggleReplyForm.bind(_this);
+	    _this.handleSubmit = _this.handleSubmit.bind(_this);
 	    return _this;
 	  }
 	
 	  _createClass(CommentIndexItem, [{
+	    key: 'toggleReplyForm',
+	    value: function toggleReplyForm() {
+	      var toggle = this.state.replyFormClass === "display-none" ? "reply-form-box" : "display-none";
+	      this.setState({ replyFormClass: toggle });
+	    }
+	  }, {
+	    key: 'update',
+	    value: function update(field) {
+	      var _this2 = this;
+	
+	      return function (e) {
+	        return _this2.setState(_defineProperty({}, field, e.currentTarget.value));
+	      };
+	    }
+	  }, {
+	    key: 'handleSubmit',
+	    value: function handleSubmit(e) {
+	      e.preventDefault();
+	      var reply = {
+	        body: this.state.body,
+	        video_id: this.props.comment.video_id,
+	        parent_comment_id: this.props.comment.id
+	      };
+	      this.setState({ body: "", replyFormClass: "display-none" });
+	      this.props.createReply(reply);
+	    }
+	  }, {
+	    key: 'errors',
+	    value: function errors() {
+	      var errors = "";
+	      if (this.props.errors) {
+	        if (this.props.errors.body) {
+	          errors += "You must enter a comment! ";
+	        }
+	        if (this.props.errors.base) {
+	          errors += "You must be logged in to comment!";
+	        }
+	      }
+	      return errors;
+	    }
+	  }, {
+	    key: 'buttonClass',
+	    value: function buttonClass() {
+	      if (this.state.body !== "") {
+	        return "comment-button-section";
+	      } else {
+	        return "invisible";
+	      }
+	    }
+	  }, {
 	    key: 'getChildComments',
 	    value: function getChildComments() {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      var childComments = this.props.childComments;
 	      if (childComments.length > 0) {
@@ -69839,18 +69900,16 @@
 	          { className: 'child-comment-index' },
 	          childComments.map(function (comment) {
 	            return _react2.default.createElement(_comment_index_item_child2.default, { comment: comment,
-	              key: comment.id, parentCommentId: _this2.props.comment.id });
+	              key: comment.id,
+	              videoId: _this3.props.comment.video_id,
+	              parentCommentId: _this3.props.comment.id,
+	              errors: _this3.props.errors,
+	              createReply: _this3.props.createReply });
 	          })
 	        );
 	      } else {
 	        return _react2.default.createElement('div', { className: 'display-none' });
 	      }
-	    }
-	  }, {
-	    key: 'toggleReplyForm',
-	    value: function toggleReplyForm() {
-	      var toggle = this.state.reply === "display-none" ? "reply-form-box" : "display-none";
-	      this.setState({ reply: toggle });
 	    }
 	  }, {
 	    key: 'render',
@@ -69892,9 +69951,23 @@
 	            )
 	          )
 	        ),
-	        _react2.default.createElement(_reply_form_container2.default, { showClass: this.state.reply,
-	          parentCommentId: comment.id,
-	          videoId: comment.video_id }),
+	        _react2.default.createElement(
+	          'form',
+	          { onSubmit: this.handleSubmit, className: this.state.replyFormClass },
+	          _react2.default.createElement(_materialUi.TextField, { type: 'text',
+	            value: this.state.body,
+	            onChange: this.update("body"),
+	            errorText: this.errors(),
+	            floatingLabelText: 'Post a comment',
+	            multiLine: true,
+	            fullWidth: true }),
+	          _react2.default.createElement(
+	            'div',
+	            { className: this.buttonClass() },
+	            _react2.default.createElement(_materialUi.RaisedButton, { className: 'comment-submit-button', value: 'Submit',
+	              primary: true, label: 'Post Comment', onClick: this.handleSubmit })
+	          )
+	        ),
 	        this.getChildComments()
 	      );
 	    }
@@ -69927,7 +70000,11 @@
 	
 	var _reply_form_container2 = _interopRequireDefault(_reply_form_container);
 	
+	var _materialUi = __webpack_require__(261);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -69944,17 +70021,63 @@
 	    var _this = _possibleConstructorReturn(this, (CommentIndexItemChild.__proto__ || Object.getPrototypeOf(CommentIndexItemChild)).call(this, props));
 	
 	    _this.state = {
-	      reply: "display-none"
+	      replyFormClass: "display-none",
+	      body: ""
 	    };
 	    _this.toggleReplyForm = _this.toggleReplyForm.bind(_this);
+	    _this.handleSubmit = _this.handleSubmit.bind(_this);
 	    return _this;
 	  }
 	
 	  _createClass(CommentIndexItemChild, [{
 	    key: 'toggleReplyForm',
 	    value: function toggleReplyForm() {
-	      var toggle = this.state.reply === "display-none" ? "reply-form-box" : "display-none";
-	      this.setState({ reply: toggle });
+	      var toggle = this.state.replyFormClass === "display-none" ? "reply-form-box" : "display-none";
+	      this.setState({ replyFormClass: toggle });
+	    }
+	  }, {
+	    key: 'update',
+	    value: function update(field) {
+	      var _this2 = this;
+	
+	      return function (e) {
+	        return _this2.setState(_defineProperty({}, field, e.currentTarget.value));
+	      };
+	    }
+	  }, {
+	    key: 'buttonClass',
+	    value: function buttonClass() {
+	      if (this.state.body !== "") {
+	        return "comment-button-section";
+	      } else {
+	        return "invisible";
+	      }
+	    }
+	  }, {
+	    key: 'errors',
+	    value: function errors() {
+	      var errors = "";
+	      if (this.props.errors) {
+	        if (this.props.errors.body) {
+	          errors += "You must enter a comment! ";
+	        }
+	        if (this.props.errors.base) {
+	          errors += "You must be logged in to comment!";
+	        }
+	      }
+	      return errors;
+	    }
+	  }, {
+	    key: 'handleSubmit',
+	    value: function handleSubmit(e) {
+	      e.preventDefault();
+	      var reply = {
+	        body: this.state.body,
+	        video_id: this.props.videoId,
+	        parent_comment_id: this.props.parentCommentId
+	      };
+	      this.setState({ body: "", replyFormClass: "display-none" });
+	      this.props.createReply(reply);
 	    }
 	  }, {
 	    key: 'render',
@@ -69995,9 +70118,23 @@
 	            )
 	          )
 	        ),
-	        _react2.default.createElement(_reply_form_container2.default, { showClass: this.state.reply,
-	          parentCommentId: this.props.parentCommentId,
-	          videoId: this.props.comment })
+	        _react2.default.createElement(
+	          'form',
+	          { onSubmit: this.handleSubmit, className: this.state.replyFormClass },
+	          _react2.default.createElement(_materialUi.TextField, { type: 'text',
+	            value: this.state.body,
+	            onChange: this.update("body"),
+	            errorText: this.errors(),
+	            floatingLabelText: 'Post a comment',
+	            multiLine: true,
+	            fullWidth: true }),
+	          _react2.default.createElement(
+	            'div',
+	            { className: this.buttonClass() },
+	            _react2.default.createElement(_materialUi.RaisedButton, { className: 'comment-submit-button', value: 'Submit',
+	              primary: true, label: 'Post Comment', onClick: this.handleSubmit })
+	          )
+	        )
 	      );
 	    }
 	  }]);
@@ -70366,11 +70503,13 @@
 			key: 'errors',
 			value: function errors() {
 				var errors = "";
-				if (this.props.errors.body) {
-					errors += "You must enter a comment! ";
-				}
-				if (this.props.errors.base) {
-					errors += "You must be logged in to comment!";
+				if (this.props.errors) {
+					if (this.props.errors.body) {
+						errors += "You must enter a comment! ";
+					}
+					if (this.props.errors.base) {
+						errors += "You must be logged in to comment!";
+					}
 				}
 				return errors;
 			}
@@ -70502,11 +70641,18 @@
 	  value: true
 	});
 	var SET_VIDEO_QUERY = exports.SET_VIDEO_QUERY = "SET_VIDEO_QUERY";
+	var SET_COMMENT_QUERY = exports.SET_COMMENT_QUERY = "SET_COMMENT_QUERY";
 	
-	var setVideoQuery = exports.setVideoQuery = function setVideoQuery(id, c) {
+	var setVideoQuery = exports.setVideoQuery = function setVideoQuery(id) {
 	  return {
 	    type: SET_VIDEO_QUERY,
-	    id: id,
+	    id: id
+	  };
+	};
+	
+	var setCommentQuery = exports.setCommentQuery = function setCommentQuery(c) {
+	  return {
+	    type: SET_COMMENT_QUERY,
 	    c: c
 	  };
 	};
@@ -74198,7 +74344,9 @@
 	      return (0, _merge3.default)({}, oldState, action.videos);
 	
 	    case _video_actions.RECEIVE_VIDEO:
-	      return (0, _merge3.default)({}, oldState, _defineProperty({}, action.video.id, action.video));
+	      newState = (0, _merge3.default)({}, oldState, _defineProperty({}, action.video.id, action.video));
+	      newState.errors = {};
+	      return newState;
 	
 	    case _video_actions.REMOVE_VIDEO:
 	      newState = (0, _merge3.default)({}, oldState);
@@ -74239,23 +74387,25 @@
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
 	var CommentsReducer = function CommentsReducer() {
-	  var _merge;
-	
 	  var oldState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { errors: {} };
 	  var action = arguments[1];
 	
 	  Object.freeze(oldState);
 	  var newState = void 0;
+	  console.log(action);
 	  switch (action.type) {
 	    case _comment_actions.RECEIVE_ALL_COMMENTS:
-	      return (0, _merge3.default)({}, oldState, action.comments);
+	      return (0, _merge3.default)({}, action.comments);
 	
 	    case _comment_actions.RECEIVE_COMMENT:
-	      return (0, _merge3.default)({}, oldState, (_merge = {}, _defineProperty(_merge, action.comment.id, action.comment), _defineProperty(_merge, 'errors', {}), _merge));
+	      _newState = (0, _merge3.default)({}, oldState, _defineProperty({}, action.comment.id, action.comment));
+	      _newState.errors = {};
+	      return _newState;
 	
 	    case _comment_actions.RECEIVE_REPLY:
-	      var _newState = (0, _merge3.default)({}, oldState, { errors: {} });
+	      var _newState = (0, _merge3.default)({}, oldState);
 	      _newState[action.reply.parent_comment_id].child_comments.push(action.reply);
+	      _newState.errors = {};
 	      return _newState;
 	
 	    case _comment_actions.REMOVE_COMMENT:
@@ -74299,10 +74449,14 @@
 	  var action = arguments[1];
 	
 	  Object.freeze(oldState);
-	
 	  switch (action.type) {
 	    case _query_actions.SET_VIDEO_QUERY:
-	      return (0, _merge2.default)({}, { id: action.id, c: action.c });
+	      return (0, _merge2.default)({}, { id: action.id });
+	
+	    case _query_actions.SET_COMMENT_QUERY:
+	      var newState = (0, _merge2.default)({}, oldState);
+	      newState.c = action.c;
+	      return newState;
 	
 	    default:
 	      return oldState;

@@ -11,7 +11,7 @@ export default ({getState, dispatch}) => next => action => {
   const receiveVideoSuccess = video => dispatch(receiveVideo(video));
   const receiveCommentsSuccess = comments => dispatch(receiveAllComments(comments));
   const errorCallback = xhr => console.log(xhr);
-  
+
   switch(action.type){
     case SET_VIDEO_QUERY:
       if (action.id){

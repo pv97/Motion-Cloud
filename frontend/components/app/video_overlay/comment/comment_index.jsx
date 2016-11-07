@@ -23,7 +23,9 @@ class CommentIndex extends React.Component {
           {comments.map(comment => (
             <CommentIndexItem comment={comment}
               key={comment.id}
-              childComments={comment.child_comments}/>
+              childComments={comment.child_comments}
+              errors={this.props.errors}
+              createReply={this.props.createReply}/>
           ))}
         </ul>
       )

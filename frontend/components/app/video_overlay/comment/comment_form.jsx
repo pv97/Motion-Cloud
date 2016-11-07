@@ -30,11 +30,13 @@ class CommentForm extends React.Component {
 
 	errors(){
 		let errors = ""
-		if(this.props.errors.body){
-			errors += "You must enter a comment! "
-		}
-		if(this.props.errors.base){
-		  errors += "You must be logged in to comment!"
+		if(this.props.errors){
+			if(this.props.errors.body){
+				errors += "You must enter a comment! "
+			}
+			if(this.props.errors.base){
+			  errors += "You must be logged in to comment!"
+			}
 		}
 		return errors
 	}

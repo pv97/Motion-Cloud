@@ -2,15 +2,62 @@ import React from 'react';
 import CommentIndexItemChild from './comment_index_item_child';
 import ReplyFormContainer from './reply_form_container';
 import { withRouter } from 'react-router';
+import { RaisedButton, TextField } from 'material-ui';
 
 class CommentIndexItem extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      reply:"display-none"
+      replyFormClass:"display-none",
+      body:""
     }
     this.toggleReplyForm = this.toggleReplyForm.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
+
+  toggleReplyForm(){
+    let toggle = this.state.replyFormClass === "display-none" ? "reply-form-box" : "display-none"
+    this.setState({replyFormClass:toggle})
+  }
+
+	update(field) {
+		return e => this.setState({
+			[field]: e.currentTarget.value
+		});
+	}
+
+	handleSubmit(e) {
+		e.preventDefault();
+    const reply = {
+      body: this.state.body,
+      video_id: this.props.comment.video_id,
+      parent_comment_id: this.props.comment.id
+    };
+		this.setState({body:"",replyFormClass:"display-none"})
+    this.props.createReply(reply);
+	}
+
+  errors(){
+		let errors = ""
+		if(this.props.errors){
+			if(this.props.errors.body){
+				errors += "You must enter a comment! "
+			}
+			if(this.props.errors.base){
+			  errors += "You must be logged in to comment!"
+			}
+		}
+		return errors
+	}
+
+  buttonClass(){
+    if(this.state.body!==""){
+      return "comment-button-section"
+    } else {
+      return "invisible"
+    }
+  }
+
 
   getChildComments(){
     let childComments = this.props.childComments
@@ -21,7 +68,11 @@ class CommentIndexItem extends React.Component {
           {
             childComments.map(comment => (
               <CommentIndexItemChild comment={comment}
-                key={comment.id} parentCommentId={this.props.comment.id}/>
+                key={comment.id}
+                videoId={this.props.comment.video_id}
+                parentCommentId={this.props.comment.id}
+                errors={this.props.errors}
+                createReply={this.props.createReply}/>
             ))
           }
         </ul>
@@ -31,10 +82,6 @@ class CommentIndexItem extends React.Component {
     }
   }
 
-  toggleReplyForm(){
-    let toggle = this.state.reply === "display-none"? "reply-form-box" : "display-none"
-    this.setState({reply:toggle})
-  }
 
   render() {
     let childComments = this.props.childComments;
@@ -60,9 +107,19 @@ class CommentIndexItem extends React.Component {
           </div>
         </div>
 
-        <ReplyFormContainer showClass={this.state.reply}
-          parentCommentId={comment.id}
-          videoId={comment.video_id}/>
+        <form onSubmit={this.handleSubmit} className={this.state.replyFormClass}>
+  				<TextField type="text"
+  					value={this.state.body}
+  					onChange={this.update("body")}
+  					errorText={this.errors()}
+  					floatingLabelText="Post a comment"
+  					multiLine={true}
+  					fullWidth/>
+  				<div className={this.buttonClass()}>
+  					<RaisedButton className="comment-submit-button" value="Submit"
+  						primary={true} label="Post Comment" onClick={this.handleSubmit} />
+  				</div>
+  			</form>
 
         {this.getChildComments()}
       </li>
