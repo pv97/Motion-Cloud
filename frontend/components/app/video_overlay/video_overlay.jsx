@@ -83,9 +83,9 @@ class VideoOverlay extends React.Component {
 			if (this.state.minimized){
 
 				return (
-					<div className="video-player-mini-box">
+					<div id="video-player-mini-box">
 
-						<div className="player-buttons">
+						<div id="player-buttons">
 							<IconButton tooltip="Expand"
 								className="expand-button"
 								tooltipPosition="top-center"
@@ -112,25 +112,25 @@ class VideoOverlay extends React.Component {
 
 			} else {
 				return(
-					<div className="video-dummy">
-						<div className="video-overlay">
+					<div id="video-dummy">
+						<div id="video-overlay">
 
-							<div className="comment-overlay">
+							<div id="comment-overlay">
 
 								<div className={this.buttonClass()} onClick={this.slideVideoBox}>
-									<div className="comment-button-text"
+									<div id="comment-button-text"
 										>{this.buttonText()}</div>
 								</div>
 
-								<div className="comment-index">
+								<div id="comment-index">
 									<CommentIndexContainer videoId={this.props.query.id}/>
 								</div>
 
 							</div>
 
-							<div className={this.videoBoxClass()}>
+							<div id={this.videoBoxClass()}>
 
-								<div className="player-buttons">
+								<div id="player-buttons">
 									<IconButton tooltip="Collapse"
 										className="collapse-button"
 										tooltipPosition="top-center"
@@ -146,11 +146,11 @@ class VideoOverlay extends React.Component {
 											>clear</FontIcon>
 									</IconButton>
 								</div>
-								<div className="margin-wrapper">
-									<div className="ratio-wrapper">
-										<div className="center-wrapper">
-											<div className="height-wrapper">
-												<ReactPlayer className="video-player" url={video.url}
+								<div id="margin-wrapper">
+									<div id="ratio-wrapper">
+										<div id="center-wrapper">
+											<div id="height-wrapper">
+												<ReactPlayer id="video-player" url={video.url}
 													height={"inherit"}
 													width={"inherit"}
 													style={{zIndex: 100}}
@@ -161,13 +161,13 @@ class VideoOverlay extends React.Component {
 								</div>
 
 
-								<div className="video-details">
-									<div className="video-title">{video.title}</div>
-									<div className="video-user-view-details">
-										<div className="video-user-username">Uploaded by {video.user}</div>
-										<div className="video-view-count">{video.view_count} Views</div>
+								<div id="video-details">
+									<div id="video-title">{video.title}</div>
+									<div id="video-user-view-details">
+										<div id="video-user-username">Uploaded by {video.user}</div>
+										<div id="video-view-count">{video.view_count} Views</div>
 									</div>
-									<div className="video-description">{video.description}</div>
+									<div id="video-description">{video.description}</div>
 								</div>
 
 							</div>

@@ -1,11 +1,13 @@
 import {
   receiveComment,
+  receiveReply,
   receiveAllComments,
   removeComment,
   receiveCommentErrors,
   FETCH_COMMENTS,
   FETCH_COMMENT,
   CREATE_COMMENT,
+  CREATE_REPLY,
   UPDATE_COMMENT,
   DELETE_COMMENT
 } from '../actions/comment_actions';
@@ -23,10 +25,8 @@ const CommentsMiddleware = ({getState, dispatch}) => next => action => {
 
   const errorCallback = errors => dispatch(receiveCommentErrors(errors));
   let receiveAllCommentsSuccess = comments => dispatch(receiveAllComments(comments));
-  let receiveCommentSuccess = comment => {
-    dispatch(receiveComment(comment));
-    hashHistory.push("/");
-  };
+  let receiveCommentSuccess = comment => dispatch(receiveComment(comment));
+  let receiveReplySuccess = reply => dispatch(receiveReply(reply));
   let removeCommentSuccess = comment => dispatch(removeComment(comment));
 
   switch (action.type) {
@@ -40,6 +40,10 @@ const CommentsMiddleware = ({getState, dispatch}) => next => action => {
 
     case CREATE_COMMENT:
       createComment(action.comment, receiveCommentSuccess, errorCallback);
+      return next(action);
+
+    case CREATE_REPLY:
+      createComment(action.reply, receiveReplySuccess, errorCallback);
       return next(action);
 
     case UPDATE_COMMENT:

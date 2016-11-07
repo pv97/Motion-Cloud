@@ -2,7 +2,7 @@ class Api::CommentsController < ApplicationController
   before_action :require_logged_in, only: [:create,:destroy,:update]
 
   def index
-    @comments = Comment.where(video_id:params[:video_id],parent_comment_id:-1)
+    @comments = Comment.where(video_id:params[:video_id],parent_comment_id:-1).order(created_at: :desc)
     render "api/comments/index"
   end
 

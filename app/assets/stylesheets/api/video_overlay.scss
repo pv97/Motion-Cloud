@@ -2,13 +2,15 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.video-player-mini-box{
+#video-player-mini-box{
   position:fixed;
   bottom:50px;
   left:50px;
   z-index: 100;
+  visibility: visible;
+  opacity: 1;
 
-  .player-buttons{
+  #player-buttons{
     display:flex;
     flex:1;
     justify-content: flex-end;
@@ -32,14 +34,16 @@
   }
 }
 
-.video-dummy{
+#video-dummy{
   display:flex;
   width:45%;
   min-width: 800px;
   padding-right: 40px;
   z-index: 100;
+  visibility:visible;
+  opacity:1;
 
-  .video-overlay{
+  #video-overlay{
     width:45%;
     min-width: 800px;
     position:fixed;
@@ -47,7 +51,7 @@
     bottom: 4px;
     display:flex;
 
-    .comment-overlay{
+    #comment-overlay{
       position:relative;
       display:flex;
       width:100%;
@@ -77,7 +81,7 @@
         border-radius: 2px;
       }
 
-      .comment-button-text{
+      #comment-button-text{
         width:10px;
         font-size:30;
         font-weight: 600;
@@ -93,7 +97,7 @@
         user-select: none;
       }
     }
-    .video-player-box{
+    #video-player-box{
       position:absolute;
       width:100%;
       min-width:800px;
@@ -104,7 +108,7 @@
       box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
     }
 
-    .video-player-box-right{
+    #video-player-box-right{
       position:absolute;
       width:100%;
       min-width:800px;
@@ -115,7 +119,7 @@
       box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
     }
 
-    .player-buttons{
+    #player-buttons{
       display:flex;
       flex:1;
       justify-content: flex-end;
@@ -137,12 +141,12 @@
       }
     }
 
-    .margin-wrapper{
+    #margin-wrapper{
       border-radius: 2px;
       box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
       margin:16px;
 
-      .ratio-wrapper {
+      #ratio-wrapper {
         padding-bottom: 56.25%; /* 16:9 */
         position: relative;
         align-items: center;
@@ -151,7 +155,7 @@
         padding-bottom: 56%;
         border-radius: 2px;
 
-        .center-wrapper{
+        #center-wrapper{
           border-radius: 2px;
           position: absolute;
           display:flex;
@@ -161,9 +165,9 @@
           width:100%;
           background-color: black;
 
-          .height-wrapper{
+          #height-wrapper{
             height:100%;
-            .video-player{
+            #video-player{
               display:flex;
             }
           }
@@ -180,13 +184,13 @@
         //   background-color: black;
         // }
 
-    .video-details{
+    #video-details{
       margin: 0 16px;
       padding: 15px;
       border-radius: 2px;
       box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
 
-      .video-title{
+      #video-title{
         font-size: 20px;
         font-weight: 500;
         box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.117647); //line below
@@ -194,7 +198,7 @@
         margin-bottom: 10px;
       }
 
-      .video-user-view-details{
+      #video-user-view-details{
         display:flex;
         justify-content: space-between;
       }

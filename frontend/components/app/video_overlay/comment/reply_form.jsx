@@ -2,11 +2,12 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import { RaisedButton, TextField } from 'material-ui';
 
-class CommentForm extends React.Component {
+class ReplyForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			body:""
+			body:"",
+      show:false
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
@@ -19,12 +20,13 @@ class CommentForm extends React.Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
-    const comment = {
+    const reply = {
       body: this.state.body,
-      video_id: this.props.videoId
+      video_id: this.props.videoId,
+      parent_comment_id: this.props.parentCommentId
     };
 		this.setState({body:""})
-    this.props.createComment(comment);
+    this.props.createReply(reply);
 	}
 
 
@@ -49,7 +51,7 @@ class CommentForm extends React.Component {
 
 	render() {
 		return (
-			<form onSubmit={this.handleSubmit} className="comment-form-box">
+			<form onSubmit={this.handleSubmit} className={this.props.showClass}>
 				<TextField type="text"
 					value={this.state.body}
 					onChange={this.update("body")}
@@ -67,4 +69,4 @@ class CommentForm extends React.Component {
 
 }
 
-export default withRouter(CommentForm);
+export default withRouter(ReplyForm);

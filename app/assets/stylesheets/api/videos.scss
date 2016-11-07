@@ -1,4 +1,4 @@
-.video-index-container{
+#video-index-container{
   display:flex;
   flex-direction: column;
   justify-content: center;
@@ -6,12 +6,12 @@
   padding: 15px 40px;
   margin: 10px auto;
 
-  .video-index-title{
+  #video-index-title{
     margin: 20px auto;
     font-size: 24px;
   }
 
-  .video-list{
+  #video-list{
     display:flex;
     flex-wrap:wrap;
     justify-content: space-around;

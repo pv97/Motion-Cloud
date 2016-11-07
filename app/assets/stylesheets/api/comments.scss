@@ -1,7 +1,7 @@
 // Place all the styles related to the api/Comments controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.comment-index{
+#comment-index{
   padding: 10px;
   margin:5px;
   flex:1;
@@ -66,5 +66,36 @@
       }
     }
 
+  }
+  .reply-link-box{
+    display:flex;
+    justify-content: flex-end;
+    .reply-link{
+      font-size: 13px;
+      color: rgb(169, 169, 169);
+    }
+    .reply-link:hover{
+      color: rgb(0, 188, 212);
+    }
+  }
+  .reply-form-box{
+    border-radius:5px;
+    padding: 10px;
+    background-color: #fff;
+    margin-bottom: 10px;
+    margin-left:40px;
+
+    .comment-button-section{
+      display:flex;
+      justify-content: flex-end;
+      height:35px;
+    }
+
+    .invisible{
+      display:flex;
+      justify-content: flex-end;
+      height:0;
+      opacity:0;
+    }
   }
 }

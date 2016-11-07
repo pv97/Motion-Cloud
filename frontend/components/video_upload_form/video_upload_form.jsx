@@ -77,7 +77,7 @@ class VideoUploadForm extends React.Component {
 		if(this.state.uploadSuccess === ""){
 			return <div className = 'upload-widget'/>
 		} else {
-			return <div className = 'upload-success'>Successfully Uploaded!</div>
+			return <div id = 'upload-success'>Successfully Uploaded!</div>
 		}
 	}
 
@@ -89,7 +89,7 @@ class VideoUploadForm extends React.Component {
 
 	urlError(){
 		if(this.props.errors.url){
-			return <div className="upload-error">You must upload a video!</div>
+			return <div id="upload-error">You must upload a video!</div>
 		} else {
 			return <br/>
 		}
@@ -98,9 +98,9 @@ class VideoUploadForm extends React.Component {
 
 	render() {
 		return (
-			<div className="video-upload-form-container">
-					<form onSubmit={this.handleSubmit} className="upload-form-box">
-						<h1 className="upload-video-title">Upload a Video</h1>
+			<div id="video-upload-form-container">
+					<form onSubmit={this.handleSubmit} id="upload-form-box">
+						<h1 id="upload-video-title">Upload a Video</h1>
 						<TextField type="text"
 							value={this.state.title}
 							onChange={this.update("title")}
@@ -119,11 +119,11 @@ class VideoUploadForm extends React.Component {
 							{this.renderUploadBox()}
 						</div>
 <br/>
-						<div className="video-requirements">
-							<p className="upload-maximum-size">
+						<div id="video-requirements">
+							<p id="upload-maximum-size">
 								Maximum video size: &nbsp; 42mb
 							</p>
-							<p className="upload-formats">
+							<p id="upload-formats">
 								Accepted formats: &nbsp; webm mkv flv vob avi mp4 mpeg
 							</p>
 						</div>

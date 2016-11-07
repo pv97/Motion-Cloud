@@ -25,7 +25,7 @@ const VideosMiddleware = ({getState, dispatch}) => next => action => {
   let receiveAllVideosSuccess = videos => dispatch(receiveAllVideos(videos));
   let receiveVideoSuccess = video => {
     dispatch(receiveVideo(video));
-    hashHistory.push("/");
+    hashHistory.push("/"+hashHistory.getCurrentLocation().search);
   };
   let removeVideoSuccess = video => dispatch(removeVideo(video));
 

@@ -1,11 +1,11 @@
 
-.video-upload-form-container{
+#video-upload-form-container{
   display:flex;
   flex:1;
   justify-content: center;
   background: #fff;
 
-  .upload-form-box{
+  #upload-form-box{
     display:flex;
     flex-direction: column;
     justify-content: center;
@@ -14,7 +14,7 @@
     padding: 15px 40px;
     margin: 10px auto;
 
-    .upload-video-title{
+    #upload-video-title{
       margin:0 auto;
       font-size: 24px;
     }
@@ -23,7 +23,7 @@
       height:370px;
     }
 
-    .upload-success{
+    #upload-success{
       height:370px;
       display:flex;
       width:100%;
@@ -35,21 +35,21 @@
       color:rgb(0, 188, 212);
     }
 
-    .video-requirements{
+    #video-requirements{
       display:flex;
       justify-content: space-between;
     }
 
-    .upload-maximum-size, .upload-formats{
+    #upload-maximum-size, #upload-formats{
       color: rgb(169, 169, 169);
       word-spacing: 3px;
     }
-    .upload-maximum-size{
+    #upload-maximum-size{
       margin-right: 20px;
     }
   }
 }
 
-.upload-error{
+#upload-error{
   color:red;
 }

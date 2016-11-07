@@ -39,7 +39,7 @@ class App extends React.Component {
       <MuiThemeProvider>
         <div>
           <AppBar
-            className="main-header"
+            id="main-header"
             iconElementLeft={
               <div id="motion-cloud-logo" onClick={this.toHomePage}>MotionCloud</div>
             }
@@ -52,14 +52,12 @@ class App extends React.Component {
             >
           </AppBar>
 
-          <section className="main-section">
+          <section id="main-section">
             <VideoOverlayContainer/>
 
-            <div className="page-boundary">
-              <div className="zero-height">
-                <div className={this.hideCommentClass()} onClick={this.slideVideoBox}></div>
-              </div>
-              <div className="page-content">
+            <div id="page-boundary">
+              <div className={this.hideCommentClass()} onClick={this.slideVideoBox}></div>
+              <div id="page-content">
                 {this.props.children}
               </div>
             </div>

@@ -23,9 +23,9 @@ class VideoIndex extends React.Component {
 
     if(videos){
       return(
-        <div className="video-index-container">
-          <h1 className="video-index-title">Trending Videos</h1>
-          <div className="video-list">
+        <div id="video-index-container">
+          <h1 id="video-index-title">Trending Videos</h1>
+          <div id="video-list">
             {videos.map(video => (
               <VideoIndexItem video={video} key={video.id}/>
             ))}

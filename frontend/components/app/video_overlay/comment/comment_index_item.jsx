@@ -1,8 +1,16 @@
 import React from 'react';
 import CommentIndexItemChild from './comment_index_item_child';
+import ReplyFormContainer from './reply_form_container';
 import { withRouter } from 'react-router';
 
 class CommentIndexItem extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      reply:"display-none"
+    }
+    this.toggleReplyForm = this.toggleReplyForm.bind(this)
+  }
 
   getChildComments(){
     let childComments = this.props.childComments
@@ -13,7 +21,7 @@ class CommentIndexItem extends React.Component {
           {
             childComments.map(comment => (
               <CommentIndexItemChild comment={comment}
-                key={comment.id}/>
+                key={comment.id} parentCommentId={this.props.comment.id}/>
             ))
           }
         </ul>
@@ -23,25 +31,38 @@ class CommentIndexItem extends React.Component {
     }
   }
 
+  toggleReplyForm(){
+    let toggle = this.state.reply === "display-none"? "reply-form-box" : "display-none"
+    this.setState({reply:toggle})
+  }
+
   render() {
     let childComments = this.props.childComments;
-
+    let comment = this.props.comment
     return(
       <li className="parent-comment-container">
         <div className="parent-comment">
           <div className="parent-comment-details">
             <div className="parent-comment-user">
-              {this.props.comment.user}
+              {comment.user}
             </div>
             <div className="parent-comment-time-ago">
-              {this.props.comment.age}
+              {comment.age}
             </div>
           </div>
 
           <div className="parent-comment-body">
-            {this.props.comment.body}
+            {comment.body}
+          </div>
+
+          <div className="reply-link-box">
+            <div className="reply-link" onClick={this.toggleReplyForm}>Reply</div>
           </div>
         </div>
+
+        <ReplyFormContainer showClass={this.state.reply}
+          parentCommentId={comment.id}
+          videoId={comment.video_id}/>
 
         {this.getChildComments()}
       </li>

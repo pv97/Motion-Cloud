@@ -2,11 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.login-signup-button{
+#login-signup-button{
   width: 150px !important;
 }
 
-.login-header{
+#login-header{
   box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
   height:42px;
   .sign-up-button, .log-in-button{
@@ -18,20 +18,20 @@
 .session-form-popover{
   width:250px;
   align-content: center;
-  .login-title{
+  #login-title{
     font-size: 24px;
     font-weight: 600;
   }
-  .sesion-form-box{
+  #sesion-form-box{
     padding:10px 15px;
-    .session-form-button-box{
+    #session-form-button-box{
       display:flex;
       justify-content: space-between;
     }
   }
 }
 
-.main-session-error{
+#main-session-error{
   color:red;
   font-weight: 100;
   font-size:12px;

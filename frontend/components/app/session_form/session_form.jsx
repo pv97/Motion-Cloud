@@ -106,7 +106,7 @@ class SessionForm extends React.Component {
 
 	mainError(){
 		if(this.props.errors.main){
-			return <div className="main-session-error">{this.props.errors.main}</div>
+			return <div id="main-session-error">{this.props.errors.main}</div>
 		}
 		return <br/>
 	}
@@ -120,26 +120,27 @@ class SessionForm extends React.Component {
 				<RaisedButton
 					onClick={this.dropDownOpen}
 					label="Login / Sign Up"
-					className="login-signup-button"
+					id="login-signup-button"
 				/>
 
-			<Popover className="session-form-popover"
+				<Popover className="session-form-popover"
 	        open={this.state.open}
 	        anchorEl={this.state.anchorEl}
 	        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
 	        targetOrigin={{horizontal: 'right', vertical: 'top'}}
 	        onRequestClose={this.dropDownClose}>
 
-					<div className="login-header">
+					<div id="login-header">
 						{this.navButton()}
 					</div>
-					<form onSubmit={this.handleSubmit} className="sesion-form-box">
-						<div className="login-title">
+
+					<form onSubmit={this.handleSubmit} id="sesion-form-box">
+						<div id="login-title">
 							{this.state.formType}
 						</div>
 						<br/>
 						{this.mainError()}
-						<div className="session-form">
+						<div id="session-form">
 							<TextField
       					floatingLabelText="Username"
 								fullWidth
@@ -155,7 +156,7 @@ class SessionForm extends React.Component {
 								onChange={this.update("password")}/>
 						</div>
 						<br/>
-					<div className="session-form-button-box">
+					<div id="session-form-button-box">
 						<RaisedButton
 							label="Submit"
 							type="submit"

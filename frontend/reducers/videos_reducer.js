@@ -6,6 +6,7 @@ import { RECEIVE_ALL_VIDEOS,
 import merge from 'lodash/merge';
 
 const VideosReducer = (oldState = {errors:{}}, action) => {
+  Object.freeze(oldState)
   let newState;
 
   switch (action.type) {
