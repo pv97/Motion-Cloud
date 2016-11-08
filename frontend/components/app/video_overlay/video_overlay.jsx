@@ -96,17 +96,20 @@ class VideoOverlay extends React.Component {
 						<div id={this.setSlideTurnary("video-player-box","video-player-box-right")()}>
 
 							<div id="player-buttons">
-								<IconButton tooltip="Collapse"
+								<IconButton
 									className={this.setMiniTurnary("collapse-button","expand-button")()}
-									tooltipPosition="top-center"
-									onClick={this.toggleMini}>
+									tooltipPosition={this.setMiniTurnary("bottom-center","top-center")()}
+									tooltip={this.setMiniTurnary("Minimize","Maximize")()}
+									onClick={this.toggleMini}
+									style={{height:26,width:26}}>
 									<FontIcon className="material-icons" color={"#fff"}
 										>{this.setMiniTurnary("expand_more","expand_less")()}</FontIcon>
 								</IconButton>
 								<IconButton tooltip="Close"
 									className="close-button"
-									tooltipPosition="top-center"
-									onClick={this.closeVideoBox}>
+									tooltipPosition={this.setMiniTurnary("bottom-center","top-center")()}
+									onClick={this.closeVideoBox}
+									style={{height:26,width:26}}>
 									<FontIcon className="material-icons" color={"#fff"}
 										>clear</FontIcon>
 								</IconButton>

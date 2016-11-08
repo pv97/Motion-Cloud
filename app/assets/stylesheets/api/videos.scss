@@ -2,11 +2,102 @@
   display:flex;
   flex-direction: column;
   justify-content: center;
+  margin-top: 55px;
   flex:1;
-  padding: 55px;
+
+  #featured-channel{
+    display:flex;
+    position:relative;
+    flex:1;
+    #lense{
+      display:flex;
+      width: 100%;
+      z-index: 10;
+      height:100%;
+      position:absolute;
+
+      #black-left{
+        flex:3;
+        background: black;
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
+        font-weight: 500;
+        font-size: 30px;
+        color: #fff;
+        #featured-channel-name{
+          padding-left: 50px;
+          font-weight: 500;
+          color:#fff;
+          font-size: 50px;
+        }
+      }
+      #gradient-left{
+        flex:4;
+        background: black;
+        -webkit-mask-image: -webkit-gradient(linear, left top, right top,
+        from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+      }
+      #clear{
+        flex:4;
+      }
+      #gradient-right{
+        flex:4;
+        background: black;
+        -webkit-mask-image: -webkit-gradient(linear, right top, left top,
+        from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+      }
+      #black-right{
+        flex:1;
+        background: black;
+      }
+    }
+
+    #background{
+      display:flex;
+      flex:1;
+      #blank-left{
+        flex:3;
+        background: red;
+      }
+      .picture{
+        height:550px;
+        background-image: url("http://res.cloudinary.com/tlcoy4e3/image/upload/v1478584880/k1_umdnav.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        flex:12;
+      }
+      #blank-right{
+        flex:1;
+        background: red;
+      }
+    }
+
+
+  }
+
+  #featured-channel:hover .picture{
+    flex:15 !important;
+  }
+
+  #featured-channel:hover #featured-channel-name{
+    color: rgb(0, 188, 212) !important;
+  }
+
+
+
 
   #video-index-title{
-    margin: 20px auto;
+    margin: auto;
+    margin: 50px 0;
+    width:100%;
+    padding:20px;
+
+    text-align: center;
+    color:#fff;
+    background: black;
     font-size: 24px;
   }
 

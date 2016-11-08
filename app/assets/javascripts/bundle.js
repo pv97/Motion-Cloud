@@ -67919,10 +67919,12 @@
 									{ id: 'player-buttons' },
 									_react2.default.createElement(
 										_materialUi.IconButton,
-										{ tooltip: 'Collapse',
+										{
 											className: this.setMiniTurnary("collapse-button", "expand-button")(),
-											tooltipPosition: 'top-center',
-											onClick: this.toggleMini },
+											tooltipPosition: this.setMiniTurnary("bottom-center", "top-center")(),
+											tooltip: this.setMiniTurnary("Minimize", "Maximize")(),
+											onClick: this.toggleMini,
+											style: { height: 26, width: 26 } },
 										_react2.default.createElement(
 											_materialUi.FontIcon,
 											{ className: 'material-icons', color: "#fff"
@@ -67934,8 +67936,9 @@
 										_materialUi.IconButton,
 										{ tooltip: 'Close',
 											className: 'close-button',
-											tooltipPosition: 'top-center',
-											onClick: this.closeVideoBox },
+											tooltipPosition: this.setMiniTurnary("bottom-center", "top-center")(),
+											onClick: this.closeVideoBox,
+											style: { height: 26, width: 26 } },
 										_react2.default.createElement(
 											_materialUi.FontIcon,
 											{ className: 'material-icons', color: "#fff"
@@ -74122,6 +74125,39 @@
 	        return _react2.default.createElement(
 	          'div',
 	          { id: 'video-index-container' },
+	          _react2.default.createElement(
+	            'div',
+	            { id: 'featured-channel' },
+	            _react2.default.createElement(
+	              'div',
+	              { id: 'background' },
+	              _react2.default.createElement('div', { id: 'blank-left' }),
+	              _react2.default.createElement('div', { className: 'picture' }),
+	              _react2.default.createElement('div', { id: 'blank-right' })
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { id: 'lense' },
+	              _react2.default.createElement(
+	                'div',
+	                { id: 'black-left' },
+	                _react2.default.createElement(
+	                  'div',
+	                  null,
+	                  'Featured Channel',
+	                  _react2.default.createElement(
+	                    'div',
+	                    { id: 'featured-channel-name' },
+	                    'Kurzgesagt'
+	                  )
+	                )
+	              ),
+	              _react2.default.createElement('div', { id: 'gradient-left' }),
+	              _react2.default.createElement('div', { id: 'clear' }),
+	              _react2.default.createElement('div', { id: 'gradient-right' }),
+	              _react2.default.createElement('div', { id: 'black-right' })
+	            )
+	          ),
 	          _react2.default.createElement(
 	            'h1',
 	            { id: 'video-index-title' },

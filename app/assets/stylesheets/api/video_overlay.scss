@@ -25,15 +25,13 @@
 
       .expand-button{
         padding:0 !important;
-        height: 26px !important;
-        width: 26px !important;
+
         border-radius: 2px;
         background: #00BCD4 !important;
       }
       .close-button{
         padding:0 !important;
-        height: 26px !important;
-        width: 26px !important;
+
         border-radius: 2px;
         background: #FF4081 !important;
       }
@@ -161,19 +159,18 @@
     #player-buttons{
       display:flex;
       flex:1;
+      z-index: 300;
       justify-content: flex-end;
       margin:16px 16px 0 16px;
       .collapse-button{
+        z-index: 300!important;
         padding:0 !important;
-        height: 26px !important;
-        width: 26px !important;
         border-radius: 2px;
         background: #00BCD4 !important;
       }
       .close-button{
+        z-index: 300 !important;
         padding:0 !important;
-        height: 26px !important;
-        width: 26px !important;
         border-radius: 2px;
         margin-left: 4px!important;
         background: #FF4081 !important;
