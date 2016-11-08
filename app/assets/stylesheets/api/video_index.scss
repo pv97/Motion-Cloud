@@ -9,6 +9,8 @@
     display:flex;
     position:relative;
     flex:1;
+    cursor:pointer;
+
     #lense{
       display:flex;
       width: 100%;
@@ -154,6 +156,7 @@
         background: #fff;
 
         .play-icon-box{
+          cursor:pointer;
           justify-content: center;
           align-items: center;
           background:black;
@@ -200,6 +203,7 @@
           font-weight: 500;
           font-size: 14px;
           margin: 5px 0px;
+          cursor:pointer;
         }
         .video-index-item-title:hover{
            color: rgb(0, 188, 212);
@@ -210,6 +214,9 @@
         }
         .video-index-view-count, .video-index-age, .video-index-item-user{
           color: rgb(120, 120, 120);
+        }
+        .video-index-item-user{
+          cursor:pointer;
         }
         .video-index-item-user:hover{
           color: rgb(0, 188, 212);

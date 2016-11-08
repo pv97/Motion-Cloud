@@ -36,6 +36,7 @@
         width:150px;
         font-weight: 500;
         background: #f0f0f0;
+        cursor:pointer;
       }
       .show-user-comment-button, .show-user-video-button {
         display:flex;
@@ -44,6 +45,7 @@
         width:100px;
         font-weight: 500;
         background: #fff;
+        cursor:pointer;
       }
       .show-user-comment-button:hover, .show-user-video-button:hover{
         background: #f0f0f0;
@@ -166,6 +168,7 @@
                 font-weight: 500;
                 font-size: 19px;
                 padding: 5px 10px;
+                cursor:pointer;
               }
               .video-index-item-title:hover{
                 color: rgb(0, 188, 212);
