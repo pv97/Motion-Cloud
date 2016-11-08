@@ -67812,6 +67812,8 @@
 			_this.slideVideoBox = _this.slideVideoBox.bind(_this);
 			_this.closeVideoBox = _this.closeVideoBox.bind(_this);
 			_this.toggleMini = _this.toggleMini.bind(_this);
+			_this.setMiniTurnary = _this.setMiniTurnary.bind(_this);
+			_this.setSlideTurnary = _this.setSlideTurnary.bind(_this);
 			return _this;
 		}
 	
@@ -67838,33 +67840,6 @@
 				}
 			}
 		}, {
-			key: 'buttonClass',
-			value: function buttonClass() {
-				if (this.props.query.c) {
-					return "hide-comment-button";
-				} else {
-					return "show-comment-button";
-				}
-			}
-		}, {
-			key: 'buttonText',
-			value: function buttonText() {
-				if (this.props.query.c) {
-					return "HIDE COMMENTS";
-				} else {
-					return "SHOW COMMENTS";
-				}
-			}
-		}, {
-			key: 'videoBoxClass',
-			value: function videoBoxClass() {
-				if (this.props.query.c) {
-					return "video-player-box-right";
-				} else {
-					return "video-player-box";
-				}
-			}
-		}, {
 			key: 'slideVideoBox',
 			value: function slideVideoBox() {
 				var pathname = this.props.location.pathname;
@@ -67885,165 +67860,148 @@
 				this.setState({ minimized: opposite });
 			}
 		}, {
+			key: 'setMiniTurnary',
+			value: function setMiniTurnary(falseValue, trueValue) {
+				var _this2 = this;
+	
+				return function () {
+					if (_this2.state.minimized) {
+						return trueValue;
+					} else {
+						return falseValue;
+					}
+				};
+			}
+		}, {
+			key: 'setSlideTurnary',
+			value: function setSlideTurnary(falseValue, trueValue) {
+				var _this3 = this;
+	
+				return function () {
+					if (_this3.props.query.c) {
+						return trueValue;
+					} else {
+						return falseValue;
+					}
+				};
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				var video = this.props.videos[this.props.query.id];
 				if (video) {
-					if (this.state.minimized) {
-	
-						return _react2.default.createElement(
+					return _react2.default.createElement(
+						'div',
+						{ id: this.setMiniTurnary("video-dummy", "video-dummy-fixed")() },
+						_react2.default.createElement(
 							'div',
-							{ id: 'video-player-mini-box' },
+							{ id: 'video-overlay' },
 							_react2.default.createElement(
 								'div',
-								{ id: 'player-buttons' },
+								{ className: this.setMiniTurnary("comment-overlay", "display-none")() },
 								_react2.default.createElement(
-									_materialUi.IconButton,
-									{ tooltip: 'Expand',
-										className: 'expand-button',
-										tooltipPosition: 'top-center',
-										onClick: this.toggleMini },
+									'div',
+									{ className: this.setSlideTurnary("show-comment-button", "hide-comment-button")(), onClick: this.slideVideoBox },
 									_react2.default.createElement(
-										_materialUi.FontIcon,
-										{ className: 'material-icons', color: "#fff"
+										'div',
+										{ id: 'comment-button-text'
 										},
-										'expand_less'
+										this.setSlideTurnary("SHOW COMMENTS", "HIDE COMMENTS")()
 									)
 								),
 								_react2.default.createElement(
-									_materialUi.IconButton,
-									{ tooltip: 'Close',
-										className: 'close-button',
-										tooltipPosition: 'top-center',
-										onClick: this.closeVideoBox },
-									_react2.default.createElement(
-										_materialUi.FontIcon,
-										{ className: 'material-icons', color: "#fff"
-										},
-										'clear'
-									)
+									'div',
+									{ id: 'comment-index' },
+									_react2.default.createElement(_comment_index_container2.default, { videoId: this.props.query.id })
 								)
 							),
-							_react2.default.createElement(_reactPlayer2.default, { id: 'video-player', url: video.url,
-								height: "inherit",
-								width: "inherit",
-								style: { zIndex: 100 },
-								playing: true, controls: true })
-						);
-					} else {
-						return _react2.default.createElement(
-							'div',
-							{ id: 'video-dummy' },
 							_react2.default.createElement(
 								'div',
-								{ id: 'video-overlay' },
+								{ id: this.setSlideTurnary("video-player-box", "video-player-box-right")() },
 								_react2.default.createElement(
 									'div',
-									{ id: 'comment-overlay' },
+									{ id: 'player-buttons' },
 									_react2.default.createElement(
-										'div',
-										{ className: this.buttonClass(), onClick: this.slideVideoBox },
+										_materialUi.IconButton,
+										{ tooltip: 'Collapse',
+											className: this.setMiniTurnary("collapse-button", "expand-button")(),
+											tooltipPosition: 'top-center',
+											onClick: this.toggleMini },
 										_react2.default.createElement(
-											'div',
-											{ id: 'comment-button-text'
+											_materialUi.FontIcon,
+											{ className: 'material-icons', color: "#fff"
 											},
-											this.buttonText()
+											this.setMiniTurnary("expand_more", "expand_less")()
 										)
 									),
 									_react2.default.createElement(
-										'div',
-										{ id: 'comment-index' },
-										_react2.default.createElement(_comment_index_container2.default, { videoId: this.props.query.id })
+										_materialUi.IconButton,
+										{ tooltip: 'Close',
+											className: 'close-button',
+											tooltipPosition: 'top-center',
+											onClick: this.closeVideoBox },
+										_react2.default.createElement(
+											_materialUi.FontIcon,
+											{ className: 'material-icons', color: "#fff"
+											},
+											'clear'
+										)
 									)
 								),
 								_react2.default.createElement(
 									'div',
-									{ id: this.videoBoxClass() },
+									{ id: 'margin-wrapper' },
 									_react2.default.createElement(
 										'div',
-										{ id: 'player-buttons' },
+										{ id: 'ratio-wrapper' },
 										_react2.default.createElement(
-											_materialUi.IconButton,
-											{ tooltip: 'Collapse',
-												className: 'collapse-button',
-												tooltipPosition: 'top-center',
-												onClick: this.toggleMini },
+											'div',
+											{ id: 'center-wrapper' },
 											_react2.default.createElement(
-												_materialUi.FontIcon,
-												{ className: 'material-icons', color: "#fff"
-												},
-												'expand_more'
+												'div',
+												{ id: 'height-wrapper' },
+												_react2.default.createElement(_reactPlayer2.default, { id: 'video-player', url: video.url,
+													height: "inherit",
+													width: "inherit",
+													style: { zIndex: 100 },
+													playing: true, controls: true })
 											)
+										)
+									)
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: this.setMiniTurnary("video-details", "display-none")() },
+									_react2.default.createElement(
+										'div',
+										{ id: 'video-title' },
+										video.title
+									),
+									_react2.default.createElement(
+										'div',
+										{ id: 'video-user-view-details' },
+										_react2.default.createElement(
+											'div',
+											{ id: 'video-user-username' },
+											'Uploaded by ',
+											video.user
 										),
 										_react2.default.createElement(
-											_materialUi.IconButton,
-											{ tooltip: 'Close',
-												className: 'close-button',
-												tooltipPosition: 'top-center',
-												onClick: this.closeVideoBox },
-											_react2.default.createElement(
-												_materialUi.FontIcon,
-												{ className: 'material-icons', color: "#fff"
-												},
-												'clear'
-											)
+											'div',
+											{ id: 'video-view-count' },
+											video.view_count,
+											' Views'
 										)
 									),
 									_react2.default.createElement(
 										'div',
-										{ id: 'margin-wrapper' },
-										_react2.default.createElement(
-											'div',
-											{ id: 'ratio-wrapper' },
-											_react2.default.createElement(
-												'div',
-												{ id: 'center-wrapper' },
-												_react2.default.createElement(
-													'div',
-													{ id: 'height-wrapper' },
-													_react2.default.createElement(_reactPlayer2.default, { id: 'video-player', url: video.url,
-														height: "inherit",
-														width: "inherit",
-														style: { zIndex: 100 },
-														playing: true, controls: true })
-												)
-											)
-										)
-									),
-									_react2.default.createElement(
-										'div',
-										{ id: 'video-details' },
-										_react2.default.createElement(
-											'div',
-											{ id: 'video-title' },
-											video.title
-										),
-										_react2.default.createElement(
-											'div',
-											{ id: 'video-user-view-details' },
-											_react2.default.createElement(
-												'div',
-												{ id: 'video-user-username' },
-												'Uploaded by ',
-												video.user
-											),
-											_react2.default.createElement(
-												'div',
-												{ id: 'video-view-count' },
-												video.view_count,
-												' Views'
-											)
-										),
-										_react2.default.createElement(
-											'div',
-											{ id: 'video-description' },
-											video.description
-										)
+										{ id: 'video-description' },
+										video.description
 									)
 								)
 							)
-						);
-					}
+						)
+					);
 				} else {
 					return _react2.default.createElement('div', { className: 'display-none' });
 				}

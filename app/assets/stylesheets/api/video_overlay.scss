@@ -2,36 +2,72 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#video-player-mini-box{
+#video-dummy-fixed{
   position:fixed;
   bottom:50px;
   left:50px;
   z-index: 100;
-  width: 500px;
-  height: 290px;
-  visibility: visible;
-  opacity: 1;
+  visibility:visible;
+  opacity:1;
+  width: 496px;
+  height: 279px;
 
-  #player-buttons{
-    display:flex;
-    flex:1;
-    justify-content: flex-end;
-    margin-bottom: 2px;
+  #video-overlay{
 
-    .expand-button{
-      padding:0 !important;
-      height: 26px !important;
-      width: 26px !important;
-      border-radius: 2px;
-      background: #00BCD4 !important;
+    #player-buttons{
+      display:flex;
+      flex:1;
+      justify-content: flex-end;
+      margin:16px 16px 0 16px;
+      .expand-button{
+        padding:0 !important;
+        height: 26px !important;
+        width: 26px !important;
+        border-radius: 2px;
+        background: #00BCD4 !important;
+      }
+      .close-button{
+        padding:0 !important;
+        height: 26px !important;
+        width: 26px !important;
+        border-radius: 2px;
+        margin-left: 4px!important;
+        background: #FF4081 !important;
+      }
     }
-    .close-button{
-      padding:0 !important;
-      height: 26px !important;
-      width: 26px !important;
+
+    #margin-wrapper{
       border-radius: 2px;
-      margin-left: 4px!important;
-      background: #FF4081 !important;
+      box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+      margin:16px;
+
+      #ratio-wrapper {
+        padding-bottom: 56.25%; /* 16:9 */
+        position: relative;
+        align-items: center;
+        align-text:center;
+        display:block;
+        padding-bottom: 56%;
+        border-radius: 2px;
+
+        #center-wrapper{
+          border-radius: 2px;
+          position: absolute;
+          display:flex;
+          justify-content: center;
+          align-items: center;
+          height:100%;
+          width:100%;
+          background-color: black;
+
+          #height-wrapper{
+            height:100%;
+            #video-player{
+              display:flex;
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -53,7 +89,7 @@
     bottom: 4px;
     display:flex;
 
-    #comment-overlay{
+    .comment-overlay{
       position:relative;
       display:flex;
       width:100%;
@@ -177,7 +213,6 @@
         }
       }
     }
-
         // .video-player{
         //   border-radius: 2px;
         //   border-radius: 2px;
@@ -186,7 +221,7 @@
         //   background-color: black;
         // }
 
-    #video-details{
+    .video-details{
       margin: 0 16px;
       padding: 15px;
       border-radius: 2px;
