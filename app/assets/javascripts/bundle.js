@@ -67803,7 +67803,9 @@
 			var _this = _possibleConstructorReturn(this, (VideoOverlay.__proto__ || Object.getPrototypeOf(VideoOverlay)).call(this, props));
 	
 			_this.state = {
-				minimized: false
+				minimized: false,
+				featureTimer: 0,
+				featured: [{ class: "picture0", videoId: "1" }, { class: "picture0", videoId: "2" }, { class: "picture0", videoId: "3" }, { class: "picture0", videoId: "4" }, { class: "picture0", videoId: "5" }]
 			};
 			_this.slideVideoBox = _this.slideVideoBox.bind(_this);
 			_this.closeVideoBox = _this.closeVideoBox.bind(_this);
@@ -69777,10 +69779,6 @@
 	
 	var _comment_index_item_child2 = _interopRequireDefault(_comment_index_item_child);
 	
-	var _reply_form_container = __webpack_require__(641);
-	
-	var _reply_form_container2 = _interopRequireDefault(_reply_form_container);
-	
 	var _reactRouter = __webpack_require__(203);
 	
 	var _materialUi = __webpack_require__(261);
@@ -69973,10 +69971,6 @@
 	
 	var _reactRouter = __webpack_require__(203);
 	
-	var _reply_form_container = __webpack_require__(641);
-	
-	var _reply_form_container2 = _interopRequireDefault(_reply_form_container);
-	
 	var _materialUi = __webpack_require__(261);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -70124,160 +70118,8 @@
 	exports.default = (0, _reactRouter.withRouter)(CommentIndexItemChild);
 
 /***/ },
-/* 641 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _reactRedux = __webpack_require__(173);
-	
-	var _reply_form = __webpack_require__(642);
-	
-	var _reply_form2 = _interopRequireDefault(_reply_form);
-	
-	var _comment_actions = __webpack_require__(643);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var mapStateToProps = function mapStateToProps(state) {
-	  return {
-	    loggedIn: Boolean(state.session.currentUser),
-	    errors: state.comments.errors,
-	    query: state.query
-	  };
-	};
-	
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {
-	    createReply: function createReply(comment) {
-	      return dispatch((0, _comment_actions.createReply)(comment));
-	    }
-	  };
-	};
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_reply_form2.default);
-
-/***/ },
-/* 642 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(203);
-	
-	var _materialUi = __webpack_require__(261);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var ReplyForm = function (_React$Component) {
-		_inherits(ReplyForm, _React$Component);
-	
-		function ReplyForm(props) {
-			_classCallCheck(this, ReplyForm);
-	
-			var _this = _possibleConstructorReturn(this, (ReplyForm.__proto__ || Object.getPrototypeOf(ReplyForm)).call(this, props));
-	
-			_this.state = {
-				body: "",
-				show: false
-			};
-			_this.handleSubmit = _this.handleSubmit.bind(_this);
-			return _this;
-		}
-	
-		_createClass(ReplyForm, [{
-			key: 'update',
-			value: function update(field) {
-				var _this2 = this;
-	
-				return function (e) {
-					return _this2.setState(_defineProperty({}, field, e.currentTarget.value));
-				};
-			}
-		}, {
-			key: 'handleSubmit',
-			value: function handleSubmit(e) {
-				e.preventDefault();
-				var reply = {
-					body: this.state.body,
-					video_id: this.props.videoId,
-					parent_comment_id: this.props.parentCommentId
-				};
-				this.setState({ body: "" });
-				this.props.createReply(reply);
-			}
-		}, {
-			key: 'errors',
-			value: function errors() {
-				var errors = "";
-				if (this.props.errors.body) {
-					errors += "You must enter a comment! ";
-				}
-				if (this.props.errors.base) {
-					errors += "You must be logged in to comment!";
-				}
-				return errors;
-			}
-		}, {
-			key: 'buttonClass',
-			value: function buttonClass() {
-				if (this.state.body !== "") {
-					return "comment-button-section";
-				} else {
-					return "invisible";
-				}
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'form',
-					{ onSubmit: this.handleSubmit, className: this.props.showClass },
-					_react2.default.createElement(_materialUi.TextField, { type: 'text',
-						value: this.state.body,
-						onChange: this.update("body"),
-						errorText: this.errors(),
-						floatingLabelText: 'Post a comment',
-						multiLine: true,
-						fullWidth: true }),
-					_react2.default.createElement(
-						'div',
-						{ className: this.buttonClass() },
-						_react2.default.createElement(_materialUi.RaisedButton, { className: 'comment-submit-button', value: 'Submit',
-							primary: true, label: 'Post Comment', onClick: this.handleSubmit })
-					)
-				);
-			}
-		}]);
-	
-		return ReplyForm;
-	}(_react2.default.Component);
-	
-	exports.default = (0, _reactRouter.withRouter)(ReplyForm);
-
-/***/ },
+/* 641 */,
+/* 642 */,
 /* 643 */
 /***/ function(module, exports) {
 

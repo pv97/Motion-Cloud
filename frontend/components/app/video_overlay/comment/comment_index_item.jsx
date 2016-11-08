@@ -1,6 +1,5 @@
 import React from 'react';
 import CommentIndexItemChild from './comment_index_item_child';
-import ReplyFormContainer from './reply_form_container';
 import { withRouter } from 'react-router';
 import { RaisedButton, TextField } from 'material-ui';
 
