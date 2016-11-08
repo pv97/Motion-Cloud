@@ -1,3 +1,5 @@
+
+
 #video-index-container{
   display:flex;
   flex-direction: column;
@@ -15,6 +17,8 @@
     display:flex;
     flex-wrap:wrap;
     justify-content: space-around;
+    max-width: 1360px;
+    margin: 0 auto;
 
     .video-index-item-margin{
       padding: 10px;
@@ -88,6 +92,9 @@
         }
         .video-index-view-count, .video-index-age, .video-index-item-user{
           color: rgb(120, 120, 120);
+        }
+        .video-index-item-user:hover{
+          color: rgb(0, 188, 212);
         }
         .video-index-description{
           display:none;

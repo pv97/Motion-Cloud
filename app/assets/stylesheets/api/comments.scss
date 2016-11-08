@@ -44,6 +44,9 @@
         color: rgb(120, 120, 120);
         font-size:14px;
       }
+      .parent-comment-user:hover{
+        color: rgb(0, 188, 212);
+      }
     }
     .parent-comment-body{
       padding: 0 6px;
@@ -67,6 +70,9 @@
         .child-comment-time-ago, .child-comment-user{
           color: rgb(120, 120, 120);
           font-size:14px;
+        }
+        .child-comment-user:hover{
+          color: rgb(0, 188, 212);
         }
       }
       .child-comment-body{

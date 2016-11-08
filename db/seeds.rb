@@ -32,6 +32,21 @@ Video.create!({
   user_id:2
   })
 Video.create!({
+  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478582136/xudbxw2s2olcm4ktyx47.webm",
+  thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478582136/xudbxw2s2olcm4ktyx47.jpg",
+  title:"How The Stock Exchange Works (For Dummies)",
+  description: "Original at https://www.youtube.com/watch?v=F3QpgXBtDeo",
+  user_id:2
+  })
+Video.create!({
+  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478582629/tuon0634h1m2aqgbsaa9.mp4",
+  thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478582629/tuon0634h1m2aqgbsaa9.jpg",
+  title:"How Big is the Moon MM#1",
+  description: "Original at https://www.youtube.com/watch?v=Tqt9hZcWhJM",
+  user_id:2
+  })
+
+Video.create!({
   url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478369051/vyzosn1ymlet7lykfyev.mkv",
   thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478369051/vyzosn1ymlet7lykfyev.jpg",
   title:"Chopin Nocturne No. 20 perf. by Wladyslaw Szpilman - 'The Pianist' - Original Recording",

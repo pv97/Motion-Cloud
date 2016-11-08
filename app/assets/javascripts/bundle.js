@@ -74886,7 +74886,7 @@
 	      var errorCallback = function errorCallback(errors) {
 	        return dispatch((0, _session_actions.receiveUserErrors)(errors));
 	      };
-	      console.log(action);
+	
 	      switch (action.type) {
 	        case _session_actions.LOGIN:
 	          (0, _session_api_util.login)(action.user, successCallback, errorCallback);
