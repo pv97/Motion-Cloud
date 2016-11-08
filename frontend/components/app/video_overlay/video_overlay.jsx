@@ -8,15 +8,7 @@ class VideoOverlay extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state={
-			minimized:false,
-			featureTimer:0,
-			featured:[
-				{class:"picture0",videoId:"1"},
-				{class:"picture0",videoId:"2"},
-				{class:"picture0",videoId:"3"},
-				{class:"picture0",videoId:"4"},
-				{class:"picture0",videoId:"5"}
-			]
+			minimized:false
 		}
 		this.slideVideoBox = this.slideVideoBox.bind(this);
 		this.closeVideoBox = this.closeVideoBox.bind(this);
@@ -32,6 +24,11 @@ class VideoOverlay extends React.Component {
 	componentDidUpdate(){
 		this.updateQuery();
 	}
+
+	componentWillUnmount(){
+		clearInterval()
+	}
+
 
 	updateQuery(){
 		let queryString = this.props.location.query;

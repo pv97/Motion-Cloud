@@ -67803,9 +67803,7 @@
 			var _this = _possibleConstructorReturn(this, (VideoOverlay.__proto__ || Object.getPrototypeOf(VideoOverlay)).call(this, props));
 	
 			_this.state = {
-				minimized: false,
-				featureTimer: 0,
-				featured: [{ class: "picture0", videoId: "1" }, { class: "picture0", videoId: "2" }, { class: "picture0", videoId: "3" }, { class: "picture0", videoId: "4" }, { class: "picture0", videoId: "5" }]
+				minimized: false
 			};
 			_this.slideVideoBox = _this.slideVideoBox.bind(_this);
 			_this.closeVideoBox = _this.closeVideoBox.bind(_this);
@@ -67824,6 +67822,11 @@
 			key: 'componentDidUpdate',
 			value: function componentDidUpdate() {
 				this.updateQuery();
+			}
+		}, {
+			key: 'componentWillUnmount',
+			value: function componentWillUnmount() {
+				clearInterval();
 			}
 		}, {
 			key: 'updateQuery',
@@ -73921,6 +73924,8 @@
 	
 	var _video_index_item2 = _interopRequireDefault(_video_index_item);
 	
+	var _reactRouter = __webpack_require__(203);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -73932,26 +73937,68 @@
 	var VideoIndex = function (_React$Component) {
 	  _inherits(VideoIndex, _React$Component);
 	
-	  function VideoIndex() {
+	  function VideoIndex(props) {
 	    _classCallCheck(this, VideoIndex);
 	
-	    return _possibleConstructorReturn(this, (VideoIndex.__proto__ || Object.getPrototypeOf(VideoIndex)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (VideoIndex.__proto__ || Object.getPrototypeOf(VideoIndex)).call(this, props));
+	
+	    _this.state = {
+	      featureTimer: 0,
+	      featured: [{ class: "picture1", videoId: "1" }, { class: "picture2", videoId: "2" }, { class: "picture3", videoId: "3" }, { class: "picture4", videoId: "4" }, { class: "picture5", videoId: "5" }]
+	    };
+	    _this.onSplashClick = _this.onSplashClick.bind(_this);
+	    _this.onChannelClick = _this.onChannelClick.bind(_this);
+	    return _this;
 	  }
 	
 	  _createClass(VideoIndex, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      this.props.fetchVideos();
+	      this.addSplashTimer();
+	    }
+	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate() {}
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      clearInterval();
+	    }
+	  }, {
+	    key: 'onSplashClick',
+	    value: function onSplashClick() {
+	      var videoId = this.state.featured[this.state.featureTimer].videoId;
+	      var query = this.props.location.query;
+	      query.id = videoId;
+	      this.props.router.replace({ pathname: '/', query: query });
+	    }
+	  }, {
+	    key: 'onChannelClick',
+	    value: function onChannelClick(event) {
+	      event.stopPropagation();
+	      var query = this.props.location.query;
+	      this.props.router.replace({ pathname: '/users/2', query: query });
+	    }
+	  }, {
+	    key: 'addSplashTimer',
+	    value: function addSplashTimer() {
+	      var _this2 = this;
+	
+	      setInterval(function () {
+	        var nextTimer = (_this2.state.featureTimer + 1) % 5;
+	        _this2.setState({ featureTimer: nextTimer });
+	      }, 4000);
 	    }
 	  }, {
 	    key: 'getVideos',
 	    value: function getVideos() {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      var videos = [];
 	      Object.keys(this.props.videos).map(function (key) {
 	        if (key !== "errors") {
-	          videos.push(_this2.props.videos[key]);
+	          videos.push(_this3.props.videos[key]);
 	        }
 	      });
 	      return videos;
@@ -73967,12 +74014,12 @@
 	          { id: 'video-index-container' },
 	          _react2.default.createElement(
 	            'div',
-	            { id: 'featured-channel' },
+	            { id: 'featured-channel', onClick: this.onSplashClick },
 	            _react2.default.createElement(
 	              'div',
 	              { id: 'background' },
 	              _react2.default.createElement('div', { id: 'blank-left' }),
-	              _react2.default.createElement('div', { className: 'picture' }),
+	              _react2.default.createElement('div', { className: this.state.featured[this.state.featureTimer].class }),
 	              _react2.default.createElement('div', { id: 'blank-right' })
 	            ),
 	            _react2.default.createElement(
@@ -73987,7 +74034,7 @@
 	                  'Featured Channel',
 	                  _react2.default.createElement(
 	                    'div',
-	                    { id: 'featured-channel-name' },
+	                    { id: 'featured-channel-name', onClick: this.onChannelClick },
 	                    'Kurzgesagt'
 	                  )
 	                )
@@ -74020,7 +74067,7 @@
 	  return VideoIndex;
 	}(_react2.default.Component);
 	
-	exports.default = VideoIndex;
+	exports.default = (0, _reactRouter.withRouter)(VideoIndex);
 
 /***/ },
 /* 741 */
@@ -74670,6 +74717,8 @@
 	
 	var _user_actions = __webpack_require__(738);
 	
+	var _comment_actions = __webpack_require__(643);
+	
 	var _merge = __webpack_require__(648);
 	
 	var _merge2 = _interopRequireDefault(_merge);
@@ -74687,6 +74736,17 @@
 	
 	    case _user_actions.RECEIVE_USER:
 	      return action.user;
+	
+	    case _comment_actions.RECEIVE_COMMENT:
+	      newState = (0, _merge2.default)({}, oldState);
+	      console.log(newState);
+	      newState.comments.push(action.comment);
+	      return newState;
+	
+	    case _comment_actions.RECEIVE_REPLY:
+	      newState = (0, _merge2.default)({}, oldState);
+	      newState.comments.push(action.reply);
+	      return newState;
 	
 	    default:
 	      return oldState;

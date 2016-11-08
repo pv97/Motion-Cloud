@@ -61,9 +61,41 @@
         flex:3;
         background: red;
       }
-      .picture{
+      .picture1{
         height:450px;
         background-image: url("http://res.cloudinary.com/tlcoy4e3/image/upload/v1478584880/k1_umdnav.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        flex:12;
+      }
+      .picture2{
+        height:450px;
+        background-image: url("http://res.cloudinary.com/tlcoy4e3/image/upload/v1478584276/k6_l4itmt.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        flex:12;
+      }
+      .picture3{
+        height:450px;
+        background-image: url("http://res.cloudinary.com/tlcoy4e3/image/upload/v1478581994/k2_degekm.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        flex:12;
+      }
+      .picture4{
+        height:450px;
+        background-image: url("http://res.cloudinary.com/tlcoy4e3/image/upload/v1478584214/k4_ink7vu.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        flex:12;
+      }
+      .picture5{
+        height:450px;
+        background-image: url("http://res.cloudinary.com/tlcoy4e3/image/upload/v1478584215/k5_ujgbhy.png");
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
