@@ -67924,9 +67924,9 @@
 									)
 								)
 							),
-							_react2.default.createElement(_reactPlayer2.default, { className: 'video-player-mini', url: video.url,
-								height: 180,
-								width: 320,
+							_react2.default.createElement(_reactPlayer2.default, { id: 'video-player', url: video.url,
+								height: "inherit",
+								width: "inherit",
 								style: { zIndex: 100 },
 								playing: true, controls: true })
 						);

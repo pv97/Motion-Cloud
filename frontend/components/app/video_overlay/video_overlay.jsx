@@ -100,9 +100,9 @@ class VideoOverlay extends React.Component {
 							</IconButton>
 						</div>
 
-						<ReactPlayer className="video-player-mini" url={video.url}
-							height={180}
-							width={320}
+						<ReactPlayer id="video-player" url={video.url}
+							height={"inherit"}
+							width={"inherit"}
 							style={{zIndex: 100}}
 							playing controls/>
 					</div>
@@ -144,6 +144,7 @@ class VideoOverlay extends React.Component {
 											>clear</FontIcon>
 									</IconButton>
 								</div>
+								
 								<div id="margin-wrapper">
 									<div id="ratio-wrapper">
 										<div id="center-wrapper">

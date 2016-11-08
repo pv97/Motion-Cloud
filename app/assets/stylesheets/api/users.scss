@@ -6,11 +6,11 @@
   display:flex;
   flex:1;
   justify-content: flex-end;
+  height: 100%;
 
   #user-page-nav{
     padding-top: 50px;
     flex:1;
-    box-shadow: 4px 0px 2px -2px rgba(0, 0, 0, 0.117647); //line below
     justify-content: flex-end;
 
     .anchor{
@@ -58,6 +58,7 @@
 
     .user-comments{
       background: #f1f1f1;
+      height:100%;
 
       #user-comment-list{
         padding: 30px;
@@ -90,6 +91,7 @@
 
     .user-videos{
       background: #f1f1f1;
+      height:100%;
 
       #user-video-list{
         padding: 30px;

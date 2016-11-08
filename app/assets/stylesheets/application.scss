@@ -15,8 +15,7 @@
  */
 #main-section{
   position:relative;
-  top:55px;
-  margin:0 auto;
+  margin-top:55px;
   display: flex;
   justify-content: space-between;
   width:100%;
@@ -30,6 +29,7 @@
   padding: 0px 40px !important;
   background-color: #fff !important;
   height:55px !important;
+  top:0 !important;
   margin:0 !important;
   position:fixed !important;
   z-index: 101 !important;
@@ -95,7 +95,7 @@
 
 
 .display-none{
-  visibility:hidden;
+  display:none;
   opacity:0;
   width:0;
   height:0;
