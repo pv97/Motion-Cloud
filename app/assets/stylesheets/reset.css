@@ -14,5 +14,9 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   font-family: Roboto, sans-serif;
 	list-style: none;
 	box-shadow:none;
-  transition: all 450ms ease;
+	-webkit-transition: all 450ms ease;
+	-moz-transition: all 450ms ease;
+	-o-transition: all 450ms ease;
+	-ms-transition: all 450ms ease;
+	transition: all 450ms ease;
 }

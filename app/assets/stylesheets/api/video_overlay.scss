@@ -142,6 +142,7 @@
       top:0px;
       bottom:0px;
       left:40px; //changes to left 100%;
+      z-index: 200;
       background-color: #fff;
       box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
     }
@@ -153,6 +154,7 @@
       top:0px;
       bottom:0px;
       left:100%; //changes to left 40px;
+      z-index: 200;
       background-color: #fff;
       box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
     }
