@@ -85,7 +85,8 @@
 
 
 .display-none{
-  display:none;
+  position:fixed;
+  visibility:hidden;
   opacity:0;
   width:0;
   height:0;

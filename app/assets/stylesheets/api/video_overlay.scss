@@ -15,10 +15,14 @@
   #video-overlay{
 
     #player-buttons{
+      position:absolute;
       display:flex;
       flex:1;
+      z-index: 101;
+      width:100%;
+      padding:0;
       justify-content: flex-end;
-      margin:16px 16px 0 16px;
+
       .expand-button{
         padding:0 !important;
         height: 26px !important;
@@ -31,16 +35,11 @@
         height: 26px !important;
         width: 26px !important;
         border-radius: 2px;
-        margin-left: 4px!important;
         background: #FF4081 !important;
       }
     }
 
     #margin-wrapper{
-      border-radius: 2px;
-      box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
-      margin:16px;
-
       #ratio-wrapper {
         padding-bottom: 56.25%; /* 16:9 */
         position: relative;

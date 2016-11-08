@@ -103,13 +103,6 @@ Video.create!({
   user_id:1
   })
 Video.create!({
-  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478389464/rrgsys5vie5luqzifaah.avi",
-  thumbnail_url: "http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478389464/rrgsys5vie5luqzifaah.jpg",
-  title: "Dark Souls 3 Menu Theme",
-  description: "Original at https://www.youtube.com/watch?v=stWae6r7Blw",
-  user_id:1
-  })
-Video.create!({
   url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478389781/pnvsquhd7qtfd4afw63v.mkv",
   thumbnail_url: "http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478389781/pnvsquhd7qtfd4afw63v.jpg",
   title: "Pokemon TV Anime Best 1997-2010 - Route 4",
@@ -121,5 +114,12 @@ Video.create!({
   thumbnail_url: "http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478390467/wcfshijkad06qyocsqwe.jpg",
   title: "The Fellowship of the Ring Soundtrack-02-Concerning Hobbits",
   description: "Original at https://www.youtube.com/watch?v=stWae6r7Blw",
+  user_id:1
+  })
+Video.create!({
+  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478629370/Dark_Souls_3_OST_Main_Theme_qzbdo3.webm",
+  thumbnail_url: "http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478629370/Dark_Souls_3_OST_Main_Theme_qzbdo3.jpg",
+  title: "Dark Souls 3 OST Main Theme",
+  description: "Original at https://www.youtube.com/watch?v=a0X0YA6ZfW4",
   user_id:1
   })
