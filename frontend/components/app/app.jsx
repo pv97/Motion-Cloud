@@ -57,9 +57,9 @@ class App extends React.Component {
 
             <div id="page-boundary">
               <div className={this.hideCommentClass()} onClick={this.slideVideoBox}></div>
-              <div id="page-content">
+
                 {this.props.children}
-              </div>
+
             </div>
           </section>
         </div>

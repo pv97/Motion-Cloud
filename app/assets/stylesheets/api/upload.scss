@@ -1,23 +1,32 @@
 
 #video-upload-form-container{
   display:flex;
+
   flex:1;
-  justify-content: center;
-  background: #fff;
+  background-image: url("http://res.cloudinary.com/tlcoy4e3/image/upload/v1478625970/1830e5815d863062fce30fe6cc0c8ab2_idu2gv.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  justify-content: flex-end;
 
   #upload-form-box{
     display:flex;
+    float:right;
     flex-direction: column;
     justify-content: center;
-    max-width:800px;
-    flex:1;
-    padding: 15px 40px;
-    margin: 10px auto;
+    height:770px;
+    width:100%;
+    max-width:770px;
+    padding: 0 40px;
+    border-radius: 10px;
+    background-color: #fff;
+    margin: 80px 10% 20px 1px ;
 
     #upload-video-title{
       margin:0 auto;
       padding-top: 20px;
-      font-size: 24px;
+      font-size: 30px;
+      color: rgb(40,61,72);
     }
 
     .upload-widget{

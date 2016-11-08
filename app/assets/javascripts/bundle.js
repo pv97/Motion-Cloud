@@ -28201,11 +28201,7 @@
 	              'div',
 	              { id: 'page-boundary' },
 	              _react2.default.createElement('div', { className: this.hideCommentClass(), onClick: this.slideVideoBox }),
-	              _react2.default.createElement(
-	                'div',
-	                { id: 'page-content' },
-	                this.props.children
-	              )
+	              this.props.children
 	            )
 	          )
 	        )

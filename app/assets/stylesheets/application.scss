@@ -15,10 +15,10 @@
  */
 #main-section{
   position:relative;
-  margin-top:55px;
   display: flex;
   justify-content: space-between;
   width:100%;
+  min-height: 100vh;
 }
 
 #main-header{
@@ -70,8 +70,6 @@
   justify-content: center;
   flex:1;
   background: #dddddd;
-  min-height: 100vh;
-
 
   .hide-comment-section{
     background: #000000;
@@ -82,14 +80,6 @@
     left:0;
     right:0;
     bottom:0;
-  }
-
-  #page-content{
-    justify-content: center;
-    flex:1;
-    margin: 0 25px 50px 25px;
-    box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
-    background: #fefeff;
   }
 }
 
