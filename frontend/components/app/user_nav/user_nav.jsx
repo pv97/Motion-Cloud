@@ -28,7 +28,7 @@ class UserNav extends React.Component {
 
 	toUserPage(e){
 		e.preventDefault();
-		this.props.router.push({pathname:`/users/${currentUser.id}`,query:this.props.query});
+		this.props.router.push({pathname:`/users/${this.props.currentUser.id}`,query:this.props.query});
 	}
 
 	render() {
