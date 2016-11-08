@@ -48,7 +48,7 @@ class VideoIndex extends React.Component {
 
           </div>
 
-          <h1 id="video-index-title">Trending Videos</h1>
+          <h1 id="video-index-title">Watch While Exploring</h1>
           <div id="video-list">
             {videos.map(video => (
               <VideoIndexItem video={video} key={video.id}/>
