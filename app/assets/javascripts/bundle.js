@@ -58,11 +58,11 @@
 	
 	var _root2 = _interopRequireDefault(_root);
 	
-	var _store = __webpack_require__(743);
+	var _store = __webpack_require__(749);
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _user_actions = __webpack_require__(750);
+	var _user_actions = __webpack_require__(740);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -21479,11 +21479,11 @@
 	
 	var _user_page_container2 = _interopRequireDefault(_user_page_container);
 	
-	var _video_index_container = __webpack_require__(764);
+	var _video_index_container = __webpack_require__(741);
 	
 	var _video_index_container2 = _interopRequireDefault(_video_index_container);
 	
-	var _reactTapEventPlugin = __webpack_require__(737);
+	var _reactTapEventPlugin = __webpack_require__(743);
 	
 	var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
 	
@@ -73577,11 +73577,11 @@
 	
 	var _reactRedux = __webpack_require__(173);
 	
-	var _user_page = __webpack_require__(761);
+	var _user_page = __webpack_require__(737);
 	
 	var _user_page2 = _interopRequireDefault(_user_page);
 	
-	var _user_actions = __webpack_require__(750);
+	var _user_actions = __webpack_require__(740);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -73606,1185 +73606,6 @@
 /* 737 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var invariant = __webpack_require__(738);
-	var defaultClickRejectionStrategy = __webpack_require__(739);
-	
-	var alreadyInjected = false;
-	
-	module.exports = function injectTapEventPlugin (strategyOverrides) {
-	  strategyOverrides = strategyOverrides || {}
-	  var shouldRejectClick = strategyOverrides.shouldRejectClick || defaultClickRejectionStrategy;
-	
-	  if (process.env.NODE_ENV !== 'production') {
-	    invariant(
-	      !alreadyInjected,
-	      'injectTapEventPlugin(): Can only be called once per application lifecycle.\n\n\
-	It is recommended to call injectTapEventPlugin() just before you call \
-	ReactDOM.render(). If you are using an external library which calls injectTapEventPlugin() \
-	itself, please contact the maintainer as it shouldn\'t be called in library code and \
-	should be injected by the application.'
-	    )
-	  }
-	
-	  alreadyInjected = true;
-	
-	  __webpack_require__(43).injection.injectEventPluginsByName({
-	    'TapEventPlugin':       __webpack_require__(740)(shouldRejectClick)
-	  });
-	};
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
-
-/***/ },
-/* 738 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule invariant
-	 */
-	
-	"use strict";
-	
-	/**
-	 * Use invariant() to assert state which your program assumes to be true.
-	 *
-	 * Provide sprintf-style format (only %s is supported) and arguments
-	 * to provide information about what broke and what you were
-	 * expecting.
-	 *
-	 * The invariant message will be stripped in production, but the invariant
-	 * will remain to ensure logic does not differ in production.
-	 */
-	
-	var invariant = function (condition, format, a, b, c, d, e, f) {
-	  if (process.env.NODE_ENV !== 'production') {
-	    if (format === undefined) {
-	      throw new Error('invariant requires an error message argument');
-	    }
-	  }
-	
-	  if (!condition) {
-	    var error;
-	    if (format === undefined) {
-	      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
-	    } else {
-	      var args = [a, b, c, d, e, f];
-	      var argIndex = 0;
-	      error = new Error('Invariant Violation: ' + format.replace(/%s/g, function () {
-	        return args[argIndex++];
-	      }));
-	    }
-	
-	    error.framesToPop = 1; // we don't care about invariant's own frame
-	    throw error;
-	  }
-	};
-	
-	module.exports = invariant;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
-
-/***/ },
-/* 739 */
-/***/ function(module, exports) {
-
-	module.exports = function(lastTouchEvent, clickTimestamp) {
-	  if (lastTouchEvent && (clickTimestamp - lastTouchEvent) < 750) {
-	    return true;
-	  }
-	};
-
-
-/***/ },
-/* 740 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2014 Facebook, Inc.
-	 *
-	 * Licensed under the Apache License, Version 2.0 (the "License");
-	 * you may not use this file except in compliance with the License.
-	 * You may obtain a copy of the License at
-	 *
-	 * http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 *
-	 * @providesModule TapEventPlugin
-	 * @typechecks static-only
-	 */
-	
-	"use strict";
-	
-	var EventConstants = __webpack_require__(41);
-	var EventPluginUtils = __webpack_require__(45);
-	var EventPropagators = __webpack_require__(42);
-	var SyntheticUIEvent = __webpack_require__(76);
-	var TouchEventUtils = __webpack_require__(741);
-	var ViewportMetrics = __webpack_require__(77);
-	
-	var keyOf = __webpack_require__(742);
-	var topLevelTypes = EventConstants.topLevelTypes;
-	
-	var isStartish = EventPluginUtils.isStartish;
-	var isEndish = EventPluginUtils.isEndish;
-	
-	var isTouch = function(topLevelType) {
-	  var touchTypes = [
-	    topLevelTypes.topTouchCancel,
-	    topLevelTypes.topTouchEnd,
-	    topLevelTypes.topTouchStart,
-	    topLevelTypes.topTouchMove
-	  ];
-	  return touchTypes.indexOf(topLevelType) >= 0;
-	}
-	
-	/**
-	 * Number of pixels that are tolerated in between a `touchStart` and `touchEnd`
-	 * in order to still be considered a 'tap' event.
-	 */
-	var tapMoveThreshold = 10;
-	var ignoreMouseThreshold = 750;
-	var startCoords = {x: null, y: null};
-	var lastTouchEvent = null;
-	
-	var Axis = {
-	  x: {page: 'pageX', client: 'clientX', envScroll: 'currentPageScrollLeft'},
-	  y: {page: 'pageY', client: 'clientY', envScroll: 'currentPageScrollTop'}
-	};
-	
-	function getAxisCoordOfEvent(axis, nativeEvent) {
-	  var singleTouch = TouchEventUtils.extractSingleTouch(nativeEvent);
-	  if (singleTouch) {
-	    return singleTouch[axis.page];
-	  }
-	  return axis.page in nativeEvent ?
-	    nativeEvent[axis.page] :
-	    nativeEvent[axis.client] + ViewportMetrics[axis.envScroll];
-	}
-	
-	function getDistance(coords, nativeEvent) {
-	  var pageX = getAxisCoordOfEvent(Axis.x, nativeEvent);
-	  var pageY = getAxisCoordOfEvent(Axis.y, nativeEvent);
-	  return Math.pow(
-	    Math.pow(pageX - coords.x, 2) + Math.pow(pageY - coords.y, 2),
-	    0.5
-	  );
-	}
-	
-	var touchEvents = [
-	  topLevelTypes.topTouchStart,
-	  topLevelTypes.topTouchCancel,
-	  topLevelTypes.topTouchEnd,
-	  topLevelTypes.topTouchMove,
-	];
-	
-	var dependencies = [
-	  topLevelTypes.topMouseDown,
-	  topLevelTypes.topMouseMove,
-	  topLevelTypes.topMouseUp,
-	].concat(touchEvents);
-	
-	var eventTypes = {
-	  touchTap: {
-	    phasedRegistrationNames: {
-	      bubbled: keyOf({onTouchTap: null}),
-	      captured: keyOf({onTouchTapCapture: null})
-	    },
-	    dependencies: dependencies
-	  }
-	};
-	
-	var now = (function() {
-	  if (Date.now) {
-	    return Date.now;
-	  } else {
-	    // IE8 support: http://stackoverflow.com/questions/9430357/please-explain-why-and-how-new-date-works-as-workaround-for-date-now-in
-	    return function () {
-	      return +new Date;
-	    }
-	  }
-	})();
-	
-	function createTapEventPlugin(shouldRejectClick) {
-	  return {
-	
-	    tapMoveThreshold: tapMoveThreshold,
-	
-	    ignoreMouseThreshold: ignoreMouseThreshold,
-	
-	    eventTypes: eventTypes,
-	
-	    /**
-	     * @param {string} topLevelType Record from `EventConstants`.
-	     * @param {DOMEventTarget} targetInst The listening component root node.
-	     * @param {object} nativeEvent Native browser event.
-	     * @return {*} An accumulation of synthetic events.
-	     * @see {EventPluginHub.extractEvents}
-	     */
-	    extractEvents: function(
-	      topLevelType,
-	      targetInst,
-	      nativeEvent,
-	      nativeEventTarget
-	    ) {
-	
-	      if (isTouch(topLevelType)) {
-	        lastTouchEvent = now();
-	      } else {
-	        if (shouldRejectClick(lastTouchEvent, now())) {
-	          return null;
-	        }
-	      }
-	
-	      if (!isStartish(topLevelType) && !isEndish(topLevelType)) {
-	        return null;
-	      }
-	      var event = null;
-	      var distance = getDistance(startCoords, nativeEvent);
-	      if (isEndish(topLevelType) && distance < tapMoveThreshold) {
-	        event = SyntheticUIEvent.getPooled(
-	          eventTypes.touchTap,
-	          targetInst,
-	          nativeEvent,
-	          nativeEventTarget
-	        );
-	      }
-	      if (isStartish(topLevelType)) {
-	        startCoords.x = getAxisCoordOfEvent(Axis.x, nativeEvent);
-	        startCoords.y = getAxisCoordOfEvent(Axis.y, nativeEvent);
-	      } else if (isEndish(topLevelType)) {
-	        startCoords.x = 0;
-	        startCoords.y = 0;
-	      }
-	      EventPropagators.accumulateTwoPhaseDispatches(event);
-	      return event;
-	    }
-	
-	  };
-	}
-	
-	module.exports = createTapEventPlugin;
-
-
-/***/ },
-/* 741 */
-/***/ function(module, exports) {
-
-	/**
-	 * Copyright 2013-2014 Facebook, Inc.
-	 *
-	 * Licensed under the Apache License, Version 2.0 (the "License");
-	 * you may not use this file except in compliance with the License.
-	 * You may obtain a copy of the License at
-	 *
-	 * http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 *
-	 * @providesModule TouchEventUtils
-	 */
-	
-	var TouchEventUtils = {
-	  /**
-	   * Utility function for common case of extracting out the primary touch from a
-	   * touch event.
-	   * - `touchEnd` events usually do not have the `touches` property.
-	   *   http://stackoverflow.com/questions/3666929/
-	   *   mobile-sarai-touchend-event-not-firing-when-last-touch-is-removed
-	   *
-	   * @param {Event} nativeEvent Native event that may or may not be a touch.
-	   * @return {TouchesObject?} an object with pageX and pageY or null.
-	   */
-	  extractSingleTouch: function(nativeEvent) {
-	    var touches = nativeEvent.touches;
-	    var changedTouches = nativeEvent.changedTouches;
-	    var hasTouches = touches && touches.length > 0;
-	    var hasChangedTouches = changedTouches && changedTouches.length > 0;
-	
-	    return !hasTouches && hasChangedTouches ? changedTouches[0] :
-	           hasTouches ? touches[0] :
-	           nativeEvent;
-	  }
-	};
-	
-	module.exports = TouchEventUtils;
-
-
-/***/ },
-/* 742 */
-/***/ function(module, exports) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule keyOf
-	 */
-	
-	/**
-	 * Allows extraction of a minified key. Let's the build system minify keys
-	 * without losing the ability to dynamically use key strings as values
-	 * themselves. Pass in an object with a single key/val pair and it will return
-	 * you the string key of that single record. Suppose you want to grab the
-	 * value for a key 'className' inside of an object. Key/val minification may
-	 * have aliased that key to be 'xa12'. keyOf({className: null}) will return
-	 * 'xa12' in that case. Resolve keys you want to use once at startup time, then
-	 * reuse those resolutions.
-	 */
-	"use strict";
-	
-	var keyOf = function (oneKeyObj) {
-	  var key;
-	  for (key in oneKeyObj) {
-	    if (!oneKeyObj.hasOwnProperty(key)) {
-	      continue;
-	    }
-	    return key;
-	  }
-	  return null;
-	};
-	
-	module.exports = keyOf;
-
-/***/ },
-/* 743 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _redux = __webpack_require__(180);
-	
-	var _root_reducer = __webpack_require__(744);
-	
-	var _root_reducer2 = _interopRequireDefault(_root_reducer);
-	
-	var _root_middleware = __webpack_require__(751);
-	
-	var _root_middleware2 = _interopRequireDefault(_root_middleware);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var configureStore = function configureStore() {
-	  var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-	  return (0, _redux.createStore)(_root_reducer2.default, preloadedState, _root_middleware2.default);
-	};
-	
-	exports.default = configureStore;
-
-/***/ },
-/* 744 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _redux = __webpack_require__(180);
-	
-	var _session_reducer = __webpack_require__(745);
-	
-	var _session_reducer2 = _interopRequireDefault(_session_reducer);
-	
-	var _videos_reducer = __webpack_require__(746);
-	
-	var _videos_reducer2 = _interopRequireDefault(_videos_reducer);
-	
-	var _comments_reducer = __webpack_require__(747);
-	
-	var _comments_reducer2 = _interopRequireDefault(_comments_reducer);
-	
-	var _query_reducer = __webpack_require__(748);
-	
-	var _query_reducer2 = _interopRequireDefault(_query_reducer);
-	
-	var _user_reducer = __webpack_require__(749);
-	
-	var _user_reducer2 = _interopRequireDefault(_user_reducer);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var RootReducer = (0, _redux.combineReducers)({
-	  session: _session_reducer2.default,
-	  videos: _videos_reducer2.default,
-	  comments: _comments_reducer2.default,
-	  query: _query_reducer2.default,
-	  user: _user_reducer2.default
-	});
-	
-	exports.default = RootReducer;
-
-/***/ },
-/* 745 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _session_actions = __webpack_require__(259);
-	
-	var _merge = __webpack_require__(650);
-	
-	var _merge2 = _interopRequireDefault(_merge);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var _nullUser = Object.freeze({
-	  currentUser: null,
-	  errors: {}
-	});
-	
-	var SessionReducer = function SessionReducer() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _nullUser;
-	  var action = arguments[1];
-	
-	  Object.freeze(state);
-	  switch (action.type) {
-	    case _session_actions.RECEIVE_CURRENT_USER:
-	      var currentUser = action.currentUser;
-	      return (0, _merge2.default)({}, _nullUser, { currentUser: currentUser });
-	
-	    case _session_actions.LOGOUT:
-	      return (0, _merge2.default)({}, _nullUser);
-	
-	    case _session_actions.RECEIVE_USER_ERRORS:
-	      var errors = action.errors.responseJSON;
-	      return (0, _merge2.default)({}, _nullUser, { errors: errors });
-	
-	    default:
-	      return state;
-	  }
-	};
-	
-	exports.default = SessionReducer;
-
-/***/ },
-/* 746 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _video_actions = __webpack_require__(646);
-	
-	var _merge2 = __webpack_require__(650);
-	
-	var _merge3 = _interopRequireDefault(_merge2);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-	
-	var VideosReducer = function VideosReducer() {
-	  var oldState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { errors: {} };
-	  var action = arguments[1];
-	
-	  Object.freeze(oldState);
-	  var newState = void 0;
-	
-	  switch (action.type) {
-	    case _video_actions.RECEIVE_ALL_VIDEOS:
-	      return (0, _merge3.default)({}, oldState, action.videos);
-	
-	    case _video_actions.RECEIVE_VIDEO:
-	      newState = (0, _merge3.default)({}, oldState, _defineProperty({}, action.video.id, action.video));
-	      newState.errors = {};
-	      return newState;
-	
-	    case _video_actions.REMOVE_VIDEO:
-	      newState = (0, _merge3.default)({}, oldState);
-	      delete newState[action.video.id];
-	      return newState;
-	
-	    case _video_actions.RECEIVE_VIDEO_ERRORS:
-	      var errors = action.errors.responseJSON;
-	      newState = (0, _merge3.default)({}, oldState);
-	      newState.errors = {};
-	      return (0, _merge3.default)(newState, { errors: errors });
-	
-	    default:
-	      return oldState;
-	  }
-	};
-	
-	exports.default = VideosReducer;
-
-/***/ },
-/* 747 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _comment_actions = __webpack_require__(643);
-	
-	var _merge2 = __webpack_require__(650);
-	
-	var _merge3 = _interopRequireDefault(_merge2);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-	
-	var CommentsReducer = function CommentsReducer() {
-	  var oldState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { errors: {} };
-	  var action = arguments[1];
-	
-	  Object.freeze(oldState);
-	  var newState = void 0;
-	
-	  switch (action.type) {
-	    case _comment_actions.RECEIVE_ALL_COMMENTS:
-	      return action.comments;
-	
-	    case _comment_actions.RECEIVE_COMMENT:
-	      _newState = (0, _merge3.default)({}, oldState, _defineProperty({}, action.comment.id, action.comment));
-	      _newState.errors = {};
-	      return _newState;
-	
-	    case _comment_actions.RECEIVE_REPLY:
-	      var _newState = (0, _merge3.default)({}, oldState);
-	      _newState[action.reply.parent_comment_id].child_comments.push(action.reply);
-	      _newState.errors = {};
-	      return _newState;
-	
-	    case _comment_actions.REMOVE_COMMENT:
-	      _newState = (0, _merge3.default)({}, oldState);
-	      delete _newState[action.comment.id];
-	      return _newState;
-	
-	    case _comment_actions.RECEIVE_COMMENT_ERRORS:
-	      var errors = action.errors.responseJSON;
-	      _newState = (0, _merge3.default)({}, oldState);
-	      _newState.errors = {};
-	      return (0, _merge3.default)(_newState, { errors: errors });
-	
-	    default:
-	      return oldState;
-	  }
-	};
-	
-	exports.default = CommentsReducer;
-
-/***/ },
-/* 748 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _query_actions = __webpack_require__(647);
-	
-	var _merge = __webpack_require__(650);
-	
-	var _merge2 = _interopRequireDefault(_merge);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var QueryReducer = function QueryReducer() {
-	  var oldState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-	  var action = arguments[1];
-	
-	  Object.freeze(oldState);
-	  switch (action.type) {
-	    case _query_actions.SET_VIDEO_QUERY:
-	      return { id: action.id };
-	
-	    case _query_actions.SET_COMMENT_QUERY:
-	      var newState = (0, _merge2.default)({}, oldState);
-	      newState.c = action.c;
-	      return newState;
-	
-	    default:
-	      return oldState;
-	  }
-	};
-	
-	exports.default = QueryReducer;
-
-/***/ },
-/* 749 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _user_actions = __webpack_require__(750);
-	
-	var _merge = __webpack_require__(650);
-	
-	var _merge2 = _interopRequireDefault(_merge);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var UserReducer = function UserReducer() {
-	  var oldState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-	  var action = arguments[1];
-	
-	  Object.freeze(oldState);
-	  var newState = void 0;
-	
-	  switch (action.type) {
-	
-	    case _user_actions.RECEIVE_USER:
-	      return action.user;
-	
-	    default:
-	      return oldState;
-	  }
-	};
-	
-	exports.default = UserReducer;
-
-/***/ },
-/* 750 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var FETCH_USER = exports.FETCH_USER = "FETCH_USER";
-	var RECEIVE_USER = exports.RECEIVE_USER = "RECEIVE_USER";
-	
-	var fetchUser = exports.fetchUser = function fetchUser(id) {
-	  return {
-	    type: FETCH_USER,
-	    id: id
-	  };
-	};
-	var receiveUser = exports.receiveUser = function receiveUser(user) {
-	  return {
-	    type: RECEIVE_USER,
-	    user: user
-	  };
-	};
-
-/***/ },
-/* 751 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _redux = __webpack_require__(180);
-	
-	var _session_middleware = __webpack_require__(752);
-	
-	var _session_middleware2 = _interopRequireDefault(_session_middleware);
-	
-	var _videos_middleware = __webpack_require__(754);
-	
-	var _videos_middleware2 = _interopRequireDefault(_videos_middleware);
-	
-	var _comments_middleware = __webpack_require__(756);
-	
-	var _comments_middleware2 = _interopRequireDefault(_comments_middleware);
-	
-	var _query_middleware = __webpack_require__(758);
-	
-	var _query_middleware2 = _interopRequireDefault(_query_middleware);
-	
-	var _user_middleware = __webpack_require__(759);
-	
-	var _user_middleware2 = _interopRequireDefault(_user_middleware);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var RootMiddleware = (0, _redux.applyMiddleware)(_session_middleware2.default, _videos_middleware2.default, _comments_middleware2.default, _query_middleware2.default, _user_middleware2.default);
-	
-	exports.default = RootMiddleware;
-
-/***/ },
-/* 752 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _session_actions = __webpack_require__(259);
-	
-	var _session_api_util = __webpack_require__(753);
-	
-	exports.default = function (_ref) {
-	  var getState = _ref.getState,
-	      dispatch = _ref.dispatch;
-	  return function (next) {
-	    return function (action) {
-	      var successCallback = function successCallback(user) {
-	        return dispatch((0, _session_actions.receiveCurrentUser)(user));
-	      };
-	      var errorCallback = function errorCallback(errors) {
-	        return dispatch((0, _session_actions.receiveUserErrors)(errors));
-	      };
-	
-	      switch (action.type) {
-	        case _session_actions.LOGIN:
-	          (0, _session_api_util.login)(action.user, successCallback, errorCallback);
-	          return next(action);
-	
-	        case _session_actions.LOGOUT:
-	          (0, _session_api_util.logout)(function () {
-	            return next(action);
-	          });
-	          break;
-	
-	        case _session_actions.SIGNUP:
-	          (0, _session_api_util.signup)(action.user, successCallback, errorCallback);
-	          return next(action);
-	
-	        default:
-	          return next(action);
-	      }
-	    };
-	  };
-	};
-
-/***/ },
-/* 753 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.logout = exports.signup = exports.login = undefined;
-	
-	var _session_actions = __webpack_require__(259);
-	
-	var login = exports.login = function login(user, success, error) {
-		$.ajax({
-			method: 'POST',
-			url: '/api/session',
-			data: user,
-			success: success,
-			error: error
-		});
-	};
-	
-	var signup = exports.signup = function signup(user, success, error) {
-		$.ajax({
-			method: 'POST',
-			url: '/api/users',
-			data: user,
-			success: success,
-			error: error
-		});
-	};
-	
-	var logout = exports.logout = function logout(success) {
-		$.ajax({
-			method: 'delete',
-			url: '/api/session',
-			success: success,
-			error: function error() {
-				console.log("Logout error in SessionApiUtil#logout");
-			}
-		});
-	};
-
-/***/ },
-/* 754 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _video_actions = __webpack_require__(646);
-	
-	var _video_api_util = __webpack_require__(755);
-	
-	var _reactRouter = __webpack_require__(203);
-	
-	var VideosMiddleware = function VideosMiddleware(_ref) {
-	  var getState = _ref.getState,
-	      dispatch = _ref.dispatch;
-	  return function (next) {
-	    return function (action) {
-	
-	      var errorCallback = function errorCallback(errors) {
-	        return dispatch((0, _video_actions.receiveVideoErrors)(errors));
-	      };
-	      var receiveAllVideosSuccess = function receiveAllVideosSuccess(videos) {
-	        return dispatch((0, _video_actions.receiveAllVideos)(videos));
-	      };
-	      var receiveVideoSuccess = function receiveVideoSuccess(video) {
-	        dispatch((0, _video_actions.receiveVideo)(video));
-	        _reactRouter.hashHistory.push("/" + _reactRouter.hashHistory.getCurrentLocation().search);
-	      };
-	      var removeVideoSuccess = function removeVideoSuccess(video) {
-	        return dispatch((0, _video_actions.removeVideo)(video));
-	      };
-	
-	      switch (action.type) {
-	        case _video_actions.FETCH_VIDEOS:
-	          (0, _video_api_util.fetchVideos)(receiveAllVideosSuccess, errorCallback);
-	          return next(action);
-	
-	        case _video_actions.FETCH_VIDEO:
-	          (0, _video_api_util.fetchVideo)(action.id, receiveVideoSuccess, errorCallback);
-	          return next(action);
-	
-	        case _video_actions.CREATE_VIDEO:
-	          (0, _video_api_util.createVideo)(action.video, receiveVideoSuccess, errorCallback);
-	          return next(action);
-	
-	        case _video_actions.UPDATE_VIDEO:
-	          (0, _video_api_util.updateVideo)(action.video, receiveVideoSuccess, errorCallback);
-	          return next(action);
-	
-	        case _video_actions.DELETE_VIDEO:
-	          (0, _video_api_util.deleteVideo)(action.id, removeVideoSuccess, errorCallback);
-	          return next(action);
-	
-	        default:
-	          return next(action);
-	      }
-	    };
-	  };
-	};
-	
-	exports.default = VideosMiddleware;
-
-/***/ },
-/* 755 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var fetchVideos = exports.fetchVideos = function fetchVideos(success, error) {
-	  $.ajax({
-	    url: "api/videos",
-	    success: success,
-	    error: error
-	  });
-	};
-	
-	var fetchVideo = exports.fetchVideo = function fetchVideo(id, success, error) {
-	  $.ajax({
-	    url: "api/videos/" + id,
-	    success: success,
-	    error: error
-	  });
-	};
-	
-	var createVideo = exports.createVideo = function createVideo(video, success, error) {
-	  $.ajax({
-	    url: "api/videos",
-	    type: "POST",
-	    data: { video: video },
-	    success: success,
-	    error: error
-	  });
-	};
-	
-	var updateVideo = exports.updateVideo = function updateVideo(video, success, error) {
-	  $.ajax({
-	    url: "api/videos/" + video.id,
-	    type: "PATCH",
-	    data: { video: video },
-	    success: success,
-	    error: error
-	  });
-	};
-	
-	var deleteVideo = exports.deleteVideo = function deleteVideo(id, success, error) {
-	  $.ajax({
-	    url: "api/videos/" + id,
-	    type: "DELETE",
-	    success: success,
-	    error: error
-	  });
-	};
-
-/***/ },
-/* 756 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _comment_actions = __webpack_require__(643);
-	
-	var _comment_api_util = __webpack_require__(757);
-	
-	var _reactRouter = __webpack_require__(203);
-	
-	var CommentsMiddleware = function CommentsMiddleware(_ref) {
-	  var getState = _ref.getState,
-	      dispatch = _ref.dispatch;
-	  return function (next) {
-	    return function (action) {
-	
-	      var errorCallback = function errorCallback(errors) {
-	        return dispatch((0, _comment_actions.receiveCommentErrors)(errors));
-	      };
-	      var receiveAllCommentsSuccess = function receiveAllCommentsSuccess(comments) {
-	        return dispatch((0, _comment_actions.receiveAllComments)(comments));
-	      };
-	      var receiveCommentSuccess = function receiveCommentSuccess(comment) {
-	        return dispatch((0, _comment_actions.receiveComment)(comment));
-	      };
-	      var receiveReplySuccess = function receiveReplySuccess(reply) {
-	        return dispatch((0, _comment_actions.receiveReply)(reply));
-	      };
-	      var removeCommentSuccess = function removeCommentSuccess(comment) {
-	        return dispatch((0, _comment_actions.removeComment)(comment));
-	      };
-	
-	      switch (action.type) {
-	        case _comment_actions.FETCH_COMMENTS:
-	          (0, _comment_api_util.fetchComments)(receiveAllCommentsSuccess, errorCallback);
-	          return next(action);
-	
-	        case _comment_actions.FETCH_COMMENT:
-	          (0, _comment_api_util.fetchComment)(action.id, receiveCommentSuccess, errorCallback);
-	          return next(action);
-	
-	        case _comment_actions.CREATE_COMMENT:
-	          (0, _comment_api_util.createComment)(action.comment, receiveCommentSuccess, errorCallback);
-	          return next(action);
-	
-	        case _comment_actions.CREATE_REPLY:
-	          (0, _comment_api_util.createComment)(action.reply, receiveReplySuccess, errorCallback);
-	          return next(action);
-	
-	        case _comment_actions.UPDATE_COMMENT:
-	          (0, _comment_api_util.updateComment)(action.comment, receiveCommentSuccess, errorCallback);
-	          return next(action);
-	
-	        case _comment_actions.DELETE_COMMENT:
-	          (0, _comment_api_util.deleteComment)(action.id, removeCommentSuccess, errorCallback);
-	          return next(action);
-	
-	        default:
-	          return next(action);
-	      }
-	    };
-	  };
-	};
-	
-	exports.default = CommentsMiddleware;
-
-/***/ },
-/* 757 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var fetchComments = exports.fetchComments = function fetchComments(videoId, success, error) {
-	  $.ajax({
-	    url: "api/videos/" + videoId + "/comments",
-	    success: success,
-	    error: error
-	  });
-	};
-	
-	var fetchComment = exports.fetchComment = function fetchComment(id, success, error) {
-	  $.ajax({
-	    url: "api/comments/" + id,
-	    success: success,
-	    error: error
-	  });
-	};
-	
-	var createComment = exports.createComment = function createComment(comment, success, error) {
-	  $.ajax({
-	    url: "api/comments",
-	    type: "POST",
-	    data: { comment: comment },
-	    success: success,
-	    error: error
-	  });
-	};
-	
-	var updateComment = exports.updateComment = function updateComment(comment, success, error) {
-	  $.ajax({
-	    url: "api/comments/" + comment.id,
-	    type: "PATCH",
-	    data: { comment: comment },
-	    success: success,
-	    error: error
-	  });
-	};
-	
-	var deleteComment = exports.deleteComment = function deleteComment(id, success, error) {
-	  $.ajax({
-	    url: "api/comments/" + id,
-	    type: "DELETE",
-	    success: success,
-	    error: error
-	  });
-	};
-
-/***/ },
-/* 758 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _query_actions = __webpack_require__(647);
-	
-	var _video_actions = __webpack_require__(646);
-	
-	var _comment_actions = __webpack_require__(643);
-	
-	var _video_api_util = __webpack_require__(755);
-	
-	var _comment_api_util = __webpack_require__(757);
-	
-	exports.default = function (_ref) {
-	  var getState = _ref.getState,
-	      dispatch = _ref.dispatch;
-	  return function (next) {
-	    return function (action) {
-	      var receiveVideoSuccess = function receiveVideoSuccess(video) {
-	        return dispatch((0, _video_actions.receiveVideo)(video));
-	      };
-	      var receiveCommentsSuccess = function receiveCommentsSuccess(comments) {
-	        return dispatch((0, _comment_actions.receiveAllComments)(comments));
-	      };
-	      var errorCallback = function errorCallback(xhr) {
-	        return console.log(xhr);
-	      };
-	
-	      switch (action.type) {
-	        case _query_actions.SET_VIDEO_QUERY:
-	          if (action.id) {
-	            (0, _video_api_util.fetchVideo)(action.id, receiveVideoSuccess, errorCallback);
-	            (0, _comment_api_util.fetchComments)(action.id, receiveCommentsSuccess, errorCallback);
-	          }
-	          return next(action);
-	
-	        default:
-	          return next(action);
-	      }
-	    };
-	  };
-	};
-
-/***/ },
-/* 759 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _user_actions = __webpack_require__(750);
-	
-	var _user_api_util = __webpack_require__(760);
-	
-	exports.default = function (_ref) {
-	  var getState = _ref.getState,
-	      dispatch = _ref.dispatch;
-	  return function (next) {
-	    return function (action) {
-	      var successCallback = function successCallback(user) {
-	        return dispatch((0, _user_actions.receiveUser)(user));
-	      };
-	      var errorCallback = function errorCallback(xhr) {
-	        return console.log(xhr);
-	      };
-	
-	      switch (action.type) {
-	        case _user_actions.FETCH_USER:
-	          (0, _user_api_util.fetchUser)(action.id, successCallback, errorCallback);
-	          return next(action);
-	
-	        default:
-	          return next(action);
-	      }
-	    };
-	  };
-	};
-
-/***/ },
-/* 760 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var fetchUser = exports.fetchUser = function fetchUser(id, success, error) {
-	  $.ajax({
-	    url: "api/users/" + id,
-	    success: success,
-	    error: error
-	  });
-	};
-
-/***/ },
-/* 761 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
@@ -74799,11 +73620,11 @@
 	
 	var _reactRouter = __webpack_require__(203);
 	
-	var _video_index_item = __webpack_require__(762);
+	var _video_index_item = __webpack_require__(738);
 	
 	var _video_index_item2 = _interopRequireDefault(_video_index_item);
 	
-	var _comment_item = __webpack_require__(763);
+	var _comment_item = __webpack_require__(739);
 	
 	var _comment_item2 = _interopRequireDefault(_comment_item);
 	
@@ -74964,7 +73785,7 @@
 	exports.default = (0, _reactRouter.withRouter)(UserPage);
 
 /***/ },
-/* 762 */
+/* 738 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -75099,7 +73920,7 @@
 	exports.default = (0, _reactRouter.withRouter)(VideoIndexItem);
 
 /***/ },
-/* 763 */
+/* 739 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -75175,7 +73996,32 @@
 	exports.default = (0, _reactRouter.withRouter)(CommentItem);
 
 /***/ },
-/* 764 */
+/* 740 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var FETCH_USER = exports.FETCH_USER = "FETCH_USER";
+	var RECEIVE_USER = exports.RECEIVE_USER = "RECEIVE_USER";
+	
+	var fetchUser = exports.fetchUser = function fetchUser(id) {
+	  return {
+	    type: FETCH_USER,
+	    id: id
+	  };
+	};
+	var receiveUser = exports.receiveUser = function receiveUser(user) {
+	  return {
+	    type: RECEIVE_USER,
+	    user: user
+	  };
+	};
+
+/***/ },
+/* 741 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -75186,7 +74032,7 @@
 	
 	var _reactRedux = __webpack_require__(173);
 	
-	var _video_index = __webpack_require__(765);
+	var _video_index = __webpack_require__(742);
 	
 	var _video_index2 = _interopRequireDefault(_video_index);
 	
@@ -75217,7 +74063,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_video_index2.default);
 
 /***/ },
-/* 765 */
+/* 742 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -75232,7 +74078,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _video_index_item = __webpack_require__(762);
+	var _video_index_item = __webpack_require__(738);
 	
 	var _video_index_item2 = _interopRequireDefault(_video_index_item);
 	
@@ -75303,6 +74149,1160 @@
 	}(_react2.default.Component);
 	
 	exports.default = VideoIndex;
+
+/***/ },
+/* 743 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {var invariant = __webpack_require__(744);
+	var defaultClickRejectionStrategy = __webpack_require__(745);
+	
+	var alreadyInjected = false;
+	
+	module.exports = function injectTapEventPlugin (strategyOverrides) {
+	  strategyOverrides = strategyOverrides || {}
+	  var shouldRejectClick = strategyOverrides.shouldRejectClick || defaultClickRejectionStrategy;
+	
+	  if (process.env.NODE_ENV !== 'production') {
+	    invariant(
+	      !alreadyInjected,
+	      'injectTapEventPlugin(): Can only be called once per application lifecycle.\n\n\
+	It is recommended to call injectTapEventPlugin() just before you call \
+	ReactDOM.render(). If you are using an external library which calls injectTapEventPlugin() \
+	itself, please contact the maintainer as it shouldn\'t be called in library code and \
+	should be injected by the application.'
+	    )
+	  }
+	
+	  alreadyInjected = true;
+	
+	  __webpack_require__(43).injection.injectEventPluginsByName({
+	    'TapEventPlugin':       __webpack_require__(746)(shouldRejectClick)
+	  });
+	};
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 744 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule invariant
+	 */
+	
+	"use strict";
+	
+	/**
+	 * Use invariant() to assert state which your program assumes to be true.
+	 *
+	 * Provide sprintf-style format (only %s is supported) and arguments
+	 * to provide information about what broke and what you were
+	 * expecting.
+	 *
+	 * The invariant message will be stripped in production, but the invariant
+	 * will remain to ensure logic does not differ in production.
+	 */
+	
+	var invariant = function (condition, format, a, b, c, d, e, f) {
+	  if (process.env.NODE_ENV !== 'production') {
+	    if (format === undefined) {
+	      throw new Error('invariant requires an error message argument');
+	    }
+	  }
+	
+	  if (!condition) {
+	    var error;
+	    if (format === undefined) {
+	      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+	    } else {
+	      var args = [a, b, c, d, e, f];
+	      var argIndex = 0;
+	      error = new Error('Invariant Violation: ' + format.replace(/%s/g, function () {
+	        return args[argIndex++];
+	      }));
+	    }
+	
+	    error.framesToPop = 1; // we don't care about invariant's own frame
+	    throw error;
+	  }
+	};
+	
+	module.exports = invariant;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 745 */
+/***/ function(module, exports) {
+
+	module.exports = function(lastTouchEvent, clickTimestamp) {
+	  if (lastTouchEvent && (clickTimestamp - lastTouchEvent) < 750) {
+	    return true;
+	  }
+	};
+
+
+/***/ },
+/* 746 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2014 Facebook, Inc.
+	 *
+	 * Licensed under the Apache License, Version 2.0 (the "License");
+	 * you may not use this file except in compliance with the License.
+	 * You may obtain a copy of the License at
+	 *
+	 * http://www.apache.org/licenses/LICENSE-2.0
+	 *
+	 * Unless required by applicable law or agreed to in writing, software
+	 * distributed under the License is distributed on an "AS IS" BASIS,
+	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	 * See the License for the specific language governing permissions and
+	 * limitations under the License.
+	 *
+	 * @providesModule TapEventPlugin
+	 * @typechecks static-only
+	 */
+	
+	"use strict";
+	
+	var EventConstants = __webpack_require__(41);
+	var EventPluginUtils = __webpack_require__(45);
+	var EventPropagators = __webpack_require__(42);
+	var SyntheticUIEvent = __webpack_require__(76);
+	var TouchEventUtils = __webpack_require__(747);
+	var ViewportMetrics = __webpack_require__(77);
+	
+	var keyOf = __webpack_require__(748);
+	var topLevelTypes = EventConstants.topLevelTypes;
+	
+	var isStartish = EventPluginUtils.isStartish;
+	var isEndish = EventPluginUtils.isEndish;
+	
+	var isTouch = function(topLevelType) {
+	  var touchTypes = [
+	    topLevelTypes.topTouchCancel,
+	    topLevelTypes.topTouchEnd,
+	    topLevelTypes.topTouchStart,
+	    topLevelTypes.topTouchMove
+	  ];
+	  return touchTypes.indexOf(topLevelType) >= 0;
+	}
+	
+	/**
+	 * Number of pixels that are tolerated in between a `touchStart` and `touchEnd`
+	 * in order to still be considered a 'tap' event.
+	 */
+	var tapMoveThreshold = 10;
+	var ignoreMouseThreshold = 750;
+	var startCoords = {x: null, y: null};
+	var lastTouchEvent = null;
+	
+	var Axis = {
+	  x: {page: 'pageX', client: 'clientX', envScroll: 'currentPageScrollLeft'},
+	  y: {page: 'pageY', client: 'clientY', envScroll: 'currentPageScrollTop'}
+	};
+	
+	function getAxisCoordOfEvent(axis, nativeEvent) {
+	  var singleTouch = TouchEventUtils.extractSingleTouch(nativeEvent);
+	  if (singleTouch) {
+	    return singleTouch[axis.page];
+	  }
+	  return axis.page in nativeEvent ?
+	    nativeEvent[axis.page] :
+	    nativeEvent[axis.client] + ViewportMetrics[axis.envScroll];
+	}
+	
+	function getDistance(coords, nativeEvent) {
+	  var pageX = getAxisCoordOfEvent(Axis.x, nativeEvent);
+	  var pageY = getAxisCoordOfEvent(Axis.y, nativeEvent);
+	  return Math.pow(
+	    Math.pow(pageX - coords.x, 2) + Math.pow(pageY - coords.y, 2),
+	    0.5
+	  );
+	}
+	
+	var touchEvents = [
+	  topLevelTypes.topTouchStart,
+	  topLevelTypes.topTouchCancel,
+	  topLevelTypes.topTouchEnd,
+	  topLevelTypes.topTouchMove,
+	];
+	
+	var dependencies = [
+	  topLevelTypes.topMouseDown,
+	  topLevelTypes.topMouseMove,
+	  topLevelTypes.topMouseUp,
+	].concat(touchEvents);
+	
+	var eventTypes = {
+	  touchTap: {
+	    phasedRegistrationNames: {
+	      bubbled: keyOf({onTouchTap: null}),
+	      captured: keyOf({onTouchTapCapture: null})
+	    },
+	    dependencies: dependencies
+	  }
+	};
+	
+	var now = (function() {
+	  if (Date.now) {
+	    return Date.now;
+	  } else {
+	    // IE8 support: http://stackoverflow.com/questions/9430357/please-explain-why-and-how-new-date-works-as-workaround-for-date-now-in
+	    return function () {
+	      return +new Date;
+	    }
+	  }
+	})();
+	
+	function createTapEventPlugin(shouldRejectClick) {
+	  return {
+	
+	    tapMoveThreshold: tapMoveThreshold,
+	
+	    ignoreMouseThreshold: ignoreMouseThreshold,
+	
+	    eventTypes: eventTypes,
+	
+	    /**
+	     * @param {string} topLevelType Record from `EventConstants`.
+	     * @param {DOMEventTarget} targetInst The listening component root node.
+	     * @param {object} nativeEvent Native browser event.
+	     * @return {*} An accumulation of synthetic events.
+	     * @see {EventPluginHub.extractEvents}
+	     */
+	    extractEvents: function(
+	      topLevelType,
+	      targetInst,
+	      nativeEvent,
+	      nativeEventTarget
+	    ) {
+	
+	      if (isTouch(topLevelType)) {
+	        lastTouchEvent = now();
+	      } else {
+	        if (shouldRejectClick(lastTouchEvent, now())) {
+	          return null;
+	        }
+	      }
+	
+	      if (!isStartish(topLevelType) && !isEndish(topLevelType)) {
+	        return null;
+	      }
+	      var event = null;
+	      var distance = getDistance(startCoords, nativeEvent);
+	      if (isEndish(topLevelType) && distance < tapMoveThreshold) {
+	        event = SyntheticUIEvent.getPooled(
+	          eventTypes.touchTap,
+	          targetInst,
+	          nativeEvent,
+	          nativeEventTarget
+	        );
+	      }
+	      if (isStartish(topLevelType)) {
+	        startCoords.x = getAxisCoordOfEvent(Axis.x, nativeEvent);
+	        startCoords.y = getAxisCoordOfEvent(Axis.y, nativeEvent);
+	      } else if (isEndish(topLevelType)) {
+	        startCoords.x = 0;
+	        startCoords.y = 0;
+	      }
+	      EventPropagators.accumulateTwoPhaseDispatches(event);
+	      return event;
+	    }
+	
+	  };
+	}
+	
+	module.exports = createTapEventPlugin;
+
+
+/***/ },
+/* 747 */
+/***/ function(module, exports) {
+
+	/**
+	 * Copyright 2013-2014 Facebook, Inc.
+	 *
+	 * Licensed under the Apache License, Version 2.0 (the "License");
+	 * you may not use this file except in compliance with the License.
+	 * You may obtain a copy of the License at
+	 *
+	 * http://www.apache.org/licenses/LICENSE-2.0
+	 *
+	 * Unless required by applicable law or agreed to in writing, software
+	 * distributed under the License is distributed on an "AS IS" BASIS,
+	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	 * See the License for the specific language governing permissions and
+	 * limitations under the License.
+	 *
+	 * @providesModule TouchEventUtils
+	 */
+	
+	var TouchEventUtils = {
+	  /**
+	   * Utility function for common case of extracting out the primary touch from a
+	   * touch event.
+	   * - `touchEnd` events usually do not have the `touches` property.
+	   *   http://stackoverflow.com/questions/3666929/
+	   *   mobile-sarai-touchend-event-not-firing-when-last-touch-is-removed
+	   *
+	   * @param {Event} nativeEvent Native event that may or may not be a touch.
+	   * @return {TouchesObject?} an object with pageX and pageY or null.
+	   */
+	  extractSingleTouch: function(nativeEvent) {
+	    var touches = nativeEvent.touches;
+	    var changedTouches = nativeEvent.changedTouches;
+	    var hasTouches = touches && touches.length > 0;
+	    var hasChangedTouches = changedTouches && changedTouches.length > 0;
+	
+	    return !hasTouches && hasChangedTouches ? changedTouches[0] :
+	           hasTouches ? touches[0] :
+	           nativeEvent;
+	  }
+	};
+	
+	module.exports = TouchEventUtils;
+
+
+/***/ },
+/* 748 */
+/***/ function(module, exports) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule keyOf
+	 */
+	
+	/**
+	 * Allows extraction of a minified key. Let's the build system minify keys
+	 * without losing the ability to dynamically use key strings as values
+	 * themselves. Pass in an object with a single key/val pair and it will return
+	 * you the string key of that single record. Suppose you want to grab the
+	 * value for a key 'className' inside of an object. Key/val minification may
+	 * have aliased that key to be 'xa12'. keyOf({className: null}) will return
+	 * 'xa12' in that case. Resolve keys you want to use once at startup time, then
+	 * reuse those resolutions.
+	 */
+	"use strict";
+	
+	var keyOf = function (oneKeyObj) {
+	  var key;
+	  for (key in oneKeyObj) {
+	    if (!oneKeyObj.hasOwnProperty(key)) {
+	      continue;
+	    }
+	    return key;
+	  }
+	  return null;
+	};
+	
+	module.exports = keyOf;
+
+/***/ },
+/* 749 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _redux = __webpack_require__(180);
+	
+	var _root_reducer = __webpack_require__(750);
+	
+	var _root_reducer2 = _interopRequireDefault(_root_reducer);
+	
+	var _root_middleware = __webpack_require__(756);
+	
+	var _root_middleware2 = _interopRequireDefault(_root_middleware);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var configureStore = function configureStore() {
+	  var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	  return (0, _redux.createStore)(_root_reducer2.default, preloadedState, _root_middleware2.default);
+	};
+	
+	exports.default = configureStore;
+
+/***/ },
+/* 750 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _redux = __webpack_require__(180);
+	
+	var _session_reducer = __webpack_require__(751);
+	
+	var _session_reducer2 = _interopRequireDefault(_session_reducer);
+	
+	var _videos_reducer = __webpack_require__(752);
+	
+	var _videos_reducer2 = _interopRequireDefault(_videos_reducer);
+	
+	var _comments_reducer = __webpack_require__(753);
+	
+	var _comments_reducer2 = _interopRequireDefault(_comments_reducer);
+	
+	var _query_reducer = __webpack_require__(754);
+	
+	var _query_reducer2 = _interopRequireDefault(_query_reducer);
+	
+	var _user_reducer = __webpack_require__(755);
+	
+	var _user_reducer2 = _interopRequireDefault(_user_reducer);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var RootReducer = (0, _redux.combineReducers)({
+	  session: _session_reducer2.default,
+	  videos: _videos_reducer2.default,
+	  comments: _comments_reducer2.default,
+	  query: _query_reducer2.default,
+	  user: _user_reducer2.default
+	});
+	
+	exports.default = RootReducer;
+
+/***/ },
+/* 751 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _session_actions = __webpack_require__(259);
+	
+	var _merge = __webpack_require__(650);
+	
+	var _merge2 = _interopRequireDefault(_merge);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var _nullUser = Object.freeze({
+	  currentUser: null,
+	  errors: {}
+	});
+	
+	var SessionReducer = function SessionReducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _nullUser;
+	  var action = arguments[1];
+	
+	  Object.freeze(state);
+	  switch (action.type) {
+	    case _session_actions.RECEIVE_CURRENT_USER:
+	      var currentUser = action.currentUser;
+	      return (0, _merge2.default)({}, _nullUser, { currentUser: currentUser });
+	
+	    case _session_actions.LOGOUT:
+	      return (0, _merge2.default)({}, _nullUser);
+	
+	    case _session_actions.RECEIVE_USER_ERRORS:
+	      var errors = action.errors.responseJSON;
+	      return (0, _merge2.default)({}, _nullUser, { errors: errors });
+	
+	    default:
+	      return state;
+	  }
+	};
+	
+	exports.default = SessionReducer;
+
+/***/ },
+/* 752 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _video_actions = __webpack_require__(646);
+	
+	var _merge2 = __webpack_require__(650);
+	
+	var _merge3 = _interopRequireDefault(_merge2);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	var VideosReducer = function VideosReducer() {
+	  var oldState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { errors: {} };
+	  var action = arguments[1];
+	
+	  Object.freeze(oldState);
+	  var newState = void 0;
+	
+	  switch (action.type) {
+	    case _video_actions.RECEIVE_ALL_VIDEOS:
+	      return (0, _merge3.default)({}, oldState, action.videos);
+	
+	    case _video_actions.RECEIVE_VIDEO:
+	      newState = (0, _merge3.default)({}, oldState, _defineProperty({}, action.video.id, action.video));
+	      newState.errors = {};
+	      return newState;
+	
+	    case _video_actions.REMOVE_VIDEO:
+	      newState = (0, _merge3.default)({}, oldState);
+	      delete newState[action.video.id];
+	      return newState;
+	
+	    case _video_actions.RECEIVE_VIDEO_ERRORS:
+	      var errors = action.errors.responseJSON;
+	      newState = (0, _merge3.default)({}, oldState);
+	      newState.errors = {};
+	      return (0, _merge3.default)(newState, { errors: errors });
+	
+	    default:
+	      return oldState;
+	  }
+	};
+	
+	exports.default = VideosReducer;
+
+/***/ },
+/* 753 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _comment_actions = __webpack_require__(643);
+	
+	var _merge2 = __webpack_require__(650);
+	
+	var _merge3 = _interopRequireDefault(_merge2);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	var CommentsReducer = function CommentsReducer() {
+	  var oldState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { errors: {} };
+	  var action = arguments[1];
+	
+	  Object.freeze(oldState);
+	  var newState = void 0;
+	
+	  switch (action.type) {
+	    case _comment_actions.RECEIVE_ALL_COMMENTS:
+	      return action.comments;
+	
+	    case _comment_actions.RECEIVE_COMMENT:
+	      _newState = (0, _merge3.default)({}, oldState, _defineProperty({}, action.comment.id, action.comment));
+	      _newState.errors = {};
+	      return _newState;
+	
+	    case _comment_actions.RECEIVE_REPLY:
+	      var _newState = (0, _merge3.default)({}, oldState);
+	      _newState[action.reply.parent_comment_id].child_comments.push(action.reply);
+	      _newState.errors = {};
+	      return _newState;
+	
+	    case _comment_actions.REMOVE_COMMENT:
+	      _newState = (0, _merge3.default)({}, oldState);
+	      delete _newState[action.comment.id];
+	      return _newState;
+	
+	    case _comment_actions.RECEIVE_COMMENT_ERRORS:
+	      var errors = action.errors.responseJSON;
+	      _newState = (0, _merge3.default)({}, oldState);
+	      _newState.errors = {};
+	      return (0, _merge3.default)(_newState, { errors: errors });
+	
+	    default:
+	      return oldState;
+	  }
+	};
+	
+	exports.default = CommentsReducer;
+
+/***/ },
+/* 754 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _query_actions = __webpack_require__(647);
+	
+	var _merge = __webpack_require__(650);
+	
+	var _merge2 = _interopRequireDefault(_merge);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var QueryReducer = function QueryReducer() {
+	  var oldState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	  var action = arguments[1];
+	
+	  Object.freeze(oldState);
+	  switch (action.type) {
+	    case _query_actions.SET_VIDEO_QUERY:
+	      return { id: action.id };
+	
+	    case _query_actions.SET_COMMENT_QUERY:
+	      var newState = (0, _merge2.default)({}, oldState);
+	      newState.c = action.c;
+	      return newState;
+	
+	    default:
+	      return oldState;
+	  }
+	};
+	
+	exports.default = QueryReducer;
+
+/***/ },
+/* 755 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _user_actions = __webpack_require__(740);
+	
+	var _merge = __webpack_require__(650);
+	
+	var _merge2 = _interopRequireDefault(_merge);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var UserReducer = function UserReducer() {
+	  var oldState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	  var action = arguments[1];
+	
+	  Object.freeze(oldState);
+	  var newState = void 0;
+	
+	  switch (action.type) {
+	
+	    case _user_actions.RECEIVE_USER:
+	      return action.user;
+	
+	    default:
+	      return oldState;
+	  }
+	};
+	
+	exports.default = UserReducer;
+
+/***/ },
+/* 756 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _redux = __webpack_require__(180);
+	
+	var _session_middleware = __webpack_require__(757);
+	
+	var _session_middleware2 = _interopRequireDefault(_session_middleware);
+	
+	var _videos_middleware = __webpack_require__(759);
+	
+	var _videos_middleware2 = _interopRequireDefault(_videos_middleware);
+	
+	var _comments_middleware = __webpack_require__(761);
+	
+	var _comments_middleware2 = _interopRequireDefault(_comments_middleware);
+	
+	var _query_middleware = __webpack_require__(763);
+	
+	var _query_middleware2 = _interopRequireDefault(_query_middleware);
+	
+	var _user_middleware = __webpack_require__(764);
+	
+	var _user_middleware2 = _interopRequireDefault(_user_middleware);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var RootMiddleware = (0, _redux.applyMiddleware)(_session_middleware2.default, _videos_middleware2.default, _comments_middleware2.default, _query_middleware2.default, _user_middleware2.default);
+	
+	exports.default = RootMiddleware;
+
+/***/ },
+/* 757 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _session_actions = __webpack_require__(259);
+	
+	var _session_api_util = __webpack_require__(758);
+	
+	exports.default = function (_ref) {
+	  var getState = _ref.getState,
+	      dispatch = _ref.dispatch;
+	  return function (next) {
+	    return function (action) {
+	      var successCallback = function successCallback(user) {
+	        return dispatch((0, _session_actions.receiveCurrentUser)(user));
+	      };
+	      var errorCallback = function errorCallback(errors) {
+	        return dispatch((0, _session_actions.receiveUserErrors)(errors));
+	      };
+	
+	      switch (action.type) {
+	        case _session_actions.LOGIN:
+	          (0, _session_api_util.login)(action.user, successCallback, errorCallback);
+	          return next(action);
+	
+	        case _session_actions.LOGOUT:
+	          (0, _session_api_util.logout)(function () {
+	            return next(action);
+	          });
+	          break;
+	
+	        case _session_actions.SIGNUP:
+	          (0, _session_api_util.signup)(action.user, successCallback, errorCallback);
+	          return next(action);
+	
+	        default:
+	          return next(action);
+	      }
+	    };
+	  };
+	};
+
+/***/ },
+/* 758 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.logout = exports.signup = exports.login = undefined;
+	
+	var _session_actions = __webpack_require__(259);
+	
+	var login = exports.login = function login(user, success, error) {
+		$.ajax({
+			method: 'POST',
+			url: '/api/session',
+			data: user,
+			success: success,
+			error: error
+		});
+	};
+	
+	var signup = exports.signup = function signup(user, success, error) {
+		$.ajax({
+			method: 'POST',
+			url: '/api/users',
+			data: user,
+			success: success,
+			error: error
+		});
+	};
+	
+	var logout = exports.logout = function logout(success) {
+		$.ajax({
+			method: 'delete',
+			url: '/api/session',
+			success: success,
+			error: function error() {
+				console.log("Logout error in SessionApiUtil#logout");
+			}
+		});
+	};
+
+/***/ },
+/* 759 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _video_actions = __webpack_require__(646);
+	
+	var _video_api_util = __webpack_require__(760);
+	
+	var _reactRouter = __webpack_require__(203);
+	
+	var VideosMiddleware = function VideosMiddleware(_ref) {
+	  var getState = _ref.getState,
+	      dispatch = _ref.dispatch;
+	  return function (next) {
+	    return function (action) {
+	
+	      var errorCallback = function errorCallback(errors) {
+	        return dispatch((0, _video_actions.receiveVideoErrors)(errors));
+	      };
+	      var receiveAllVideosSuccess = function receiveAllVideosSuccess(videos) {
+	        return dispatch((0, _video_actions.receiveAllVideos)(videos));
+	      };
+	      var receiveVideoSuccess = function receiveVideoSuccess(video) {
+	        dispatch((0, _video_actions.receiveVideo)(video));
+	        _reactRouter.hashHistory.push("/" + _reactRouter.hashHistory.getCurrentLocation().search);
+	      };
+	      var removeVideoSuccess = function removeVideoSuccess(video) {
+	        return dispatch((0, _video_actions.removeVideo)(video));
+	      };
+	
+	      switch (action.type) {
+	        case _video_actions.FETCH_VIDEOS:
+	          (0, _video_api_util.fetchVideos)(receiveAllVideosSuccess, errorCallback);
+	          return next(action);
+	
+	        case _video_actions.FETCH_VIDEO:
+	          (0, _video_api_util.fetchVideo)(action.id, receiveVideoSuccess, errorCallback);
+	          return next(action);
+	
+	        case _video_actions.CREATE_VIDEO:
+	          (0, _video_api_util.createVideo)(action.video, receiveVideoSuccess, errorCallback);
+	          return next(action);
+	
+	        case _video_actions.UPDATE_VIDEO:
+	          (0, _video_api_util.updateVideo)(action.video, receiveVideoSuccess, errorCallback);
+	          return next(action);
+	
+	        case _video_actions.DELETE_VIDEO:
+	          (0, _video_api_util.deleteVideo)(action.id, removeVideoSuccess, errorCallback);
+	          return next(action);
+	
+	        default:
+	          return next(action);
+	      }
+	    };
+	  };
+	};
+	
+	exports.default = VideosMiddleware;
+
+/***/ },
+/* 760 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var fetchVideos = exports.fetchVideos = function fetchVideos(success, error) {
+	  $.ajax({
+	    url: "api/videos",
+	    success: success,
+	    error: error
+	  });
+	};
+	
+	var fetchVideo = exports.fetchVideo = function fetchVideo(id, success, error) {
+	  $.ajax({
+	    url: "api/videos/" + id,
+	    success: success,
+	    error: error
+	  });
+	};
+	
+	var createVideo = exports.createVideo = function createVideo(video, success, error) {
+	  $.ajax({
+	    url: "api/videos",
+	    type: "POST",
+	    data: { video: video },
+	    success: success,
+	    error: error
+	  });
+	};
+	
+	var updateVideo = exports.updateVideo = function updateVideo(video, success, error) {
+	  $.ajax({
+	    url: "api/videos/" + video.id,
+	    type: "PATCH",
+	    data: { video: video },
+	    success: success,
+	    error: error
+	  });
+	};
+	
+	var deleteVideo = exports.deleteVideo = function deleteVideo(id, success, error) {
+	  $.ajax({
+	    url: "api/videos/" + id,
+	    type: "DELETE",
+	    success: success,
+	    error: error
+	  });
+	};
+
+/***/ },
+/* 761 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _comment_actions = __webpack_require__(643);
+	
+	var _comment_api_util = __webpack_require__(762);
+	
+	var _reactRouter = __webpack_require__(203);
+	
+	var CommentsMiddleware = function CommentsMiddleware(_ref) {
+	  var getState = _ref.getState,
+	      dispatch = _ref.dispatch;
+	  return function (next) {
+	    return function (action) {
+	
+	      var errorCallback = function errorCallback(errors) {
+	        return dispatch((0, _comment_actions.receiveCommentErrors)(errors));
+	      };
+	      var receiveAllCommentsSuccess = function receiveAllCommentsSuccess(comments) {
+	        return dispatch((0, _comment_actions.receiveAllComments)(comments));
+	      };
+	      var receiveCommentSuccess = function receiveCommentSuccess(comment) {
+	        return dispatch((0, _comment_actions.receiveComment)(comment));
+	      };
+	      var receiveReplySuccess = function receiveReplySuccess(reply) {
+	        return dispatch((0, _comment_actions.receiveReply)(reply));
+	      };
+	      var removeCommentSuccess = function removeCommentSuccess(comment) {
+	        return dispatch((0, _comment_actions.removeComment)(comment));
+	      };
+	
+	      switch (action.type) {
+	        case _comment_actions.FETCH_COMMENTS:
+	          (0, _comment_api_util.fetchComments)(receiveAllCommentsSuccess, errorCallback);
+	          return next(action);
+	
+	        case _comment_actions.FETCH_COMMENT:
+	          (0, _comment_api_util.fetchComment)(action.id, receiveCommentSuccess, errorCallback);
+	          return next(action);
+	
+	        case _comment_actions.CREATE_COMMENT:
+	          (0, _comment_api_util.createComment)(action.comment, receiveCommentSuccess, errorCallback);
+	          return next(action);
+	
+	        case _comment_actions.CREATE_REPLY:
+	          (0, _comment_api_util.createComment)(action.reply, receiveReplySuccess, errorCallback);
+	          return next(action);
+	
+	        case _comment_actions.UPDATE_COMMENT:
+	          (0, _comment_api_util.updateComment)(action.comment, receiveCommentSuccess, errorCallback);
+	          return next(action);
+	
+	        case _comment_actions.DELETE_COMMENT:
+	          (0, _comment_api_util.deleteComment)(action.id, removeCommentSuccess, errorCallback);
+	          return next(action);
+	
+	        default:
+	          return next(action);
+	      }
+	    };
+	  };
+	};
+	
+	exports.default = CommentsMiddleware;
+
+/***/ },
+/* 762 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var fetchComments = exports.fetchComments = function fetchComments(videoId, success, error) {
+	  $.ajax({
+	    url: "api/videos/" + videoId + "/comments",
+	    success: success,
+	    error: error
+	  });
+	};
+	
+	var fetchComment = exports.fetchComment = function fetchComment(id, success, error) {
+	  $.ajax({
+	    url: "api/comments/" + id,
+	    success: success,
+	    error: error
+	  });
+	};
+	
+	var createComment = exports.createComment = function createComment(comment, success, error) {
+	  $.ajax({
+	    url: "api/comments",
+	    type: "POST",
+	    data: { comment: comment },
+	    success: success,
+	    error: error
+	  });
+	};
+	
+	var updateComment = exports.updateComment = function updateComment(comment, success, error) {
+	  $.ajax({
+	    url: "api/comments/" + comment.id,
+	    type: "PATCH",
+	    data: { comment: comment },
+	    success: success,
+	    error: error
+	  });
+	};
+	
+	var deleteComment = exports.deleteComment = function deleteComment(id, success, error) {
+	  $.ajax({
+	    url: "api/comments/" + id,
+	    type: "DELETE",
+	    success: success,
+	    error: error
+	  });
+	};
+
+/***/ },
+/* 763 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _query_actions = __webpack_require__(647);
+	
+	var _video_actions = __webpack_require__(646);
+	
+	var _comment_actions = __webpack_require__(643);
+	
+	var _video_api_util = __webpack_require__(760);
+	
+	var _comment_api_util = __webpack_require__(762);
+	
+	exports.default = function (_ref) {
+	  var getState = _ref.getState,
+	      dispatch = _ref.dispatch;
+	  return function (next) {
+	    return function (action) {
+	      var receiveVideoSuccess = function receiveVideoSuccess(video) {
+	        return dispatch((0, _video_actions.receiveVideo)(video));
+	      };
+	      var receiveCommentsSuccess = function receiveCommentsSuccess(comments) {
+	        return dispatch((0, _comment_actions.receiveAllComments)(comments));
+	      };
+	      var errorCallback = function errorCallback(xhr) {
+	        return console.log(xhr);
+	      };
+	
+	      switch (action.type) {
+	        case _query_actions.SET_VIDEO_QUERY:
+	          if (action.id) {
+	            (0, _video_api_util.fetchVideo)(action.id, receiveVideoSuccess, errorCallback);
+	            (0, _comment_api_util.fetchComments)(action.id, receiveCommentsSuccess, errorCallback);
+	          }
+	          return next(action);
+	
+	        default:
+	          return next(action);
+	      }
+	    };
+	  };
+	};
+
+/***/ },
+/* 764 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _user_actions = __webpack_require__(740);
+	
+	var _user_api_util = __webpack_require__(765);
+	
+	exports.default = function (_ref) {
+	  var getState = _ref.getState,
+	      dispatch = _ref.dispatch;
+	  return function (next) {
+	    return function (action) {
+	      var successCallback = function successCallback(user) {
+	        return dispatch((0, _user_actions.receiveUser)(user));
+	      };
+	      var errorCallback = function errorCallback(xhr) {
+	        return console.log(xhr);
+	      };
+	
+	      switch (action.type) {
+	        case _user_actions.FETCH_USER:
+	          (0, _user_api_util.fetchUser)(action.id, successCallback, errorCallback);
+	          return next(action);
+	
+	        default:
+	          return next(action);
+	      }
+	    };
+	  };
+	};
+
+/***/ },
+/* 765 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var fetchUser = exports.fetchUser = function fetchUser(id, success, error) {
+	  $.ajax({
+	    url: "api/users/" + id,
+	    success: success,
+	    error: error
+	  });
+	};
 
 /***/ }
 /******/ ]);
