@@ -74717,7 +74717,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var UserReducer = function UserReducer() {
-	  var oldState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	  var oldState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { comments: [] };
 	  var action = arguments[1];
 	
 	  Object.freeze(oldState);

@@ -2,10 +2,10 @@ import { RECEIVE_USER } from '../actions/user_actions';
 import { RECEIVE_COMMENT, RECEIVE_REPLY } from '../actions/comment_actions';
 import merge from 'lodash/merge';
 
-const UserReducer = (oldState = {}, action) => {
+const UserReducer = (oldState = {comments:[]}, action) => {
   Object.freeze(oldState)
   let newState;
-  
+
   switch (action.type) {
 
     case RECEIVE_USER:
