@@ -120,18 +120,12 @@ class VideoOverlay extends React.Component {
 								</IconButton>
 							</div>
 
-							<div id="margin-wrapper">
-								<div id="ratio-wrapper">
-									<div id="center-wrapper">
-										<div id="height-wrapper">
-											<ReactPlayer id="video-player" url={video.url}
-												height={"inherit"}
-												width={"inherit"}
-												style={{zIndex: 100}}
-												playing controls/>
-									</div>
-									</div>
-								</div>
+							<div id="size-wrapper">
+									<ReactPlayer id="video-player" url={video.url}
+										height={"inherit"}
+										width={"inherit"}
+										style={{zIndex: 100}}
+										playing controls/>
 							</div>
 
 							<div className={this.setMiniTurnary("video-details","display-none")()}>

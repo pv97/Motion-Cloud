@@ -67954,24 +67954,12 @@
 								),
 								_react2.default.createElement(
 									'div',
-									{ id: 'margin-wrapper' },
-									_react2.default.createElement(
-										'div',
-										{ id: 'ratio-wrapper' },
-										_react2.default.createElement(
-											'div',
-											{ id: 'center-wrapper' },
-											_react2.default.createElement(
-												'div',
-												{ id: 'height-wrapper' },
-												_react2.default.createElement(_reactPlayer2.default, { id: 'video-player', url: video.url,
-													height: "inherit",
-													width: "inherit",
-													style: { zIndex: 100 },
-													playing: true, controls: true })
-											)
-										)
-									)
+									{ id: 'size-wrapper' },
+									_react2.default.createElement(_reactPlayer2.default, { id: 'video-player', url: video.url,
+										height: "inherit",
+										width: "inherit",
+										style: { zIndex: 100 },
+										playing: true, controls: true })
 								),
 								_react2.default.createElement(
 									'div',
