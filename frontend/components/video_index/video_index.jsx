@@ -8,11 +8,11 @@ class VideoIndex extends React.Component {
     this.state = {
       featureTimer:0,
       featured:[
-        {class:"picture1",videoId:"1"},
-        {class:"picture2",videoId:"2"},
-        {class:"picture3",videoId:"3"},
-        {class:"picture4",videoId:"4"},
-        {class:"picture5",videoId:"5"}
+        {class:"picture1",videoId:"1",name:"How Far Will We Go?"},
+        {class:"picture2",videoId:"2",name:"Atoms As Big As Mountains"},
+        {class:"picture3",videoId:"3",name:"What is Light?"},
+        {class:"picture4",videoId:"4",name:"How the Stock Exchange Works"},
+        {class:"picture5",videoId:"5",name:"How Big is the Moon?"}
       ]
     }
     this.onSplashClick = this.onSplashClick.bind(this)
@@ -82,6 +82,7 @@ class VideoIndex extends React.Component {
                 <div>
                   Featured Channel
                   <div id="featured-channel-name"  onClick={this.onChannelClick}>Kurzgesagt</div>
+                  <div id="featured-video-name">{this.state.featured[this.state.featureTimer].name}</div>
                 </div>
               </div>
               <div id="gradient-left"></div>

@@ -27,6 +27,7 @@
         align-items: flex-end;
         font-weight: 500;
         font-size: 30px;
+        padding-left: 30px;
         color: #fff;
         #featured-channel-name{
           padding-left: 50px;
@@ -34,7 +35,15 @@
           color:#fff;
           font-size: 50px;
         }
+        #featured-video-name{
+          margin-top: 30px;
+          color: #fff;
+          font-size: 21px;
+        }
         #featured-channel-name:hover{
+          color: rgb(0, 188, 212) !important;
+        }
+        #featured-video-name:hover{
           color: rgb(0, 188, 212) !important;
         }
       }
@@ -113,7 +122,19 @@
     }
   }
 
-  #featured-channel:hover .picture{
+  #featured-channel:hover .picture1{
+    flex:15 !important;
+  }
+  #featured-channel:hover .picture2{
+    flex:15 !important;
+  }
+  #featured-channel:hover .picture3{
+    flex:15 !important;
+  }
+  #featured-channel:hover .picture4{
+    flex:15 !important;
+  }
+  #featured-channel:hover .picture5{
     flex:15 !important;
   }
 

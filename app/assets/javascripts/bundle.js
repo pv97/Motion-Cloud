@@ -73935,7 +73935,7 @@
 	
 	    _this.state = {
 	      featureTimer: 0,
-	      featured: [{ class: "picture1", videoId: "1" }, { class: "picture2", videoId: "2" }, { class: "picture3", videoId: "3" }, { class: "picture4", videoId: "4" }, { class: "picture5", videoId: "5" }]
+	      featured: [{ class: "picture1", videoId: "1", name: "How Far Will We Go?" }, { class: "picture2", videoId: "2", name: "Atoms As Big As Mountains" }, { class: "picture3", videoId: "3", name: "What is Light?" }, { class: "picture4", videoId: "4", name: "How the Stock Exchange Works" }, { class: "picture5", videoId: "5", name: "How Big is the Moon?" }]
 	    };
 	    _this.onSplashClick = _this.onSplashClick.bind(_this);
 	    _this.onChannelClick = _this.onChannelClick.bind(_this);
@@ -74027,6 +74027,11 @@
 	                    'div',
 	                    { id: 'featured-channel-name', onClick: this.onChannelClick },
 	                    'Kurzgesagt'
+	                  ),
+	                  _react2.default.createElement(
+	                    'div',
+	                    { id: 'featured-video-name' },
+	                    this.state.featured[this.state.featureTimer].name
 	                  )
 	                )
 	              ),
