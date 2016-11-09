@@ -62,6 +62,10 @@ class App extends React.Component {
 
             </div>
           </section>
+
+          <section id="footer">
+            <div href="https://github.com/pv97" id="github-link"></div>
+          </section>
         </div>
       </MuiThemeProvider>
     )

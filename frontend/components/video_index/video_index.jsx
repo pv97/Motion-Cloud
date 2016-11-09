@@ -28,7 +28,7 @@ class VideoIndex extends React.Component {
   }
 
   componentWillUnmount(){
-    clearInterval();
+    clearInterval(this.interval);
   }
 
   onSplashClick(){
@@ -45,7 +45,7 @@ class VideoIndex extends React.Component {
   }
 
 	addSplashTimer(){
-		setInterval(
+		this.interval = setInterval(
 			()=>{
 				let nextTimer = (this.state.featureTimer + 1)%5
 				this.setState({featureTimer:nextTimer})

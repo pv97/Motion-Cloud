@@ -28203,6 +28203,11 @@
 	              _react2.default.createElement('div', { className: this.hideCommentClass(), onClick: this.slideVideoBox }),
 	              this.props.children
 	            )
+	          ),
+	          _react2.default.createElement(
+	            'section',
+	            { id: 'footer' },
+	            _react2.default.createElement('div', { href: 'https://github.com/pv97', id: 'github-link' })
 	          )
 	        )
 	      );
@@ -67825,9 +67830,7 @@
 			}
 		}, {
 			key: 'componentWillUnmount',
-			value: function componentWillUnmount() {
-				clearInterval();
-			}
+			value: function componentWillUnmount() {}
 		}, {
 			key: 'updateQuery',
 			value: function updateQuery() {
@@ -73951,7 +73954,7 @@
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
-	      clearInterval();
+	      clearInterval(this.interval);
 	    }
 	  }, {
 	    key: 'onSplashClick',
@@ -73973,7 +73976,7 @@
 	    value: function addSplashTimer() {
 	      var _this2 = this;
 	
-	      setInterval(function () {
+	      this.interval = setInterval(function () {
 	        var nextTimer = (_this2.state.featureTimer + 1) % 5;
 	        _this2.setState({ featureTimer: nextTimer });
 	      }, 4000);

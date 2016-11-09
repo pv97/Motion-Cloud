@@ -26,7 +26,6 @@ class VideoOverlay extends React.Component {
 	}
 
 	componentWillUnmount(){
-		clearInterval()
 	}
 
 
