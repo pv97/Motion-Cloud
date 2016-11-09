@@ -8,13 +8,15 @@ class VideoOverlay extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state={
-			minimized:false
+			minimized:false,
+			showQueue:false
 		}
 		this.slideVideoBox = this.slideVideoBox.bind(this);
 		this.closeVideoBox = this.closeVideoBox.bind(this);
 		this.toggleMini = this.toggleMini.bind(this);
 		this.setMiniTurnary = this.setMiniTurnary.bind(this);
 		this.setSlideTurnary = this.setSlideTurnary.bind(this);
+		this.shiftVideoQueue = this.shiftVideoQueue.bind(this);
 	}
 
 	componentDidMount(){
@@ -25,44 +27,59 @@ class VideoOverlay extends React.Component {
 		this.updateQuery();
 	}
 
-	componentWillUnmount(){
-	}
-
 
 	updateQuery(){
 		let queryString = this.props.location.query;
 		let queryState = this.props.query;
-		if(queryString.id!==queryState.id){
-			this.props.setVideoQuery(queryString.id);
+		if(
+			queryString.id!==queryState.id ||
+			queryString.c!==queryState.c ||
+			queryString.q!==queryState.q
+		){
+			this.props.setQuery(queryString);
 		}
-		if(queryString.c!==queryState.c){
-			this.props.setCommentQuery(queryString.c);
+	}
+
+	shiftVideoQueue(){
+		let pathname = this.props.location.pathname;
+		let query = this.props.location.query;
+		if(query.q && query.q.length !== ""){
+			this.props.router.replace({pathname})
+			let array = query.q.split("q");
+			query.id = array.shift();
+			query.q = array.join("q");
 		}
+		this.props.router.replace({pathname,query:query});
 	}
 
 	slideVideoBox(){
-		let pathname = this.props.location.pathname
-		let query = this.props.location.query
+		let pathname = this.props.location.pathname;
+		let query = this.props.location.query;
 		query.c = query.c ? undefined : true;
-		this.props.router.replace({pathname,query:query})
+		this.props.router.replace({pathname,query:query});
 	}
 
 	closeVideoBox(){
-		let pathname = this.props.location.pathname
-		this.props.router.replace({pathname,query:{}})
+		let pathname = this.props.location.pathname;
+		this.props.router.replace({pathname,query:{}});
 	}
 
 	toggleMini(){
 		let opposite = this.state.minimized ? false : true;
-		this.setState({minimized:opposite})
+		this.setState({minimized:opposite});
+	}
+
+	toggleQueue(){
+		let opposite = this.state.showQueue ? false : true;
+		this.setState({showQueue:opposite});
 	}
 
 	setMiniTurnary(falseValue,trueValue){
 		return () => {
 			if(this.state.minimized){
-				return trueValue
+				return trueValue;
 			} else {
-				return falseValue
+				return falseValue;
 			}
 		}
 	}
@@ -70,10 +87,26 @@ class VideoOverlay extends React.Component {
 	setSlideTurnary(falseValue,trueValue){
 		return () => {
 			if (this.props.query.c){
-				return trueValue
+				return trueValue;
 			} else {
-				return falseValue
+				return falseValue;
 			}
+		}
+	}
+
+	setQueueTurnary(falseValue,trueValue){
+		return () => {
+			if (this.state.showQueue){
+				return trueValue;
+			} else {
+				return falseValue;
+			}
+		}
+	}
+
+	getVideoQueue(){
+		if(this.props.query.q && this.props.query.q !== ""){
+			let array = this.prpos
 		}
 	}
 
@@ -124,16 +157,25 @@ class VideoOverlay extends React.Component {
 										height={"inherit"}
 										width={"inherit"}
 										style={{zIndex: 100}}
+										onEnded={this.shiftVideoQueue}
 										playing controls/>
 							</div>
 
 							<div className={this.setMiniTurnary("video-details","display-none")()}>
 								<div id="video-title">{video.title}</div>
-								<div id="video-user-view-details">
-									<div id="video-user-username">Uploaded by {video.user}</div>
-									<div id="video-view-count">{video.view_count} Views</div>
+
+								<div className={this.setMiniTurnary("video-sub-deatils","display-none")()}>
+									<div id="video-user-view-details">
+										<div id="video-user-username">Uploaded by {video.user}</div>
+										<div id="video-view-count">{video.view_count} Views</div>
+									</div>
+									<div id="video-description">{video.description}</div>
 								</div>
-								<div id="video-description">{video.description}</div>
+
+								<div className={this.setMiniTurnary("display-none","video-queue")()}>
+									<div id="video-user-view-details"></div>
+										{	}
+									</div>
 							</div>
 
 						</div>

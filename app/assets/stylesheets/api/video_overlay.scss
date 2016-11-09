@@ -60,7 +60,7 @@
     width: 800px;
     position:fixed;
     top:57px;
-    bottom: 4px;
+    bottom: 2px;
     display:flex;
 
     .comment-overlay{
@@ -172,6 +172,10 @@
       #video-user-view-details{
         display:flex;
         justify-content: space-between;
+      }
+
+      #video-description{
+        margin-top: 15px;
       }
     }
   }

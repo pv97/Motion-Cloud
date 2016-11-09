@@ -1,15 +1,15 @@
-import { SET_VIDEO_QUERY, SET_COMMENT_QUERY } from '../actions/query_actions';
+import { SET_QUERY } from '../actions/query_actions';
 import merge from 'lodash/merge';
 
 const QueryReducer = (oldState = {}, action) => {
   Object.freeze(oldState)
+  let newState;
   switch (action.type) {
-    case SET_VIDEO_QUERY:
-      return {id:action.id};
-
-    case SET_COMMENT_QUERY:
-      let newState = merge({}, oldState);
-      newState.c = action.c
+    case SET_QUERY:
+      newState = merge({}, oldState);
+      newState.id = action.query.id;
+      newState.c = action.query.c;
+      newState.q = action.query.q;
       return newState;
 
     default:

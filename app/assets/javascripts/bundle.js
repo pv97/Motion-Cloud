@@ -62,10 +62,10 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _user_actions = __webpack_require__(738);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	//Components
+	//React
 	document.addEventListener('DOMContentLoaded', function () {
 	  var store = void 0;
 	  if (window.currentUser) {
@@ -75,12 +75,9 @@
 	    store = (0, _store2.default)();
 	  }
 	  window.store = store;
-	  window.fetchUser = _user_actions.fetchUser;
 	  var root = document.getElementById('root');
 	  _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), root);
 	});
-	//Components
-	//React
 
 /***/ },
 /* 1 */
@@ -67752,11 +67749,8 @@
 	    fetchVideo: function fetchVideo(id) {
 	      return dispatch((0, _video_actions.fetchVideo)(id));
 	    },
-	    setVideoQuery: function setVideoQuery(id) {
-	      return dispatch((0, _query_actions.setVideoQuery)(id));
-	    },
-	    setCommentQuery: function setCommentQuery(c) {
-	      return dispatch((0, _query_actions.setCommentQuery)(c));
+	    setQuery: function setQuery(query) {
+	      return dispatch((0, _query_actions.setQuery)(query));
 	    }
 	  };
 	};
@@ -67808,13 +67802,15 @@
 			var _this = _possibleConstructorReturn(this, (VideoOverlay.__proto__ || Object.getPrototypeOf(VideoOverlay)).call(this, props));
 	
 			_this.state = {
-				minimized: false
+				minimized: false,
+				showQueue: false
 			};
 			_this.slideVideoBox = _this.slideVideoBox.bind(_this);
 			_this.closeVideoBox = _this.closeVideoBox.bind(_this);
 			_this.toggleMini = _this.toggleMini.bind(_this);
 			_this.setMiniTurnary = _this.setMiniTurnary.bind(_this);
 			_this.setSlideTurnary = _this.setSlideTurnary.bind(_this);
+			_this.shiftVideoQueue = _this.shiftVideoQueue.bind(_this);
 			return _this;
 		}
 	
@@ -67829,19 +67825,26 @@
 				this.updateQuery();
 			}
 		}, {
-			key: 'componentWillUnmount',
-			value: function componentWillUnmount() {}
-		}, {
 			key: 'updateQuery',
 			value: function updateQuery() {
 				var queryString = this.props.location.query;
 				var queryState = this.props.query;
-				if (queryString.id !== queryState.id) {
-					this.props.setVideoQuery(queryString.id);
+				if (queryString.id !== queryState.id || queryString.c !== queryState.c || queryString.q !== queryState.q) {
+					this.props.setQuery(queryString);
 				}
-				if (queryString.c !== queryState.c) {
-					this.props.setCommentQuery(queryString.c);
+			}
+		}, {
+			key: 'shiftVideoQueue',
+			value: function shiftVideoQueue() {
+				var pathname = this.props.location.pathname;
+				var query = this.props.location.query;
+				if (query.q && query.q.length !== "") {
+					this.props.router.replace({ pathname: pathname });
+					var array = query.q.split("q");
+					query.id = array.shift();
+					query.q = array.join("q");
 				}
+				this.props.router.replace({ pathname: pathname, query: query });
 			}
 		}, {
 			key: 'slideVideoBox',
@@ -67862,6 +67865,12 @@
 			value: function toggleMini() {
 				var opposite = this.state.minimized ? false : true;
 				this.setState({ minimized: opposite });
+			}
+		}, {
+			key: 'toggleQueue',
+			value: function toggleQueue() {
+				var opposite = this.state.showQueue ? false : true;
+				this.setState({ showQueue: opposite });
 			}
 		}, {
 			key: 'setMiniTurnary',
@@ -67888,6 +67897,26 @@
 						return falseValue;
 					}
 				};
+			}
+		}, {
+			key: 'setQueueTurnary',
+			value: function setQueueTurnary(falseValue, trueValue) {
+				var _this4 = this;
+	
+				return function () {
+					if (_this4.state.showQueue) {
+						return trueValue;
+					} else {
+						return falseValue;
+					}
+				};
+			}
+		}, {
+			key: 'getVideoQueue',
+			value: function getVideoQueue() {
+				if (this.props.query.q && this.props.query.q !== "") {
+					var array = this.prpos;
+				}
 			}
 		}, {
 			key: 'render',
@@ -67962,6 +67991,7 @@
 										height: "inherit",
 										width: "inherit",
 										style: { zIndex: 100 },
+										onEnded: this.shiftVideoQueue,
 										playing: true, controls: true })
 								),
 								_react2.default.createElement(
@@ -67974,24 +68004,33 @@
 									),
 									_react2.default.createElement(
 										'div',
-										{ id: 'video-user-view-details' },
+										{ className: this.setMiniTurnary("video-sub-deatils", "display-none")() },
 										_react2.default.createElement(
 											'div',
-											{ id: 'video-user-username' },
-											'Uploaded by ',
-											video.user
+											{ id: 'video-user-view-details' },
+											_react2.default.createElement(
+												'div',
+												{ id: 'video-user-username' },
+												'Uploaded by ',
+												video.user
+											),
+											_react2.default.createElement(
+												'div',
+												{ id: 'video-view-count' },
+												video.view_count,
+												' Views'
+											)
 										),
 										_react2.default.createElement(
 											'div',
-											{ id: 'video-view-count' },
-											video.view_count,
-											' Views'
+											{ id: 'video-description' },
+											video.description
 										)
 									),
 									_react2.default.createElement(
 										'div',
-										{ id: 'video-description' },
-										video.description
+										{ className: this.setMiniTurnary("display-none", "video-queue")() },
+										_react2.default.createElement('div', { id: 'video-user-view-details' })
 									)
 								)
 							)
@@ -70453,20 +70492,12 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var SET_VIDEO_QUERY = exports.SET_VIDEO_QUERY = "SET_VIDEO_QUERY";
-	var SET_COMMENT_QUERY = exports.SET_COMMENT_QUERY = "SET_COMMENT_QUERY";
+	var SET_QUERY = exports.SET_QUERY = "SET_VIDEO_QUERY";
 	
-	var setVideoQuery = exports.setVideoQuery = function setVideoQuery(id) {
+	var setQuery = exports.setQuery = function setQuery(query) {
 	  return {
-	    type: SET_VIDEO_QUERY,
-	    id: id
-	  };
-	};
-	
-	var setCommentQuery = exports.setCommentQuery = function setCommentQuery(c) {
-	  return {
-	    type: SET_COMMENT_QUERY,
-	    c: c
+	    type: SET_QUERY,
+	    query: query
 	  };
 	};
 
@@ -73657,18 +73688,43 @@
 	
 	    var _this = _possibleConstructorReturn(this, (VideoIndexItem.__proto__ || Object.getPrototypeOf(VideoIndexItem)).call(this, props));
 	
-	    _this.handleClick = _this.handleClick.bind(_this);
+	    _this.state = {
+	      open: false
+	    };
+	    _this.handleVideoClick = _this.handleVideoClick.bind(_this);
+	    _this.handleQueueClick = _this.handleQueueClick.bind(_this);
 	    _this.handleUserClick = _this.handleUserClick.bind(_this);
+	    _this.handleRequestClose = _this.handleRequestClose.bind(_this);
 	    return _this;
 	  }
 	
 	  _createClass(VideoIndexItem, [{
-	    key: 'handleClick',
-	    value: function handleClick() {
+	    key: 'handleVideoClick',
+	    value: function handleVideoClick() {
 	      var videoId = this.props.video.id;
 	      var pathname = this.props.location.pathname;
 	      var newQuery = (0, _merge2.default)({}, this.props.query, { id: videoId });
 	      this.props.router.replace({ pathname: pathname, query: newQuery });
+	    }
+	  }, {
+	    key: 'handleQueueClick',
+	    value: function handleQueueClick(event) {
+	      event.stopPropagation();
+	      var videoId = this.props.video.id;
+	      var pathname = this.props.location.pathname;
+	      var query = this.props.location.query;
+	      if (query.id) {
+	        if (query.q) {
+	          query.q = query.q + videoId + "q";
+	        } else {
+	          query.q = videoId + "q";
+	        }
+	      } else {
+	        //set current video instead
+	        query.id = videoId;
+	      }
+	      this.setState({ open: true });
+	      this.props.router.replace({ pathname: pathname, query: query });
 	    }
 	  }, {
 	    key: 'handleUserClick',
@@ -73676,6 +73732,11 @@
 	      var userId = this.props.video.user_id;
 	      var query = this.props.location.query;
 	      this.props.router.replace({ pathname: 'users/' + userId, query: query });
+	    }
+	  }, {
+	    key: 'handleRequestClose',
+	    value: function handleRequestClose() {
+	      this.setState({ open: false });
 	    }
 	  }, {
 	    key: 'render',
@@ -73689,29 +73750,47 @@
 	          { className: 'video-index-item' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'play-icon-box', onClick: this.handleClick },
+	            { className: 'play-icon-box', onClick: this.handleVideoClick },
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'zero-height' },
+	              { className: 'picture-overlay' },
 	              _react2.default.createElement(
 	                'div',
-	                { className: 'center-icon' },
+	                { className: 'center-button' },
 	                _react2.default.createElement(
 	                  _materialUi.FontIcon,
 	                  { className: 'material-icons', color: "#fff", style: { fontSize: 70 }
 	                  },
 	                  'play_circle_outline'
 	                )
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'top-right-button' },
+	                _react2.default.createElement(
+	                  _materialUi.IconButton,
+	                  {
+	                    className: 'queue-button',
+	                    tooltipPosition: 'top-center',
+	                    tooltip: 'Add to queue',
+	                    onClick: this.handleQueueClick },
+	                  _react2.default.createElement(
+	                    _materialUi.FontIcon,
+	                    { className: 'material-icons', color: "#fff", style: { fontSize: 70 }
+	                    },
+	                    'playlist_add'
+	                  )
+	                )
 	              )
 	            ),
-	            _react2.default.createElement('img', { className: 'video-index-item-picture', src: video.thumbnail_url, onClick: this.handleClick })
+	            _react2.default.createElement('img', { className: 'video-index-item-picture', src: video.thumbnail_url, onClick: this.handleVideoClick })
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'video-index-item-detail' },
 	            _react2.default.createElement(
 	              'p',
-	              { className: 'video-index-item-title', onClick: this.handleClick },
+	              { className: 'video-index-item-title', onClick: this.handleVideoClick },
 	              video.title
 	            ),
 	            _react2.default.createElement(
@@ -73742,7 +73821,14 @@
 	              )
 	            )
 	          )
-	        )
+	        ),
+	        _react2.default.createElement(_materialUi.Snackbar, {
+	          open: this.state.open,
+	          message: 'Added video to your queue!',
+	          autoHideDuration: 3000,
+	          style: { textAlign: "center" },
+	          onRequestClose: this.handleRequestClose
+	        })
 	      );
 	    }
 	  }]);
@@ -74685,13 +74771,13 @@
 	  var action = arguments[1];
 	
 	  Object.freeze(oldState);
+	  var newState = void 0;
 	  switch (action.type) {
-	    case _query_actions.SET_VIDEO_QUERY:
-	      return { id: action.id };
-	
-	    case _query_actions.SET_COMMENT_QUERY:
-	      var newState = (0, _merge2.default)({}, oldState);
-	      newState.c = action.c;
+	    case _query_actions.SET_QUERY:
+	      newState = (0, _merge2.default)({}, oldState);
+	      newState.id = action.query.id;
+	      newState.c = action.query.c;
+	      newState.q = action.query.q;
 	      return newState;
 	
 	    default:
@@ -75143,8 +75229,6 @@
 	
 	var _comment_actions = __webpack_require__(643);
 	
-	var _video_api_util = __webpack_require__(758);
-	
 	var _comment_api_util = __webpack_require__(760);
 	
 	exports.default = function (_ref) {
@@ -75161,12 +75245,11 @@
 	      var errorCallback = function errorCallback(xhr) {
 	        return console.log(xhr);
 	      };
-	
+	      console.log(action);
 	      switch (action.type) {
-	        case _query_actions.SET_VIDEO_QUERY:
-	          if (action.id) {
-	            (0, _video_api_util.fetchVideo)(action.id, receiveVideoSuccess, errorCallback);
-	            (0, _comment_api_util.fetchComments)(action.id, receiveCommentsSuccess, errorCallback);
+	        case _query_actions.SET_QUERY:
+	          if (action.query.id) {
+	            (0, _comment_api_util.fetchComments)(action.query.id, receiveCommentsSuccess, errorCallback);
 	          }
 	          return next(action);
 	
