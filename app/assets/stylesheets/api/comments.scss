@@ -101,7 +101,11 @@
     background-color: #fff;
     margin-bottom: 10px;
     margin-left:40px;
-
+    
+    .flex-end{
+      display:flex;
+      justify-content: flex-end;
+    }
     .comment-button-section{
       display:flex;
       justify-content: flex-end;

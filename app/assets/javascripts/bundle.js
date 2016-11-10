@@ -70014,7 +70014,7 @@
 	      if (this.state.body !== "") {
 	        return "comment-button-section";
 	      } else {
-	        return "invisible";
+	        return "display-none";
 	      }
 	    }
 	  }, {
@@ -70095,9 +70095,13 @@
 	            fullWidth: true }),
 	          _react2.default.createElement(
 	            'div',
-	            { className: this.buttonClass() },
-	            _react2.default.createElement(_materialUi.RaisedButton, { className: 'comment-submit-button', value: 'Submit',
-	              primary: true, label: 'Post Comment', onClick: this.handleSubmit })
+	            { className: 'flex-end' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: this.buttonClass() },
+	              _react2.default.createElement(_materialUi.RaisedButton, { className: 'comment-submit-button', value: 'Submit',
+	                primary: true, label: 'Post Comment', onClick: this.handleSubmit })
+	            )
 	          )
 	        ),
 	        this.getChildComments()
@@ -70178,7 +70182,7 @@
 	      if (this.state.body !== "") {
 	        return "comment-button-section";
 	      } else {
-	        return "invisible";
+	        return "display-none";
 	      }
 	    }
 	  }, {
@@ -70260,9 +70264,13 @@
 	            fullWidth: true }),
 	          _react2.default.createElement(
 	            'div',
-	            { className: this.buttonClass() },
-	            _react2.default.createElement(_materialUi.RaisedButton, { className: 'comment-submit-button', value: 'Submit',
-	              primary: true, label: 'Post Comment', onClick: this.handleSubmit })
+	            { className: 'flex-end' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: this.buttonClass() },
+	              _react2.default.createElement(_materialUi.RaisedButton, { className: 'comment-submit-button', value: 'Submit',
+	                primary: true, label: 'Post Comment', onClick: this.handleSubmit })
+	            )
 	          )
 	        )
 	      );

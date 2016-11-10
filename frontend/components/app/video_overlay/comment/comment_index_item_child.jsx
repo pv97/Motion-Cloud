@@ -29,7 +29,7 @@ class CommentIndexItemChild extends React.Component {
     if(this.state.body!==""){
       return "comment-button-section"
     } else {
-      return "invisible"
+      return "display-none"
     }
   }
 
@@ -90,10 +90,12 @@ class CommentIndexItemChild extends React.Component {
             floatingLabelText="Post a comment"
             multiLine={true}
             fullWidth/>
-          <div className={this.buttonClass()}>
-            <RaisedButton className="comment-submit-button" value="Submit"
-              primary={true} label="Post Comment" onClick={this.handleSubmit} />
-          </div>
+          <div className="flex-end">
+  					<div className={this.buttonClass()}>
+  						<RaisedButton className="comment-submit-button" value="Submit"
+  							primary={true} label="Post Comment" onClick={this.handleSubmit} />
+  					</div>
+  				</div>
         </form>
       </div>
     )
