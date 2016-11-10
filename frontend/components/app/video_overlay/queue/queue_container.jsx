@@ -1,16 +1,15 @@
 import { connect } from 'react-redux';
-import App from './app';
-import { fetchVideos } from '../../actions/video_actions';
+import Queue from './queue';
 
 const mapStateToProps = state => ({
+  videos: state.videos,
   query: state.query
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchVideos: () => dispatch(fetchVideos())
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(App);
+)(Queue);

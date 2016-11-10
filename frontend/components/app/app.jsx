@@ -15,6 +15,10 @@ class App extends React.Component {
 		this.slideVideoBox = this.slideVideoBox.bind(this)
   }
 
+  componentWillMount(){
+    this.props.fetchVideos();
+  }
+
   toHomePage(){
 		this.props.router.push({pathname:"/",query:this.props.query})
   }

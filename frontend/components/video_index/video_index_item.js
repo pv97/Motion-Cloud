@@ -28,13 +28,9 @@ class VideoIndexItem extends React.Component {
     let pathname = this.props.location.pathname;
     let query = this.props.location.query;
     if(query.id){
-      if(query.q){
-        query.q = query.q + videoId + "q";
-      } else {
-        query.q = videoId + "q";
-      }
-    } else { //set current video instead
-      query.id = videoId;
+      query.q = query.q ? query.q.split("q").concat([videoId]).join("q") : videoId;
+    } else {
+      query.id = videoId
     }
     this.setState({open:true});
     this.props.router.replace({pathname:pathname,query:query});
@@ -66,7 +62,7 @@ class VideoIndexItem extends React.Component {
               <IconButton
                 className="queue-button"
                 tooltipPosition="top-center"
-                tooltip="Add to queue"
+                tooltip="Add To Queue"
                 onClick={this.handleQueueClick}>
                 <FontIcon className="material-icons" color={"#fff"} style={{fontSize:70}}
                   >playlist_add</FontIcon>

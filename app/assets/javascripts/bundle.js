@@ -21484,6 +21484,8 @@
 	
 	var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
 	
+	var _video_actions = __webpack_require__(644);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	// react router
@@ -28070,6 +28072,8 @@
 	
 	var _app2 = _interopRequireDefault(_app);
 	
+	var _video_actions = __webpack_require__(644);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var mapStateToProps = function mapStateToProps(state) {
@@ -28079,7 +28083,11 @@
 	};
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {};
+	  return {
+	    fetchVideos: function fetchVideos() {
+	      return dispatch((0, _video_actions.fetchVideos)());
+	    }
+	  };
 	};
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_app2.default);
@@ -28146,6 +28154,11 @@
 	  }
 	
 	  _createClass(App, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.fetchVideos();
+	    }
+	  }, {
 	    key: 'toHomePage',
 	    value: function toHomePage() {
 	      this.props.router.push({ pathname: "/", query: this.props.query });
@@ -67785,6 +67798,10 @@
 	
 	var _comment_index_container2 = _interopRequireDefault(_comment_index_container);
 	
+	var _queue_container = __webpack_require__(765);
+	
+	var _queue_container2 = _interopRequireDefault(_queue_container);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -67811,6 +67828,8 @@
 			_this.setMiniTurnary = _this.setMiniTurnary.bind(_this);
 			_this.setSlideTurnary = _this.setSlideTurnary.bind(_this);
 			_this.shiftVideoQueue = _this.shiftVideoQueue.bind(_this);
+			_this.showQueue = _this.showQueue.bind(_this);
+			_this.hideQueue = _this.hideQueue.bind(_this);
 			return _this;
 		}
 	
@@ -67838,11 +67857,11 @@
 			value: function shiftVideoQueue() {
 				var pathname = this.props.location.pathname;
 				var query = this.props.location.query;
-				if (query.q && query.q.length !== "") {
+				if (query.q) {
 					this.props.router.replace({ pathname: pathname });
 					var array = query.q.split("q");
 					query.id = array.shift();
-					query.q = array.join("q");
+					query.q = array.length > 0 ? array.join("q") : undefined;
 				}
 				this.props.router.replace({ pathname: pathname, query: query });
 			}
@@ -67867,10 +67886,14 @@
 				this.setState({ minimized: opposite });
 			}
 		}, {
-			key: 'toggleQueue',
-			value: function toggleQueue() {
-				var opposite = this.state.showQueue ? false : true;
-				this.setState({ showQueue: opposite });
+			key: 'showQueue',
+			value: function showQueue() {
+				this.setState({ showQueue: true });
+			}
+		}, {
+			key: 'hideQueue',
+			value: function hideQueue() {
+				this.setState({ showQueue: false });
 			}
 		}, {
 			key: 'setMiniTurnary',
@@ -67910,13 +67933,6 @@
 						return falseValue;
 					}
 				};
-			}
-		}, {
-			key: 'getVideoQueue',
-			value: function getVideoQueue() {
-				if (this.props.query.q && this.props.query.q !== "") {
-					var array = this.prpos;
-				}
 			}
 		}, {
 			key: 'render',
@@ -68004,7 +68020,25 @@
 									),
 									_react2.default.createElement(
 										'div',
-										{ className: this.setMiniTurnary("video-sub-deatils", "display-none")() },
+										{ id: 'detail-queue-toggle-buttons' },
+										_react2.default.createElement(
+											'div',
+											{ className: this.setQueueTurnary("clicked", "show-details")(),
+												onClick: this.hideQueue
+											},
+											'SHOW DETAILS'
+										),
+										_react2.default.createElement(
+											'div',
+											{ className: this.setQueueTurnary("show-queue", "clicked")(),
+												onClick: this.showQueue
+											},
+											'SHOW QUEUE'
+										)
+									),
+									_react2.default.createElement(
+										'div',
+										{ className: this.setQueueTurnary("video-sub-details", "display-none")() },
 										_react2.default.createElement(
 											'div',
 											{ id: 'video-user-view-details' },
@@ -68029,8 +68063,8 @@
 									),
 									_react2.default.createElement(
 										'div',
-										{ className: this.setMiniTurnary("display-none", "video-queue")() },
-										_react2.default.createElement('div', { id: 'video-user-view-details' })
+										{ className: this.setQueueTurnary("display-none", "video-queue")() },
+										_react2.default.createElement(_queue_container2.default, null)
 									)
 								)
 							)
@@ -70492,7 +70526,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var SET_QUERY = exports.SET_QUERY = "SET_VIDEO_QUERY";
+	var SET_QUERY = exports.SET_QUERY = "SET_QUERY";
 	
 	var setQuery = exports.setQuery = function setQuery(query) {
 	  return {
@@ -73714,13 +73748,8 @@
 	      var pathname = this.props.location.pathname;
 	      var query = this.props.location.query;
 	      if (query.id) {
-	        if (query.q) {
-	          query.q = query.q + videoId + "q";
-	        } else {
-	          query.q = videoId + "q";
-	        }
+	        query.q = query.q ? query.q.split("q").concat([videoId]).join("q") : videoId;
 	      } else {
-	        //set current video instead
 	        query.id = videoId;
 	      }
 	      this.setState({ open: true });
@@ -73772,7 +73801,7 @@
 	                  {
 	                    className: 'queue-button',
 	                    tooltipPosition: 'top-center',
-	                    tooltip: 'Add to queue',
+	                    tooltip: 'Add To Queue',
 	                    onClick: this.handleQueueClick },
 	                  _react2.default.createElement(
 	                    _materialUi.FontIcon,
@@ -73955,8 +73984,6 @@
 	
 	var _video_index2 = _interopRequireDefault(_video_index);
 	
-	var _video_actions = __webpack_require__(644);
-	
 	var _merge = __webpack_require__(648);
 	
 	var _merge2 = _interopRequireDefault(_merge);
@@ -73972,11 +73999,7 @@
 	};
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {
-	    fetchVideos: function fetchVideos() {
-	      return dispatch((0, _video_actions.fetchVideos)());
-	    }
-	  };
+	  return {};
 	};
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_video_index2.default);
@@ -74031,12 +74054,8 @@
 	  _createClass(VideoIndex, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      this.props.fetchVideos();
 	      this.addSplashTimer();
 	    }
-	  }, {
-	    key: 'componentDidUpdate',
-	    value: function componentDidUpdate() {}
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
@@ -75236,9 +75255,6 @@
 	      dispatch = _ref.dispatch;
 	  return function (next) {
 	    return function (action) {
-	      var receiveVideoSuccess = function receiveVideoSuccess(video) {
-	        return dispatch((0, _video_actions.receiveVideo)(video));
-	      };
 	      var receiveCommentsSuccess = function receiveCommentsSuccess(comments) {
 	        return dispatch((0, _comment_actions.receiveAllComments)(comments));
 	      };
@@ -75248,7 +75264,7 @@
 	      console.log(action);
 	      switch (action.type) {
 	        case _query_actions.SET_QUERY:
-	          if (action.query.id) {
+	          if (action.query.id !== getState().query.id) {
 	            (0, _comment_api_util.fetchComments)(action.query.id, receiveCommentsSuccess, errorCallback);
 	          }
 	          return next(action);
@@ -75314,6 +75330,187 @@
 	    error: error
 	  });
 	};
+
+/***/ },
+/* 764 */,
+/* 765 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reactRedux = __webpack_require__(173);
+	
+	var _queue = __webpack_require__(766);
+	
+	var _queue2 = _interopRequireDefault(_queue);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    videos: state.videos,
+	    query: state.query
+	  };
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {};
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_queue2.default);
+
+/***/ },
+/* 766 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _queue_item = __webpack_require__(767);
+	
+	var _queue_item2 = _interopRequireDefault(_queue_item);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Queue = function (_React$Component) {
+	  _inherits(Queue, _React$Component);
+	
+	  function Queue() {
+	    _classCallCheck(this, Queue);
+	
+	    return _possibleConstructorReturn(this, (Queue.__proto__ || Object.getPrototypeOf(Queue)).apply(this, arguments));
+	  }
+	
+	  _createClass(Queue, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      var queue = this.props.query.q;
+	      if (queue && queue !== "") {
+	        var array = queue.split("q");
+	        return _react2.default.createElement(
+	          'ul',
+	          { className: 'video-queue-list' },
+	          array.map(function (videoId, idx) {
+	            if (videoId === "") {
+	              return _react2.default.createElement('div', { className: 'display-none' });
+	            } else {
+	              return _react2.default.createElement(_queue_item2.default, { key: videoId + idx, video: _this2.props.videos[videoId], idx: idx });
+	            }
+	          })
+	        );
+	      } else {
+	        return _react2.default.createElement('div', { className: 'display-none' });
+	      }
+	    }
+	  }]);
+	
+	  return Queue;
+	}(_react2.default.Component);
+	
+	exports.default = Queue;
+
+/***/ },
+/* 767 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(203);
+	
+	var _materialUi = __webpack_require__(261);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var QueueItem = function (_React$Component) {
+	  _inherits(QueueItem, _React$Component);
+	
+	  function QueueItem(props) {
+	    _classCallCheck(this, QueueItem);
+	
+	    var _this = _possibleConstructorReturn(this, (QueueItem.__proto__ || Object.getPrototypeOf(QueueItem)).call(this, props));
+	
+	    _this.removeFromQueue = _this.removeFromQueue.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(QueueItem, [{
+	    key: 'removeFromQueue',
+	    value: function removeFromQueue() {
+	      var pathname = this.props.location.pathname;
+	      var query = this.props.location.query;
+	      var idx = this.props.idx;
+	      var array = query.q.split("q");
+	      query.q = array.slice(0, idx).concat(array.slice(idx + 1)).join("q");
+	      query.q = query.q === "" ? undefined : query.q;
+	      this.props.router.replace({ pathname: pathname, query: query });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var video = this.props.video;
+	      return _react2.default.createElement(
+	        'li',
+	        { className: 'queue-item' },
+	        _react2.default.createElement(
+	          _materialUi.IconButton,
+	          {
+	            className: 'remove-queue-button',
+	            tooltipPosition: 'bottom-center',
+	            tooltip: 'Remove From Queue',
+	            onClick: this.removeFromQueue },
+	          _react2.default.createElement(
+	            _materialUi.FontIcon,
+	            { className: 'material-icons', color: "#fff", style: { fontSize: 70 }
+	            },
+	            'clear'
+	          )
+	        ),
+	        _react2.default.createElement('img', { className: 'queue-item-picture', src: video.thumbnail_url })
+	      );
+	    }
+	  }]);
+	
+	  return QueueItem;
+	}(_react2.default.Component);
+	
+	exports.default = (0, _reactRouter.withRouter)(QueueItem);
 
 /***/ }
 /******/ ]);

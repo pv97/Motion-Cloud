@@ -20,11 +20,7 @@ class VideoIndex extends React.Component {
   }
 
   componentWillMount(){
-    this.props.fetchVideos();
 		this.addSplashTimer();
-  }
-
-  componentDidUpdate(){
   }
 
   componentWillUnmount(){
@@ -35,13 +31,13 @@ class VideoIndex extends React.Component {
     let videoId = this.state.featured[this.state.featureTimer].videoId
     let query = this.props.location.query;
     query.id = videoId
-    this.props.router.replace({pathname:`/`,query:query});
+    this.props.router.replace({pathname:`/`,query});
   }
 
   onChannelClick(event){
     event.stopPropagation();
     let query = this.props.location.query;
-    this.props.router.replace({pathname:`/users/2`,query:query});
+    this.props.router.replace({pathname:`/users/2`,query});
   }
 
 	addSplashTimer(){
@@ -90,8 +86,7 @@ class VideoIndex extends React.Component {
               <div id="gradient-right"></div>
               <div id="black-right"></div>
             </div>
-
-
+            
           </div>
 
           <h1 id="video-index-title">Watch While Exploring</h1>

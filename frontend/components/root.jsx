@@ -14,6 +14,8 @@ import VideoIndexContainer from './video_index/video_index_container';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
+import { fetchAllVideos } from '../actions/video_actions'
+
 const Root = ({ store }) => {
 
   return (

@@ -106,6 +106,8 @@
     }
     #video-player-box{
       position:absolute;
+      display:flex;
+      flex-direction: column;
       width:800px;
       top:0px;
       bottom:0px;
@@ -117,6 +119,8 @@
 
     #video-player-box-right{
       position:absolute;
+      display:flex;
+      flex-direction: column;
       width:800px;
       top:0px;
       bottom:0px;
@@ -128,7 +132,6 @@
 
     #player-buttons{
       display:flex;
-      flex:1;
       z-index: 300;
       justify-content: flex-end;
       margin:16px 16px 0 16px;
@@ -156,7 +159,8 @@
     }
 
     .video-details{
-      margin: 0 16px;
+      flex:1;
+      margin: 0 16px 16px 16px;
       padding: 16px;
       border-radius: 2px;
       box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
@@ -165,10 +169,32 @@
         font-size: 20px;
         font-weight: 500;
         box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.117647); //line below
-        padding-bottom: 10px;
-        margin-bottom: 10px;
+        padding-bottom: 20px;
+        margin-bottom: 1px;
       }
 
+      #detail-queue-toggle-buttons{
+        display:flex;
+        width:100%;
+        box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.117647); //line below
+
+        .clicked{
+          text-align: center;
+          padding: 10px 20px;
+          flex:1;
+          font-weight: 500;
+          background: #f0f0f0;
+          cursor:pointer;
+        }
+        .show-details, .show-queue {
+          text-align: center;
+          padding: 10px 20px;
+          flex:1;
+          font-weight: 500;
+          background: #fff;
+          cursor:pointer;
+        }
+      }
       #video-user-view-details{
         display:flex;
         justify-content: space-between;
@@ -176,6 +202,40 @@
 
       #video-description{
         margin-top: 15px;
+        flex:1;
+        overflow-y: hidden;
+      }
+      .video-sub-details{
+        margin-top: 20px;
+        display:flex;
+        flex-direction: column;
+      }
+      .video-queue{
+        width:100%;
+        display:flex;
+        background: #f0f0f0;
+
+        .video-queue-list{
+          width:100%;
+          display:flex;
+          overflow-x: scroll;
+
+          .queue-item{
+            position:relative;
+            margin: 20px;
+            width: 180px;
+            height: 110px;
+
+            img{
+              width: 180px;
+              height: 110px;
+            }
+            .remove-queue-button{
+              position:absolute !important;
+              right:0 !important;
+            }
+          }
+        }
       }
     }
   }

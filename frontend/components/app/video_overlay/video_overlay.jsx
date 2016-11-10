@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import ReactPlayer from 'react-player';
 import { FontIcon, IconButton } from 'material-ui';
 import CommentIndexContainer from './comment/comment_index_container'
+import QueueContainer from './queue/queue_container'
 
 class VideoOverlay extends React.Component {
 	constructor(props) {
@@ -17,6 +18,8 @@ class VideoOverlay extends React.Component {
 		this.setMiniTurnary = this.setMiniTurnary.bind(this);
 		this.setSlideTurnary = this.setSlideTurnary.bind(this);
 		this.shiftVideoQueue = this.shiftVideoQueue.bind(this);
+		this.showQueue = this.showQueue.bind(this);
+		this.hideQueue = this.hideQueue.bind(this);
 	}
 
 	componentDidMount(){
@@ -43,20 +46,20 @@ class VideoOverlay extends React.Component {
 	shiftVideoQueue(){
 		let pathname = this.props.location.pathname;
 		let query = this.props.location.query;
-		if(query.q && query.q.length !== ""){
+		if(query.q){
 			this.props.router.replace({pathname})
 			let array = query.q.split("q");
 			query.id = array.shift();
-			query.q = array.join("q");
+			query.q = array.length > 0 ? array.join("q") : undefined;
 		}
-		this.props.router.replace({pathname,query:query});
+		this.props.router.replace({pathname,query});
 	}
 
 	slideVideoBox(){
 		let pathname = this.props.location.pathname;
 		let query = this.props.location.query;
 		query.c = query.c ? undefined : true;
-		this.props.router.replace({pathname,query:query});
+		this.props.router.replace({pathname,query});
 	}
 
 	closeVideoBox(){
@@ -69,9 +72,12 @@ class VideoOverlay extends React.Component {
 		this.setState({minimized:opposite});
 	}
 
-	toggleQueue(){
-		let opposite = this.state.showQueue ? false : true;
-		this.setState({showQueue:opposite});
+	showQueue(){
+		this.setState({showQueue:true});
+	}
+
+	hideQueue(){
+		this.setState({showQueue:false});
 	}
 
 	setMiniTurnary(falseValue,trueValue){
@@ -101,12 +107,6 @@ class VideoOverlay extends React.Component {
 			} else {
 				return falseValue;
 			}
-		}
-	}
-
-	getVideoQueue(){
-		if(this.props.query.q && this.props.query.q !== ""){
-			let array = this.prpos
 		}
 	}
 
@@ -164,7 +164,16 @@ class VideoOverlay extends React.Component {
 							<div className={this.setMiniTurnary("video-details","display-none")()}>
 								<div id="video-title">{video.title}</div>
 
-								<div className={this.setMiniTurnary("video-sub-deatils","display-none")()}>
+								<div id="detail-queue-toggle-buttons">
+									<div className={this.setQueueTurnary("clicked","show-details")()}
+										onClick={this.hideQueue}
+										>SHOW DETAILS</div>
+									<div className={this.setQueueTurnary("show-queue","clicked")()}
+										onClick={this.showQueue}
+										>SHOW QUEUE</div>
+								</div>
+
+								<div className={this.setQueueTurnary("video-sub-details","display-none")()}>
 									<div id="video-user-view-details">
 										<div id="video-user-username">Uploaded by {video.user}</div>
 										<div id="video-view-count">{video.view_count} Views</div>
@@ -172,10 +181,9 @@ class VideoOverlay extends React.Component {
 									<div id="video-description">{video.description}</div>
 								</div>
 
-								<div className={this.setMiniTurnary("display-none","video-queue")()}>
-									<div id="video-user-view-details"></div>
-										{	}
-									</div>
+								<div className={this.setQueueTurnary("display-none","video-queue")()}>
+									<QueueContainer />
+								</div>
 							</div>
 
 						</div>
