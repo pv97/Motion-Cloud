@@ -20,3 +20,10 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	-ms-transition: all 450ms ease;
 	transition: all 450ms ease;
 }
+
+
+.display-none{
+  position:fixed !important;
+  visibility:hidden !important;
+  opacity:0 !important;
+}

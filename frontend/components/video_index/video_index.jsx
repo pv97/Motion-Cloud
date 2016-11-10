@@ -37,7 +37,7 @@ class VideoIndex extends React.Component {
   onChannelClick(e){
     e.stopPropagation();
     let query = this.props.location.query;
-    this.props.router.replace({pathname:`/users/2`,query});
+    this.props.router.push({pathname:`/users/2`,query});
   }
 
 	addSplashTimer(){

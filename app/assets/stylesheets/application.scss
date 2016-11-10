@@ -100,9 +100,32 @@
   }
 }
 
+#footer{
+  background:black;
+  display: flex;
+  align-items: center;
+  justify-content:space-around;
+  padding: 20px;
 
-.display-none{
-  position:fixed !important;
-  visibility:hidden !important;
-  opacity:0 !important;
+  #trademark{
+    font-size: 24px;
+    font-weight: 600;
+    color:white;
+  }
+
+  #links{
+    a{
+      margin: 15px;
+      img{
+        height:40px;
+        width:40px;
+      }
+    }
+  }
+
+  #signature{
+    font-size: 20px;
+    font-weight: 500;
+    color:white;
+  }
 }

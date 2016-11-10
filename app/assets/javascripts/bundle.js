@@ -28279,7 +28279,35 @@
 	          _react2.default.createElement(
 	            'section',
 	            { id: 'footer' },
-	            _react2.default.createElement('div', { href: 'https://github.com/pv97', id: 'github-link' })
+	            _react2.default.createElement(
+	              'div',
+	              { id: 'trademark' },
+	              '\xA9 MotionCloud'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { id: 'signature' },
+	              'Designed and created by Pysith Vanuptikul'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { id: 'links' },
+	              _react2.default.createElement(
+	                'a',
+	                { href: 'https://github.com/pv97', id: 'github' },
+	                _react2.default.createElement('img', { src: 'http://res.cloudinary.com/tlcoy4e3/image/upload/v1478656445/github-8-xxl_cvvyqv.png' })
+	              ),
+	              _react2.default.createElement(
+	                'a',
+	                { href: 'https://www.linkedin.com/in/pivanup', d: 'linked-in' },
+	                _react2.default.createElement('img', { src: 'http://res.cloudinary.com/tlcoy4e3/image/upload/v1478656445/linkedin-3-xxl_x1laak.png' })
+	              ),
+	              _react2.default.createElement(
+	                'a',
+	                { href: 'mailto:pivanup@gmail.com', id: 'email' },
+	                _react2.default.createElement('img', { src: 'http://res.cloudinary.com/tlcoy4e3/image/upload/v1478656445/message-xxl_r7jyoy.png' })
+	              )
+	            )
 	          )
 	        )
 	      );
@@ -74034,7 +74062,7 @@
 	    value: function handleUserClick() {
 	      var userId = this.props.video.user_id;
 	      var query = this.props.location.query;
-	      this.props.router.replace({ pathname: 'users/' + userId, query: query });
+	      this.props.router.push({ pathname: 'users/' + userId, query: query });
 	    }
 	  }, {
 	    key: 'handleRequestClose',
@@ -74348,7 +74376,7 @@
 	    value: function onChannelClick(e) {
 	      e.stopPropagation();
 	      var query = this.props.location.query;
-	      this.props.router.replace({ pathname: '/users/2', query: query });
+	      this.props.router.push({ pathname: '/users/2', query: query });
 	    }
 	  }, {
 	    key: 'addSplashTimer',
@@ -74538,7 +74566,7 @@
 	    value: function render() {
 	      var videos = this.getVideos();
 	
-	      if (videos) {
+	      if (videos && videos.length > 0) {
 	        return _react2.default.createElement(
 	          'div',
 	          { id: 'search-page' },

@@ -40,7 +40,7 @@ class VideoIndexItem extends React.Component {
   handleUserClick() {
     let userId = this.props.video.user_id;
     let query = this.props.location.query;
-    this.props.router.replace({pathname:`users/${userId}`,query:query});
+    this.props.router.push({pathname:`users/${userId}`,query:query});
   }
 
   handleRequestClose() {

@@ -18,7 +18,7 @@ class Search extends React.Component {
   render() {
     let videos = this.getVideos()
 
-    if(videos){
+    if(videos && videos.length>0){
       return(
         <div id="search-page">
           <div id="search-page-main">

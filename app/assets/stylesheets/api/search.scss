@@ -107,8 +107,12 @@
               .video-index-item-title:hover{
                 color: rgb(0, 188, 212);
               }
+              .video-index-item-user:hover{
+                color: rgb(0, 188, 212);
+              }
               .video-index-view-age-detail, .video-index-item-user{
                 padding: 10px;
+                cursor:pointer;
               }
               .video-index-view-count, .video-index-age, .video-index-item-user, .video-index-description{
                 color: rgb(120, 120, 120);
