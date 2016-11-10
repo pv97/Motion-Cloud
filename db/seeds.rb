@@ -22,7 +22,7 @@ Video.create!({
   title:"How Far Will We Go?",
   description:"Original video at https://www.youtube.com/watch?v=ZL4yYHdDSWs",
   user_id:2,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url:"http://res.cloudinary.com/tlcoy4e3/video/upload/v1478368768/otgny75aqqny6bvthk6q.mkv",
@@ -30,7 +30,7 @@ Video.create!({
   title:"Atoms As Big As Mountains — Neutron Stars Explained",
   description: "Original at https://www.youtube.com/watch?v=ZW3aV7U-aik",
   user_id:2,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478368945/xeuvr4cdm9mpoqmdqmty.webm",
@@ -38,7 +38,7 @@ Video.create!({
   title:"What is Light?",
   description: "Original at https://www.youtube.com/watch?v=IXxZRZxafEQ",
   user_id:2,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478582136/xudbxw2s2olcm4ktyx47.webm",
@@ -46,7 +46,7 @@ Video.create!({
   title:"How The Stock Exchange Works (For Dummies)",
   description: "Original at https://www.youtube.com/watch?v=F3QpgXBtDeo",
   user_id:2,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478582629/tuon0634h1m2aqgbsaa9.mp4",
@@ -54,7 +54,7 @@ Video.create!({
   title:"How Big is the Moon MM#1",
   description: "Original at https://www.youtube.com/watch?v=Tqt9hZcWhJM",
   user_id:2,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 
 Video.create!({
@@ -63,7 +63,7 @@ Video.create!({
   title:"Chopin Nocturne No. 20 perf. by Wladyslaw Szpilman - 'The Pianist' - Original Recording",
   description: "Original at https://www.youtube.com/watch?v=n9oQEa-d5rU",
   user_id:1,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478369182/pi4nduhz9yiiqfscmgwc.mkv",
@@ -71,7 +71,7 @@ Video.create!({
   title:"Debussy, Clair de lune (piano music)",
   description: "Original at https://www.youtube.com/watch?v=LlvUepMa31o",
   user_id:1,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "https://www.youtube.com/watch?v=s86-Z-CbaHA",
@@ -79,7 +79,7 @@ Video.create!({
   title: "The Banach–Tarski Paradox",
   description: "Original at https://www.youtube.com/watch?v=s86-Z-CbaHA",
   user_id:4,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478369490/brthtgondouisur7fqkn.mp4",
@@ -87,7 +87,7 @@ Video.create!({
   title: "Caste In the Sky Theme",
   description: "Original at https://www.youtube.com/watch?v=bvnA62FOECg",
   user_id:1,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478369790/chzwyptwcd43ddl6pq1k.mkv",
@@ -95,7 +95,7 @@ Video.create!({
   title: "Princess Mononoke Main Theme",
   description: "Original at https://www.youtube.com/watch?v=nBADF1LdP3g",
   user_id:1,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478369921/mioxqkgs8q3mtrxwe1kt.mkv",
@@ -103,7 +103,7 @@ Video.create!({
   title: "TheFellowshipoftheRingST-17-The Breaking of the Fellowship",
   description: "Original at https://www.youtube.com/watch?v=sQ9NOV3KNpY",
   user_id:1,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478371275/vc07xcdkxnbada27kxgj.mp4",
@@ -111,7 +111,7 @@ Video.create!({
   title: "One Second Video - for testing",
   description: "Just for tests",
   user_id:1,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478369678/pzcfx7bighyuy86x5tsu.webm",
@@ -119,7 +119,7 @@ Video.create!({
   title: "Spirited Away - One Summer's Day",
   description: "Original at https://www.youtube.com/watch?v=smn0HOvwoZ8",
   user_id:1,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478389781/pnvsquhd7qtfd4afw63v.mkv",
@@ -127,7 +127,7 @@ Video.create!({
   title: "Pokemon TV Anime Best 1997-2010 - Route 4",
   description: "Original at https://www.youtube.com/watch?v=stWae6r7Blw",
   user_id:1,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "https://www.youtube.com/watch?v=q6yHoSvrTss",
@@ -135,7 +135,7 @@ Video.create!({
   title: "Ultimate Skyrim",
   description: "Original at https://www.youtube.com/watch?v=q6yHoSvrTss",
   user_id:3,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478629370/Dark_Souls_3_OST_Main_Theme_qzbdo3.webm",
@@ -143,7 +143,7 @@ Video.create!({
   title: "Dark Souls 3 OST Main Theme",
   description: "Original at https://www.youtube.com/watch?v=a0X0YA6ZfW4",
   user_id:1,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478390467/wcfshijkad06qyocsqwe.mkv",
@@ -151,7 +151,7 @@ Video.create!({
   title: "The Fellowship of the Ring Soundtrack-02-Concerning Hobbits",
   description: "Original at https://www.youtube.com/watch?v=stWae6r7Blw",
   user_id:1,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478369346/l0xpdvivkqe8ou3fh54m.mkv",
@@ -159,7 +159,7 @@ Video.create!({
   title: "Howl's Moving Castle Main Theme",
   description: "Original at https://www.youtube.com/watch?v=owddukdxFv4",
   user_id:1,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 # youtube
 # Kurzgesagt
@@ -169,7 +169,7 @@ Video.create!({
   title:"Fusion Energy Explained – Future or Failure",
   description: "Original at https://www.youtube.com/watch?v=mZsaaturR6E",
   user_id:2,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "https://www.youtube.com/watch?v=ijFm6DxNVyI",
@@ -177,7 +177,7 @@ Video.create!({
   title:"The Most Efficient Way to Destroy the Universe – False Vacuum",
   description: "Original at https://www.youtube.com/watch?v=ijFm6DxNVyI",
   user_id:2,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "https://www.youtube.com/watch?v=TnzcwTyr6cE",
@@ -185,7 +185,7 @@ Video.create!({
   title:"How To Eradicate One Of Our Deadliest Enemies – Gene Drive & Malaria",
   description: "Original at https://www.youtube.com/watch?v=TnzcwTyr6cE",
   user_id:2,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "https://www.youtube.com/watch?v=jAhjPd4uNFY",
@@ -193,7 +193,7 @@ Video.create!({
   title:"Genetic Engineering Will Change Everything Forever – CRISPR",
   description: "Original at https://www.youtube.com/watch?v=jAhjPd4uNFY",
   user_id:2,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "https://www.youtube.com/watch?v=RLykC1VN7NY",
@@ -201,7 +201,7 @@ Video.create!({
   title:"Death From Space — Gamma-Ray Bursts Explained",
   description: "Original at https://www.youtube.com/watch?v=RLykC1VN7NY",
   user_id:2,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "https://www.youtube.com/watch?v=qPQQwqGWktE",
@@ -209,7 +209,7 @@ Video.create!({
   title:"Space Elevator – Science Fiction or the Future of Mankind?",
   description: "Original at https://www.youtube.com/watch?v=qPQQwqGWktE",
   user_id:2,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "https://www.youtube.com/watch?v=JhHMJCUmq28",
@@ -217,7 +217,7 @@ Video.create!({
   title:"Quantum Computers Explained – Limits of Human Technology",
   description: "Original at https://www.youtube.com/watch?v=JhHMJCUmq28",
   user_id:2,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "https://www.youtube.com/watch?v=sNhhvQGsMEc",
@@ -225,7 +225,7 @@ Video.create!({
   title:"The Fermi Paradox — Where Are All The Aliens? (1/2)",
   description: "Original at https://www.youtube.com/watch?v=sNhhvQGsMEc",
   user_id:2,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "https://www.youtube.com/watch?v=1fQkVqno-uI",
@@ -233,7 +233,7 @@ Video.create!({
   title:"The Fermi Paradox II — Solutions and Ideas – Where Are All The Aliens?",
   description: "Original at https://www.youtube.com/watch?v=1fQkVqno-uI",
   user_id:2,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "https://www.youtube.com/watch?v=8nHBGFKLHZQ",
@@ -241,7 +241,7 @@ Video.create!({
   title:"What if there was a black hole in your pocket?",
   description: "Original at https://www.youtube.com/watch?v=8nHBGFKLHZQ",
   user_id:2,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 #dunkey
 Video.create!({
@@ -250,7 +250,7 @@ Video.create!({
   title:"Virtual Dunkey",
   description: "Original at https://www.youtube.com/watch?v=z55rJznqF3E",
   user_id:3,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "https://www.youtube.com/watch?v=4Cr6QNQkk3o",
@@ -258,7 +258,7 @@ Video.create!({
   title:"Operation Teemo",
   description: "Original at https://www.youtube.com/watch?v=4Cr6QNQkk3o",
   user_id:3,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 #vsauce
 Video.create!({
@@ -267,7 +267,7 @@ Video.create!({
   title:"What is Random?",
   description: "Original at https://www.youtube.com/watch?v=9rIy0xY99a0",
   user_id:4,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "https://www.youtube.com/watch?v=4I5Q3UXkGd0",
@@ -275,7 +275,7 @@ Video.create!({
   title:"What Is The Resolution Of The Eye?",
   description: "Original at https://www.youtube.com/watch?v=4I5Q3UXkGd0",
   user_id:4,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "https://www.youtube.com/watch?v=w-CK8VxMz9g",
@@ -283,7 +283,7 @@ Video.create!({
   title:"Risk.",
   description: "Original at https://www.youtube.com/watch?v=w-CK8VxMz9g",
   user_id:4,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "https://www.youtube.com/watch?v=Qig68IuPrbk",
@@ -291,7 +291,7 @@ Video.create!({
   title:"last words",
   description: "Original at https://www.youtube.com/watch?v=Qig68IuPrbk",
   user_id:4,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "https://www.youtube.com/watch?v=7uiv6tKtoKg",
@@ -299,7 +299,7 @@ Video.create!({
   title:"What Will We Miss?",
   description: "Original at https://www.youtube.com/watch?v=7uiv6tKtoKg",
   user_id:4,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "https://www.youtube.com/watch?v=4fuHzC9aTik",
@@ -307,7 +307,7 @@ Video.create!({
   title:"How Hot Can It Get?",
   description: "Original at https://www.youtube.com/watch?v=4fuHzC9aTik",
   user_id:4,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 Video.create!({
   url: "https://www.youtube.com/watch?v=GJ4Qp2xeRds",
@@ -315,7 +315,7 @@ Video.create!({
   title:"How High Can We Build?",
   description: "Original at https://www.youtube.com/watch?v=GJ4Qp2xeRds",
   user_id:4,
-  view_count:rand(100000000)
+  view_count:rand(10000000)
   })
 
 (1..37).each do |i|
