@@ -70644,6 +70644,7 @@
 					stylesheet: _upload_widget_theme2.default,
 					inline_container: '.upload-widget' }), function (error, results) {
 					if (!error) {
+						console.log(results);
 						_this2.uploadWidget.close();
 						_this2.setState({
 							url: results[0].url,
@@ -74153,10 +74154,16 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { id: 'video-list' },
-	            videos.map(function (video) {
-	              return _react2.default.createElement(_video_index_item2.default, { video: video, key: video.id });
-	            })
+	            { id: 'video-list-section' },
+	            _react2.default.createElement('div', { id: 'list-gradient-left' }),
+	            _react2.default.createElement(
+	              'div',
+	              { id: 'video-list' },
+	              videos.map(function (video) {
+	                return _react2.default.createElement(_video_index_item2.default, { video: video, key: video.id });
+	              })
+	            ),
+	            _react2.default.createElement('div', { id: 'list-gradient-right' })
 	          )
 	        );
 	      } else {

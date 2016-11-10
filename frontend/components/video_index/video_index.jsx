@@ -86,14 +86,18 @@ class VideoIndex extends React.Component {
               <div id="gradient-right"></div>
               <div id="black-right"></div>
             </div>
-            
+
           </div>
 
           <h1 id="video-index-title">Watch While Exploring</h1>
-          <div id="video-list">
-            {videos.map(video => (
-              <VideoIndexItem video={video} key={video.id}/>
-            ))}
+          <div id="video-list-section">
+            <div id="list-gradient-left"></div>
+            <div id="video-list">
+              {videos.map(video => (
+                <VideoIndexItem video={video} key={video.id}/>
+              ))}
+            </div>
+            <div id="list-gradient-right"></div>
           </div>
         </div>
       )
