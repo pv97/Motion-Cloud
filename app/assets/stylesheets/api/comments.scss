@@ -14,9 +14,12 @@
     background-color: #fff;
     margin-bottom: 10px;
 
-    .comment-button-section{
+    .flex-end{
       display:flex;
       justify-content: flex-end;
+    }
+
+    .comment-button-section{
       height:35px;
     }
   }

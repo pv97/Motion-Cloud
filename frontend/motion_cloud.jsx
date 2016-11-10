@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 //Components
 import Root from './components/root';
 import configureStore from './store/store';
+import {searchVideos} from './actions/search_actions'
 
 document.addEventListener('DOMContentLoaded', () => {
   let store;
@@ -14,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     store = configureStore();
   }
   window.store = store;
+  window.searchVideos = searchVideos;
   const root = document.getElementById('root');
   ReactDOM.render(<Root store={store}/>, root);
 });

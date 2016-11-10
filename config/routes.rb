@@ -4,6 +4,10 @@ Rails.application.routes.draw do
     resource :session, only: [:create, :destroy]
     resources :comments, only: [:create, :destroy, :edit, :update]
     resources :videos, only: [:create, :index, :show, :destroy, :edit, :update] do
+      collection do 
+        get 'search'
+      end
+
       resources :comments, only: [:index]
     end
   end

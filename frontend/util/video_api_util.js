@@ -1,4 +1,3 @@
-
 export const fetchVideos = (success, error) => {
   $.ajax({
     url: "api/videos",

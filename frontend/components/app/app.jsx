@@ -6,13 +6,17 @@ import UserNavContainer from './user_nav/user_nav_container'
 import VideoOverlayContainer from './video_overlay/video_overlay_container'
 //material ui
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import { AppBar } from 'material-ui'
+import { AppBar, FontIcon, IconButton, TextField } from 'material-ui'
 
 class App extends React.Component {
   constructor(props){
     super(props)
+    this.state = {
+      string:""
+    }
     this.toHomePage = this.toHomePage.bind(this)
 		this.slideVideoBox = this.slideVideoBox.bind(this)
+		this.handleSearch = this.handleSearch.bind(this)
   }
 
   componentWillMount(){
@@ -38,23 +42,46 @@ class App extends React.Component {
     this.props.router.replace({pathname,query:query})
   }
 
+  handleSearch(e){
+    e.preventDefault();
+		console.log(this.state.string)
+		this.props.searchVideos(this.state.string);
+  }
+
+	update(field) {
+		return e => this.setState({
+			[field]: e.currentTarget.value
+		});
+	}
+
+
   render(){
     return(
       <MuiThemeProvider>
         <div>
-          <AppBar
-            id="main-header"
-            iconElementLeft={
+          <div id="main-header">
+            <div id="header-padding">
               <div id="motion-cloud-logo" onClick={this.toHomePage}>MotionCloud</div>
-            }
-            iconElementRight={
+              <form id="search-bar" onSubmit={this.handleSearch}>
+                <TextField hintText="Search for a video" fullWidth
+                  onChange={this.update("string")}></TextField>
+                <IconButton
+                  className="search-button"
+                  tooltipPosition="bottom-center"
+                  tooltip="Search"
+                  style={{padding:10}}
+                  onClick={this.handleSearch}>
+                  <FontIcon className="material-icons" color={"rgb(0, 188, 212)"}
+                    >search</FontIcon>
+                </IconButton>
+              </form>
+              <div className="flex1"></div>
               <div>
                 <UserNavContainer />
                 <SessionFormContainer />
               </div>
-            }
-            >
-          </AppBar>
+            </div>
+          </div>
 
           <section id="main-section">
             <VideoOverlayContainer/>

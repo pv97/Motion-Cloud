@@ -7,7 +7,8 @@
   },
   query: {
     id: 1,
-    c:true
+    c:true,
+    q:"1q2"
   },
   authForm: {
     id: 1,
@@ -76,6 +77,21 @@
   commentForm: {
     body: "",
     errors:{}
+  },
+  search: {
+    1: {
+      id: 1,
+      title: "Sample Video",
+      url: "https://www.cloudinary.com"
+      thumbnail_url: "https://www.cloudinary.com"
+      body: "Sample comment",
+      user_id: 1,
+      video_id: 1,
+      likes: 1,
+      dislikes: 1
+    },
+    errors:{}
+    }
   }
 }
 ```

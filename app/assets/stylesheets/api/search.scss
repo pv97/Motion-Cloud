@@ -1,0 +1,124 @@
+// Place all the styles related to the api/Users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#search-page{
+  display:flex;
+  flex:1;
+  justify-content: flex-end;
+  height: 100%;
+  margin: 0px 25px auto;
+  background: #fff;
+
+  #search-page-main{
+    padding-top: 50px;
+    flex:5;
+
+    .no-results{
+      width:100%;
+      padding-top: 100px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    .videos{
+      background: #f1f1f1;
+      height:100%;
+
+      #search-video-list{
+        padding: 30px;
+        .video-index-item-margin{
+          padding: 10px;
+
+          .video-index-item{
+            display:relative;
+            display:flex;
+            padding:10px;
+            border-radius: 2px;
+            background: #fff;
+            box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+
+            .play-icon-box{
+              cursor:pointer;
+              justify-content: center;
+              align-items: center;
+              background:black;
+              width:300px;
+              height: 190px;
+              border:none;
+              padding:0;
+              margin:0;
+              box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+              border-radius: 2px;
+
+              .video-index-item-picture{
+                width:300px;
+                height:190px;
+              }
+              .picture-overlay{
+                position:absolute;
+                width:300px;
+                height:190px;
+                span{
+                  opacity: 0;
+                  visibility: hidden;
+                }
+                .center-button{
+                  display:flex;
+                  justify-content: center;
+                  align-items: center;
+                  width:100%;
+                  height:100%;
+                }
+                .top-right-button{
+                  position:absolute;
+                  top:0;
+                  right:0;
+                  display: flex;
+                  justify-content: flex-end;
+                }
+              }
+            }
+
+            .play-icon-box:hover span{
+              opacity: 0.70;
+              visibility: visible;
+            }
+
+            .center-button:active span{
+              color:rgb(0, 188, 212) !important;
+            }
+
+            .top-right-button:active span{
+              color:rgb(0, 188, 212) !important;
+            }
+
+            .video-index-item-detail{
+              height:190px;
+              overflow-y: hidden;
+
+              .video-index-item-title{
+                font-weight: 500;
+                font-size: 19px;
+                padding: 5px 10px;
+                cursor:pointer;
+              }
+              .video-index-item-title:hover{
+                color: rgb(0, 188, 212);
+              }
+              .video-index-view-age-detail, .video-index-item-user{
+                padding: 10px;
+              }
+              .video-index-view-count, .video-index-age, .video-index-item-user, .video-index-description{
+                color: rgb(120, 120, 120);
+                margin-bottom: 4px;
+                font-size: 14px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -34,8 +34,8 @@ class VideoIndex extends React.Component {
     this.props.router.replace({pathname:`/`,query});
   }
 
-  onChannelClick(event){
-    event.stopPropagation();
+  onChannelClick(e){
+    e.stopPropagation();
     let query = this.props.location.query;
     this.props.router.replace({pathname:`/users/2`,query});
   }
@@ -52,7 +52,7 @@ class VideoIndex extends React.Component {
   getVideos(){
     let videos = [];
     Object.keys(this.props.videos).map((key)=>{
-      if (key!=="errors") {
+      if (key!=="errors" && videos.length<16) {
         videos.push(this.props.videos[key]);
       }
     })

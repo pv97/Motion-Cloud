@@ -6,8 +6,8 @@ import {
 import { fetchUser } from '../util/user_api_util';
 
 export default ({getState, dispatch}) => next => action => {
-  const successCallback = user => dispatch(receiveUser(user));
-  const errorCallback = xhr => console.log(xhr);
+  let successCallback = user => dispatch(receiveUser(user));
+  let errorCallback = xhr => console.log(xhr);
 
   switch(action.type){
     case FETCH_USER:

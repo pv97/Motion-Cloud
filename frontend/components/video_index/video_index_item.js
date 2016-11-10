@@ -23,8 +23,8 @@ class VideoIndexItem extends React.Component {
     this.props.router.replace({pathname,query});
   }
 
-  handleQueueClick(event) {
-    event.stopPropagation();
+  handleQueueClick(e) {
+    e.stopPropagation();
     let videoId = this.props.video.id;
     let pathname = this.props.location.pathname;
     let query = this.props.location.query;

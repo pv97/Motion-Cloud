@@ -1,6 +1,11 @@
 class Api::VideosController < ApplicationController
   before_action :require_logged_in, only: [:create,:destroy,:update]
 
+  def search
+    @videos = Video.where("LOWER(title) LIKE ?", "%#{params[:search].downcase}%")
+    render 'api/videos/index'
+  end
+
   def show
     @video = Video.find(params[:id])
     @video.view_count += 1
