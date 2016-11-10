@@ -18,8 +18,9 @@ class VideoIndexItem extends React.Component {
   handleVideoClick() {
     let videoId = this.props.video.id;
     let pathname = this.props.location.pathname;
-    let newQuery = merge({},this.props.query,{id:videoId});
-    this.props.router.replace({pathname:pathname,query:newQuery});
+    let query = this.props.location.query;
+    query.id = videoId;
+    this.props.router.replace({pathname,query});
   }
 
   handleQueueClick(event) {

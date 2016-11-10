@@ -73738,8 +73738,9 @@
 	    value: function handleVideoClick() {
 	      var videoId = this.props.video.id;
 	      var pathname = this.props.location.pathname;
-	      var newQuery = (0, _merge2.default)({}, this.props.query, { id: videoId });
-	      this.props.router.replace({ pathname: pathname, query: newQuery });
+	      var query = this.props.location.query;
+	      query.id = videoId;
+	      this.props.router.replace({ pathname: pathname, query: query });
 	    }
 	  }, {
 	    key: 'handleQueueClick',
