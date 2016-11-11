@@ -70169,6 +70169,7 @@
 	    };
 	    _this.toggleReplyForm = _this.toggleReplyForm.bind(_this);
 	    _this.handleSubmit = _this.handleSubmit.bind(_this);
+	    _this.toUserPage = _this.toUserPage.bind(_this);
 	    return _this;
 	  }
 	
@@ -70223,6 +70224,12 @@
 	      this.props.createReply(reply);
 	    }
 	  }, {
+	    key: 'toUserPage',
+	    value: function toUserPage() {
+	      var query = this.props.location.query;
+	      this.props.router.push({ pathname: 'users/' + this.props.comment.user_id, query: query });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var comment = this.props.comment;
@@ -70237,7 +70244,7 @@
 	            { className: 'child-comment-details' },
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'child-comment-user' },
+	              { className: 'child-comment-user', onClick: this.toUserPage },
 	              comment.user
 	            ),
 	            _react2.default.createElement(
@@ -75640,7 +75647,7 @@
 	      var removeCommentSuccess = function removeCommentSuccess(comment) {
 	        return dispatch((0, _comment_actions.removeComment)(comment));
 	      };
-	      console.log(action);
+	
 	      switch (action.type) {
 	        case _comment_actions.FETCH_COMMENTS:
 	          (0, _comment_api_util.fetchComments)(receiveAllCommentsSuccess, errorCallback);

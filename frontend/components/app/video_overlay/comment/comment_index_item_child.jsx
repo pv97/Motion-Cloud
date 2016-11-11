@@ -11,6 +11,7 @@ class CommentIndexItemChild extends React.Component {
     }
     this.toggleReplyForm = this.toggleReplyForm.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.toUserPage = this.toUserPage.bind(this)
   }
 
   toggleReplyForm(){
@@ -32,7 +33,6 @@ class CommentIndexItemChild extends React.Component {
       return "display-none"
     }
   }
-
 
   errors(){
 		let errors = ""
@@ -58,6 +58,11 @@ class CommentIndexItemChild extends React.Component {
     this.props.createReply(reply);
 	}
 
+  toUserPage(){
+    let query = this.props.location.query;
+    this.props.router.push({pathname:`users/${this.props.comment.user_id}`,query});
+  }
+
   render() {
     let comment = this.props.comment
     return(
@@ -65,7 +70,7 @@ class CommentIndexItemChild extends React.Component {
 
         <li className="child-comment-container">
           <div className="child-comment-details">
-            <div className="child-comment-user">
+            <div className="child-comment-user" onClick={this.toUserPage}>
               {comment.user}
             </div>
             <div className="child-comment-time-ago">
