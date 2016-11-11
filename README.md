@@ -33,7 +33,7 @@ The search bar allows search video names.
 
 ####Nav Bar
 
-The nav bar allows users to navigate to their profile page, upload page, and
+The nav bar allows users to navigate to their profile page, upload page, and logout.
 ![logo.png](http://res.cloudinary.com/tlcoy4e3/image/upload/v1478888244/logged-in_hjga5x.png)
 
 __________
