@@ -45,15 +45,6 @@ The when the video player is rendered, an inline dummy div of equal width is als
 The video player keeps track of internal state of minimized=boolean and showQueue=boolean. Additionally show comments is handled in the query string. These booleans are conditions to decide class names of various divs of the video player.
 ![logo.png](http://res.cloudinary.com/tlcoy4e3/image/upload/v1478887583/video_overlay_fqgtwm.png)
 
-Clicking the SHOW QUEUE reveals videos added to queue, if any
-![logo.png](http://res.cloudinary.com/tlcoy4e3/image/upload/v1478888153/video-queue_hz0rwy.png)
-
-Clicking the SHOW COMMENTS banner, the player slides right, revealing comments belonging to the video
-![logo.png](http://res.cloudinary.com/tlcoy4e3/image/upload/v1478887569/comment-overlay_cefs4j.png)
-
-Player can be minimized to ease navigation
-![logo.png](http://res.cloudinary.com/tlcoy4e3/image/upload/v1478887568/minimized_yarxlq.png)
-
 __________
 
 ###Profile Page
