@@ -28207,7 +28207,6 @@
 	    key: 'handleSearch',
 	    value: function handleSearch(e) {
 	      e.preventDefault();
-	      console.log(this.state.string);
 	      this.props.searchVideos(this.state.string);
 	    }
 	  }, {
@@ -70965,15 +70964,12 @@
 					stylesheet: _upload_widget_theme2.default,
 					inline_container: '.upload-widget' }), function (error, results) {
 					if (!error) {
-						console.log(results);
 						_this2.uploadWidget.close();
 						_this2.setState({
 							url: results[0].url,
 							thumbnail_url: results[0].thumbnail_url,
 							uploadSuccess: "Successfully uploaded!"
-	
 						});
-						console.log(_this2.state);
 					}
 				});
 				this.uploadWidget.open();
@@ -75300,7 +75296,6 @@
 	
 	    case _comment_actions.RECEIVE_COMMENT:
 	      newState = (0, _merge2.default)({}, oldState);
-	      console.log(newState);
 	      newState.comments.push(action.comment);
 	      return newState;
 	

@@ -31,15 +31,12 @@ class VideoUploadForm extends React.Component {
 			),
 			(error, results) => {
 				if(!error){
-					console.log(results);
 					this.uploadWidget.close();
 					this.setState({
 						url: results[0].url,
 						thumbnail_url: results[0].thumbnail_url,
-						uploadSuccess:"Successfully uploaded!",
-
+						uploadSuccess:"Successfully uploaded!"
 					});
-					console.log(this.state);
 				}
 			}
 		);

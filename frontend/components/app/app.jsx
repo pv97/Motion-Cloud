@@ -44,7 +44,6 @@ class App extends React.Component {
 
   handleSearch(e){
     e.preventDefault();
-		console.log(this.state.string)
 		this.props.searchVideos(this.state.string);
   }
 

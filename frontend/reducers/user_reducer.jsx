@@ -13,7 +13,6 @@ const UserReducer = (oldState = {comments:[]}, action) => {
 
     case RECEIVE_COMMENT:
       newState = merge({},oldState)
-      console.log(newState);
       newState.comments.push(action.comment)
       return newState;
 
