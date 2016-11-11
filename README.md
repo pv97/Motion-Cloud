@@ -28,7 +28,7 @@ Displays featured channels and 16 of the latest videos.
 
 ####Search Bar
 
-The search bar allows search video names. The search dispatches a ajax request to the search method in the video controller. The search performs a simple where query for video titles with matching substrings ignoring case.
+The search bar allows search video names. The search dispatches a ajax request to the search method in the video controller. The search performs a simple where-query for video titles with matching substrings ignoring case.
 
 ####Nav Bar
 
