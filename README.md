@@ -38,7 +38,7 @@ __________
 
 ###Global player
 
-Video overlay is designed and built from scratch using react. Upon clicking on any video, a player pops up from the left. The player persists across page navigation. The player is always conditionally rendered according to presence of id=# in the url's query string. If there exists and id=#, the video player is rendered, if not, an empty position fixed div is rendered.
+Video overlay is designed and built from scratch using react. Upon clicking on any video, a player pops up from the left. The player persists across page navigation. The player is always conditionally rendered according to presence of id=# in the url's query string. If there exists an id=#, the video player is rendered, if not, an empty position fixed div is rendered.
 
 The when the video player is rendered, an inline dummy div of equal width is also rendered, which serves to push the page content to the right.
 
