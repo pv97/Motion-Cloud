@@ -8,7 +8,6 @@ const VideosMiddleware = ({getState, dispatch}) => next => action => {
     dispatch(receiveSearchVideos(videos));
     hashHistory.push("/search"+hashHistory.getCurrentLocation().search);
   };
-console.log(action);
   switch (action.type) {
     case SEARCH_VIDEOS:
       searchVideos(action.string, successCallback, errorCallback);

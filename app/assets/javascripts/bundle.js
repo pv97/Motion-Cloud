@@ -69964,6 +69964,7 @@
 	    };
 	    _this.toggleReplyForm = _this.toggleReplyForm.bind(_this);
 	    _this.handleSubmit = _this.handleSubmit.bind(_this);
+	    _this.toUserPage = _this.toUserPage.bind(_this);
 	    return _this;
 	  }
 	
@@ -70042,6 +70043,12 @@
 	      }
 	    }
 	  }, {
+	    key: 'toUserPage',
+	    value: function toUserPage() {
+	      var query = this.props.location.query;
+	      this.props.router.push({ pathname: 'users/' + this.props.comment.user_id, query: query });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var childComments = this.props.childComments;
@@ -70057,7 +70064,7 @@
 	            { className: 'parent-comment-details' },
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'parent-comment-user' },
+	              { className: 'parent-comment-user', onClick: this.toUserPage },
 	              comment.user
 	            ),
 	            _react2.default.createElement(
@@ -75856,7 +75863,6 @@
 	        dispatch((0, _search_actions.receiveSearchVideos)(videos));
 	        _reactRouter.hashHistory.push("/search" + _reactRouter.hashHistory.getCurrentLocation().search);
 	      };
-	      console.log(action);
 	      switch (action.type) {
 	        case _search_actions.SEARCH_VIDEOS:
 	          (0, _search_api_util.searchVideos)(action.string, successCallback, errorCallback);

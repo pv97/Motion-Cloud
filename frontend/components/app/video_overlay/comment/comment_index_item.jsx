@@ -12,6 +12,7 @@ class CommentIndexItem extends React.Component {
     }
     this.toggleReplyForm = this.toggleReplyForm.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.toUserPage = this.toUserPage.bind(this)
   }
 
   toggleReplyForm(){
@@ -57,7 +58,6 @@ class CommentIndexItem extends React.Component {
     }
   }
 
-
   getChildComments(){
     let childComments = this.props.childComments
     if(childComments.length>0){
@@ -81,6 +81,10 @@ class CommentIndexItem extends React.Component {
     }
   }
 
+  toUserPage(){
+    let query = this.props.location.query;
+    this.props.router.push({pathname:`users/${this.props.comment.user_id}`,query});
+  }
 
   render() {
     let childComments = this.props.childComments;
@@ -89,7 +93,7 @@ class CommentIndexItem extends React.Component {
       <li className="parent-comment-container">
         <div className="parent-comment">
           <div className="parent-comment-details">
-            <div className="parent-comment-user">
+            <div className="parent-comment-user" onClick={this.toUserPage}>
               {comment.user}
             </div>
             <div className="parent-comment-time-ago">
