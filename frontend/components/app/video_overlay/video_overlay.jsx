@@ -19,6 +19,7 @@ class VideoOverlay extends React.Component {
 		this.setSlideTurnary = this.setSlideTurnary.bind(this);
 		this.shiftVideoQueue = this.shiftVideoQueue.bind(this);
 		this.toggleShowQueue = this.toggleShowQueue.bind(this);
+		this.toUserPage = this.toUserPage.bind(this);
 	}
 
 	componentDidMount(){
@@ -106,6 +107,11 @@ class VideoOverlay extends React.Component {
 		}
 	}
 
+	toUserPage(){
+    let query = this.props.location.query;
+    this.props.router.push({pathname:`users/${this.props.videos[this.props.query.id].user_id}`,query});
+  }
+
 	render() {
 		let video = this.props.videos[this.props.query.id];
 		if (video) {
@@ -168,7 +174,7 @@ class VideoOverlay extends React.Component {
 
 								<div className={this.setQueueTurnary("video-sub-details","display-none")()}>
 									<div id="video-user-view-details">
-										<div id="video-user-username">Uploaded by {video.user}</div>
+										<div id="video-user-username" onClick={this.toUserPage}>Uploaded by {video.user}</div>
 										<div id="video-view-count">{video.view_count} Views</div>
 									</div>
 									<div id="video-description">{video.description}</div>

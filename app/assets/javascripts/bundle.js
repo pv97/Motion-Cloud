@@ -67923,6 +67923,7 @@
 			_this.setSlideTurnary = _this.setSlideTurnary.bind(_this);
 			_this.shiftVideoQueue = _this.shiftVideoQueue.bind(_this);
 			_this.toggleShowQueue = _this.toggleShowQueue.bind(_this);
+			_this.toUserPage = _this.toUserPage.bind(_this);
 			return _this;
 		}
 	
@@ -68022,6 +68023,12 @@
 						return falseValue;
 					}
 				};
+			}
+		}, {
+			key: 'toUserPage',
+			value: function toUserPage() {
+				var query = this.props.location.query;
+				this.props.router.push({ pathname: 'users/' + this.props.videos[this.props.query.id].user_id, query: query });
 			}
 		}, {
 			key: 'render',
@@ -68126,7 +68133,7 @@
 											{ id: 'video-user-view-details' },
 											_react2.default.createElement(
 												'div',
-												{ id: 'video-user-username' },
+												{ id: 'video-user-username', onClick: this.toUserPage },
 												'Uploaded by ',
 												video.user
 											),
