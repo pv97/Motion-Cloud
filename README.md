@@ -13,7 +13,7 @@ This site aims to be a hybrid of SoundCloud and Youtube. MotionCloud allows user
 | Area               | Software      |
 | ---------------    |:-------------:|
 | Frontend           | React / Redux |
-| Backend            | Rails 5.0     |
+| Backend            | Rails         |
 | Hosting      		   | Heroku        |
 | Database Server	   | Cloudinary    |
 | Repo      		     | GitHub        |
@@ -28,19 +28,21 @@ Displays featured channels and 16 of the latest videos.
 
 ####Search Bar
 
-The search bar allows search video names.
-![logo.png](http://res.cloudinary.com/tlcoy4e3/image/upload/v1478887760/search_ivrgsy.png)
+The search bar allows search video names. The search dispatches a ajax request to the search method in the video controller. The search performs a simple where query for video titles with matching substrings ignoring case.
 
 ####Nav Bar
 
 The nav bar allows users to navigate to their profile page, upload page, and logout.
-![logo.png](http://res.cloudinary.com/tlcoy4e3/image/upload/v1478888244/logged-in_hjga5x.png)
 
 __________
 
 ###Global player
 
-Video overlay is designed and built from scratch using react. Upon clicking on any video, a player pops up from the left. The player persists across page navigation.
+Video overlay is designed and built from scratch using react. Upon clicking on any video, a player pops up from the left. The player persists across page navigation. The player is always conditionally rendered according to presence of id=# in the url's query string. If there exists and id=#, the video player is rendered, if not, an empty position fixed div is rendered.
+
+The when the video player is rendered, an inline dummy div of equal width is also rendered, which serves to push the page content to the right.
+
+The video player keeps track of internal state of minimized=boolean and showQueue=boolean. Additionally show comments is handled in the query string. These booleans are conditions to decide class names of various divs of the video player.
 ![logo.png](http://res.cloudinary.com/tlcoy4e3/image/upload/v1478887583/video_overlay_fqgtwm.png)
 
 Clicking the SHOW QUEUE reveals videos added to queue, if any
@@ -56,11 +58,8 @@ __________
 
 ###Profile Page
 
-Shows a list of user's videos
+Shows a list of user's videos and user's comments. This information is contained inside the user slice of the state.
 ![logo.png](http://res.cloudinary.com/tlcoy4e3/image/upload/v1478888365/user-page_vwify5.png)
-
-and user's comments
-![logo.png](http://res.cloudinary.com/tlcoy4e3/image/upload/v1478888425/user-comments_e5yqsf.png)
 
 __________
 
@@ -73,7 +72,7 @@ __________
 
 ###Query string
 
-Currently playing video ID/ queued video IDs are kept in query string
+Currently playing video ID/ queued video IDs are kept in query string. Throughout the application, any request to play videos merely push or replace the hashHistory with updated query strings. The video overlay listens to this change and calls updates to the query state if such changes are made. The query state allows the video overlay to determine if updates should be made.
 ![logo.png](http://res.cloudinary.com/tlcoy4e3/image/upload/v1478889008/url_t3zftb.png)
 
 __________
