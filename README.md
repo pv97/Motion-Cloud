@@ -63,7 +63,7 @@ __________
 
 ###Query string
 
-Currently playing video ID/ queued video IDs are kept in query string. Throughout the application, any request to play videos merely push or replace the hashHistory with updated query strings. The video overlay listens to this change and calls updates to the query state if such changes are made. The query state allows the video overlay to determine if updates should be made.
+Currently playing video ID/ queued video IDs are kept in query string. Throughout the application, any request to play videos merely push or replace the hashHistory with updated query strings. The video overlay listens to this change and calls updates to the query state if such changes are made. The calls for query state updates cause fetch requests to be made.
 ![logo.png](http://res.cloudinary.com/tlcoy4e3/image/upload/v1478889008/url_t3zftb.png)
 
 __________
