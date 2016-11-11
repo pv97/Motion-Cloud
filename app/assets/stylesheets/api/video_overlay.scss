@@ -11,6 +11,7 @@
   opacity:1;
   width: 496px;
   height: 279px;
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 3px 6px, rgba(0, 0, 0, 0.5) 0px 3px 6px;
 
   #video-overlay{
     width:100%;
@@ -50,6 +51,8 @@
 
 #video-dummy{
   display:flex;
+  margin-top:50px;
+  height:1px;
   width: 800px;
   padding-right: 40px;
   z-index: 100;

@@ -488,3 +488,5 @@ end
   Comment.create!({user_id:rand(5..9),video_id:i,parent_comment_id:(i*rand(1..3)),
     body:"#{Faker::Company.bs}"})
 end
+
+Comment.create!({user_id:1,video_id:1,body:"Welcome to MotionCloud!"})

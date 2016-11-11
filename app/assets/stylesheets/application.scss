@@ -84,7 +84,8 @@
 
 #page-boundary{
   display:flex;
-  justify-content: center;
+  flex-direction: column;
+  align-content: center;
   flex:1;
   background: #dddddd;
 

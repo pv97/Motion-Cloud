@@ -91,30 +91,30 @@ class App extends React.Component {
 
                 {this.props.children}
 
+                <section id="footer">
+                  <div id="trademark">
+                    © MotionCloud
+                  </div>
+
+                  <div id="signature">
+                    Designed and created by Pysith Vanuptikul
+                  </div>
+
+                  <div id="links">
+                    <a href="https://github.com/pv97" id="github" >
+                      <img src="http://res.cloudinary.com/tlcoy4e3/image/upload/v1478656445/github-8-xxl_cvvyqv.png"></img>
+                    </a>
+                    <a href="https://www.linkedin.com/in/pivanup" d="linked-in" >
+                      <img src="http://res.cloudinary.com/tlcoy4e3/image/upload/v1478656445/linkedin-3-xxl_x1laak.png"></img>
+                    </a>
+                    <a href="mailto:pivanup@gmail.com" id="email" >
+                      <img src="http://res.cloudinary.com/tlcoy4e3/image/upload/v1478656445/message-xxl_r7jyoy.png"></img>
+                    </a>
+                  </div>
+                </section>
             </div>
           </section>
 
-          <section id="footer">
-            <div id="trademark">
-              © MotionCloud 
-            </div>
-
-            <div id="signature">
-              Designed and created by Pysith Vanuptikul
-            </div>
-
-            <div id="links">
-              <a href="https://github.com/pv97" id="github" >
-                <img src="http://res.cloudinary.com/tlcoy4e3/image/upload/v1478656445/github-8-xxl_cvvyqv.png"></img>
-              </a>
-              <a href="https://www.linkedin.com/in/pivanup" d="linked-in" >
-                <img src="http://res.cloudinary.com/tlcoy4e3/image/upload/v1478656445/linkedin-3-xxl_x1laak.png"></img>
-              </a>
-              <a href="mailto:pivanup@gmail.com" id="email" >
-                <img src="http://res.cloudinary.com/tlcoy4e3/image/upload/v1478656445/message-xxl_r7jyoy.png"></img>
-              </a>
-            </div>
-          </section>
         </div>
       </MuiThemeProvider>
     )
