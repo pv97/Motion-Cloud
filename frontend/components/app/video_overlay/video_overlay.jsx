@@ -18,8 +18,7 @@ class VideoOverlay extends React.Component {
 		this.setMiniTurnary = this.setMiniTurnary.bind(this);
 		this.setSlideTurnary = this.setSlideTurnary.bind(this);
 		this.shiftVideoQueue = this.shiftVideoQueue.bind(this);
-		this.showQueue = this.showQueue.bind(this);
-		this.hideQueue = this.hideQueue.bind(this);
+		this.toggleShowQueue = this.toggleShowQueue.bind(this);
 	}
 
 	componentDidMount(){
@@ -72,12 +71,9 @@ class VideoOverlay extends React.Component {
 		this.setState({minimized:opposite});
 	}
 
-	showQueue(){
-		this.setState({showQueue:true});
-	}
-
-	hideQueue(){
-		this.setState({showQueue:false});
+	toggleShowQueue(){
+		let opposite = this.state.showQueue ? false : true;
+		this.setState({showQueue:opposite});
 	}
 
 	setMiniTurnary(falseValue,trueValue){
@@ -165,12 +161,9 @@ class VideoOverlay extends React.Component {
 								<div id="video-title">{video.title}</div>
 
 								<div id="detail-queue-toggle-buttons">
-									<div className={this.setQueueTurnary("clicked","show-details")()}
-										onClick={this.hideQueue}
-										>SHOW DETAILS</div>
 									<div className={this.setQueueTurnary("show-queue","clicked")()}
-										onClick={this.showQueue}
-										>SHOW QUEUE</div>
+										onClick={this.toggleShowQueue}
+										>{this.setQueueTurnary("SHOW QUEUE","SHOW DETAILS")()}</div>
 								</div>
 
 								<div className={this.setQueueTurnary("video-sub-details","display-none")()}>

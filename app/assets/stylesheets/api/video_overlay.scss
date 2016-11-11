@@ -11,7 +11,7 @@
   opacity:1;
   width: 496px;
   height: 279px;
-  box-shadow: rgba(0, 0, 0, 0.5) 0px 3px 6px, rgba(0, 0, 0, 0.5) 0px 3px 6px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 6px, rgba(0, 0, 0, 0.3) 0px 3px 6px;
 
   #video-overlay{
     width:100%;
@@ -183,35 +183,48 @@
 
         .clicked{
           text-align: center;
-          padding: 10px 20px;
+          padding: 5px 20px;
           flex:1;
           font-weight: 500;
           background: #f0f0f0;
           cursor:pointer;
         }
-        .show-details, .show-queue {
+        .show-queue {
           text-align: center;
-          padding: 10px 20px;
+          padding: 5px 20px;
           flex:1;
           font-weight: 500;
           background: #fff;
           cursor:pointer;
         }
-      }
-      #video-user-view-details{
-        display:flex;
-        justify-content: space-between;
-      }
-
-      #video-description{
-        margin-top: 15px;
-        flex:1;
-        overflow-y: hidden;
+        .show-queue:hover{
+          background: #f0f0f0;
+        }
+        .clicked:hover{
+          background: #fff;
+        }
       }
       .video-sub-details{
         margin-top: 20px;
         display:flex;
         flex-direction: column;
+
+        #video-user-view-details{
+          display:flex;
+          justify-content: space-between;
+
+          #video-user-username{
+            cursor:pointer;
+          }
+          #video-user-username:hover{
+            color: rgb(0, 188, 212);
+          }
+        }
+        #video-description{
+          margin-top: 15px;
+          flex:1;
+          overflow-y: hidden;
+        }
       }
       .video-queue{
         width:100%;

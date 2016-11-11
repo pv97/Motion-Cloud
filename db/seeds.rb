@@ -19,134 +19,6 @@ User.create!({username:"doge",password:"password"}) #9
 User.create!({username:"PBS Space Time",password:"password"}) #10
 
 Video.create!({
-  url:"http://res.cloudinary.com/tlcoy4e3/video/upload/v1478141038/fjbplm92cb48efhlqcss.webm",
-  thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478141038/fjbplm92cb48efhlqcss.jpg",
-  title:"How Far Will We Go?",
-  description:"Original video at https://www.youtube.com/watch?v=ZL4yYHdDSWs",
-  user_id:2,
-  view_count:rand(10000000)
-  })
-Video.create!({
-  url:"http://res.cloudinary.com/tlcoy4e3/video/upload/v1478368768/otgny75aqqny6bvthk6q.mkv",
-  thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478368768/otgny75aqqny6bvthk6q.jpg",
-  title:"Atoms As Big As Mountains — Neutron Stars Explained",
-  description: "Original at https://www.youtube.com/watch?v=ZW3aV7U-aik",
-  user_id:2,
-  view_count:rand(10000000)
-  })
-Video.create!({
-  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478368945/xeuvr4cdm9mpoqmdqmty.webm",
-  thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478368945/xeuvr4cdm9mpoqmdqmty.jpg",
-  title:"What is Light?",
-  description: "Original at https://www.youtube.com/watch?v=IXxZRZxafEQ",
-  user_id:2,
-  view_count:rand(10000000)
-  })
-Video.create!({
-  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478582136/xudbxw2s2olcm4ktyx47.webm",
-  thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478582136/xudbxw2s2olcm4ktyx47.jpg",
-  title:"How The Stock Exchange Works (For Dummies)",
-  description: "Original at https://www.youtube.com/watch?v=F3QpgXBtDeo",
-  user_id:2,
-  view_count:rand(10000000)
-  })
-Video.create!({
-  url: "https://www.youtube.com/watch?v=7UNLgPIiWAg",
-  thumbnail_url:"https://i.ytimg.com/vi/7UNLgPIiWAg/hqdefault.jpg",
-  title:"Did Dark Energy Just Disappear?",
-  description: "Original at https://www.youtube.com/watch?v=7UNLgPIiWAg",
-  user_id:10,
-  view_count:rand(10000000)
-  })
-Video.create!({
-  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478369051/vyzosn1ymlet7lykfyev.mkv",
-  thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478369051/vyzosn1ymlet7lykfyev.jpg",
-  title:"Chopin Nocturne No. 20 perf. by Wladyslaw Szpilman - 'The Pianist' - Original Recording",
-  description: "Original at https://www.youtube.com/watch?v=n9oQEa-d5rU",
-  user_id:1,
-  view_count:rand(10000000)
-  })
-Video.create!({
-  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478369182/pi4nduhz9yiiqfscmgwc.mkv",
-  thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478369182/pi4nduhz9yiiqfscmgwc.jpg",
-  title:"Debussy, Clair de lune (piano music)",
-  description: "Original at https://www.youtube.com/watch?v=LlvUepMa31o",
-  user_id:1,
-  view_count:rand(10000000)
-  })
-Video.create!({
-  url: "https://www.youtube.com/watch?v=s86-Z-CbaHA",
-  thumbnail_url:"https://i.ytimg.com/vi/s86-Z-CbaHA/hqdefault.jpg",
-  title: "The Banach–Tarski Paradox",
-  description: "Original at https://www.youtube.com/watch?v=s86-Z-CbaHA",
-  user_id:4,
-  view_count:rand(10000000)
-  })
-Video.create!({
-  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478369490/brthtgondouisur7fqkn.mp4",
-  thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478369490/brthtgondouisur7fqkn.jpg",
-  title: "Caste In the Sky Theme",
-  description: "Original at https://www.youtube.com/watch?v=bvnA62FOECg",
-  user_id:1,
-  view_count:rand(10000000)
-  })
-Video.create!({
-  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478369790/chzwyptwcd43ddl6pq1k.mkv",
-  thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478369790/chzwyptwcd43ddl6pq1k.jpg",
-  title: "Princess Mononoke Main Theme",
-  description: "Original at https://www.youtube.com/watch?v=nBADF1LdP3g",
-  user_id:1,
-  view_count:rand(10000000)
-  })
-Video.create!({
-  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478369921/mioxqkgs8q3mtrxwe1kt.mkv",
-  thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478369921/mioxqkgs8q3mtrxwe1kt.jpg",
-  title: "TheFellowshipoftheRingST-17-The Breaking of the Fellowship",
-  description: "Original at https://www.youtube.com/watch?v=sQ9NOV3KNpY",
-  user_id:1,
-  view_count:rand(10000000)
-  })
-Video.create!({
-  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478371275/vc07xcdkxnbada27kxgj.mp4",
-  thumbnail_url: "http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478371275/vc07xcdkxnbada27kxgj.jpg",
-  title: "One Second Video - for testing",
-  description: "Just for tests",
-  user_id:1,
-  view_count:rand(10000000)
-  })
-Video.create!({
-  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478369678/pzcfx7bighyuy86x5tsu.webm",
-  thumbnail_url: "http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478369678/pzcfx7bighyuy86x5tsu.jpg",
-  title: "Spirited Away - One Summer's Day",
-  description: "Original at https://www.youtube.com/watch?v=smn0HOvwoZ8",
-  user_id:1,
-  view_count:rand(10000000)
-  })
-Video.create!({
-  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478389781/pnvsquhd7qtfd4afw63v.mkv",
-  thumbnail_url: "http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478389781/pnvsquhd7qtfd4afw63v.jpg",
-  title: "Pokemon TV Anime Best 1997-2010 - Route 4",
-  description: "Original at https://www.youtube.com/watch?v=stWae6r7Blw",
-  user_id:1,
-  view_count:rand(10000000)
-  })
-Video.create!({
-  url: "https://www.youtube.com/watch?v=q6yHoSvrTss",
-  thumbnail_url: "https://i.ytimg.com/vi/q6yHoSvrTss/hqdefault.jpg",
-  title: "Ultimate Skyrim",
-  description: "Original at https://www.youtube.com/watch?v=q6yHoSvrTss",
-  user_id:3,
-  view_count:rand(10000000)
-  })
-Video.create!({
-  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478629370/Dark_Souls_3_OST_Main_Theme_qzbdo3.webm",
-  thumbnail_url: "http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478629370/Dark_Souls_3_OST_Main_Theme_qzbdo3.jpg",
-  title: "Dark Souls 3 OST Main Theme",
-  description: "Original at https://www.youtube.com/watch?v=a0X0YA6ZfW4",
-  user_id:1,
-  view_count:rand(10000000)
-  })
-Video.create!({
   url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478390467/wcfshijkad06qyocsqwe.mkv",
   thumbnail_url: "http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478390467/wcfshijkad06qyocsqwe.jpg",
   title: "The Fellowship of the Ring Soundtrack-02-Concerning Hobbits",
@@ -463,28 +335,165 @@ Video.create!({
   user_id:10,
   view_count:rand(10000000)
   })
+#fri
+Video.create!({
+  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478842399/xmmbcb5zz3jfvf2r7gfo.mp4",
+  thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478842399/xmmbcb5zz3jfvf2r7gfo.jpg",
+  title:"Trump",
+  description: "",
+  user_id:1,
+  view_count:rand(10000000)
+  })
+#display
 
+Video.create!({
+  url: "https://www.youtube.com/watch?v=7UNLgPIiWAg",
+  thumbnail_url:"https://i.ytimg.com/vi/7UNLgPIiWAg/hqdefault.jpg",
+  title:"Did Dark Energy Just Disappear?",
+  description: "Original at https://www.youtube.com/watch?v=7UNLgPIiWAg",
+  user_id:10,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478369051/vyzosn1ymlet7lykfyev.mkv",
+  thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478369051/vyzosn1ymlet7lykfyev.jpg",
+  title:"Chopin Nocturne No. 20 perf. by Wladyslaw Szpilman - 'The Pianist' - Original Recording",
+  description: "Original at https://www.youtube.com/watch?v=n9oQEa-d5rU",
+  user_id:1,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478369182/pi4nduhz9yiiqfscmgwc.mkv",
+  thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478369182/pi4nduhz9yiiqfscmgwc.jpg",
+  title:"Debussy, Clair de lune (piano music)",
+  description: "Original at https://www.youtube.com/watch?v=LlvUepMa31o",
+  user_id:1,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "https://www.youtube.com/watch?v=s86-Z-CbaHA",
+  thumbnail_url:"https://i.ytimg.com/vi/s86-Z-CbaHA/hqdefault.jpg",
+  title: "The Banach–Tarski Paradox",
+  description: "Original at https://www.youtube.com/watch?v=s86-Z-CbaHA",
+  user_id:4,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478369490/brthtgondouisur7fqkn.mp4",
+  thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478369490/brthtgondouisur7fqkn.jpg",
+  title: "Caste In the Sky Theme",
+  description: "Original at https://www.youtube.com/watch?v=bvnA62FOECg",
+  user_id:1,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478369790/chzwyptwcd43ddl6pq1k.mkv",
+  thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478369790/chzwyptwcd43ddl6pq1k.jpg",
+  title: "Princess Mononoke Main Theme",
+  description: "Original at https://www.youtube.com/watch?v=nBADF1LdP3g",
+  user_id:1,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478369921/mioxqkgs8q3mtrxwe1kt.mkv",
+  thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478369921/mioxqkgs8q3mtrxwe1kt.jpg",
+  title: "TheFellowshipoftheRingST-17-The Breaking of the Fellowship",
+  description: "Original at https://www.youtube.com/watch?v=sQ9NOV3KNpY",
+  user_id:1,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478371275/vc07xcdkxnbada27kxgj.mp4",
+  thumbnail_url: "http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478371275/vc07xcdkxnbada27kxgj.jpg",
+  title: "One Second Video - for testing",
+  description: "Just for tests",
+  user_id:1,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478369678/pzcfx7bighyuy86x5tsu.webm",
+  thumbnail_url: "http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478369678/pzcfx7bighyuy86x5tsu.jpg",
+  title: "Spirited Away - One Summer's Day",
+  description: "Original at https://www.youtube.com/watch?v=smn0HOvwoZ8",
+  user_id:1,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478389781/pnvsquhd7qtfd4afw63v.mkv",
+  thumbnail_url: "http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478389781/pnvsquhd7qtfd4afw63v.jpg",
+  title: "Pokemon TV Anime Best 1997-2010 - Route 4",
+  description: "Original at https://www.youtube.com/watch?v=stWae6r7Blw",
+  user_id:1,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "https://www.youtube.com/watch?v=q6yHoSvrTss",
+  thumbnail_url: "https://i.ytimg.com/vi/q6yHoSvrTss/hqdefault.jpg",
+  title: "Ultimate Skyrim",
+  description: "Original at https://www.youtube.com/watch?v=q6yHoSvrTss",
+  user_id:3,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478629370/Dark_Souls_3_OST_Main_Theme_qzbdo3.webm",
+  thumbnail_url: "http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478629370/Dark_Souls_3_OST_Main_Theme_qzbdo3.jpg",
+  title: "Dark Souls 3 OST Main Theme",
+  description: "Original at https://www.youtube.com/watch?v=a0X0YA6ZfW4",
+  user_id:1,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url:"http://res.cloudinary.com/tlcoy4e3/video/upload/v1478141038/fjbplm92cb48efhlqcss.webm",
+  thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478141038/fjbplm92cb48efhlqcss.jpg",
+  title:"How Far Will We Go?",
+  description:"Original video at https://www.youtube.com/watch?v=ZL4yYHdDSWs",
+  user_id:2,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url:"http://res.cloudinary.com/tlcoy4e3/video/upload/v1478368768/otgny75aqqny6bvthk6q.mkv",
+  thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478368768/otgny75aqqny6bvthk6q.jpg",
+  title:"Atoms As Big As Mountains — Neutron Stars Explained",
+  description: "Original at https://www.youtube.com/watch?v=ZW3aV7U-aik",
+  user_id:2,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478368945/xeuvr4cdm9mpoqmdqmty.webm",
+  thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478368945/xeuvr4cdm9mpoqmdqmty.jpg",
+  title:"What is Light?",
+  description: "Original at https://www.youtube.com/watch?v=IXxZRZxafEQ",
+  user_id:2,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478582136/xudbxw2s2olcm4ktyx47.webm",
+  thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478582136/xudbxw2s2olcm4ktyx47.jpg",
+  title:"How The Stock Exchange Works (For Dummies)",
+  description: "Original at https://www.youtube.com/watch?v=F3QpgXBtDeo",
+  user_id:2,
+  view_count:rand(10000000)
+  })
 
-
-(1..55).each do |i|
+(1..56).each do |i|
   Comment.create!({user_id:5,video_id:i,body:"first"})
 end
 
-(1..55).each do |i|
+(1..56).each do |i|
   Comment.create!({user_id:7,video_id:i,body:
     "#{Faker::Hacker.noun} #{Faker::Hacker.verb} #{Faker::Hacker.adjective} #{Faker::Hacker.verb}"})
 end
 
-(1..55).each do |i|
+(1..56).each do |i|
   Comment.create!({user_id:rand(5..9),video_id:i,body:"#{Faker::Company.bs}"})
 end
 
-(1..55).each do |i|
+(1..56).each do |i|
   Comment.create!({user_id:rand(5..9),video_id:i,parent_comment_id:(i*rand(1..3)),
     body:"#{Faker::Company.bs}"})
 end
 
-(1..55).each do |i|
+(1..56).each do |i|
   Comment.create!({user_id:rand(5..9),video_id:i,parent_comment_id:(i*rand(1..3)),
     body:"#{Faker::Company.bs}"})
 end

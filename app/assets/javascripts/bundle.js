@@ -67922,8 +67922,7 @@
 			_this.setMiniTurnary = _this.setMiniTurnary.bind(_this);
 			_this.setSlideTurnary = _this.setSlideTurnary.bind(_this);
 			_this.shiftVideoQueue = _this.shiftVideoQueue.bind(_this);
-			_this.showQueue = _this.showQueue.bind(_this);
-			_this.hideQueue = _this.hideQueue.bind(_this);
+			_this.toggleShowQueue = _this.toggleShowQueue.bind(_this);
 			return _this;
 		}
 	
@@ -67980,14 +67979,10 @@
 				this.setState({ minimized: opposite });
 			}
 		}, {
-			key: 'showQueue',
-			value: function showQueue() {
-				this.setState({ showQueue: true });
-			}
-		}, {
-			key: 'hideQueue',
-			value: function hideQueue() {
-				this.setState({ showQueue: false });
+			key: 'toggleShowQueue',
+			value: function toggleShowQueue() {
+				var opposite = this.state.showQueue ? false : true;
+				this.setState({ showQueue: opposite });
 			}
 		}, {
 			key: 'setMiniTurnary',
@@ -68117,17 +68112,10 @@
 										{ id: 'detail-queue-toggle-buttons' },
 										_react2.default.createElement(
 											'div',
-											{ className: this.setQueueTurnary("clicked", "show-details")(),
-												onClick: this.hideQueue
-											},
-											'SHOW DETAILS'
-										),
-										_react2.default.createElement(
-											'div',
 											{ className: this.setQueueTurnary("show-queue", "clicked")(),
-												onClick: this.showQueue
+												onClick: this.toggleShowQueue
 											},
-											'SHOW QUEUE'
+											this.setQueueTurnary("SHOW QUEUE", "SHOW DETAILS")()
 										)
 									),
 									_react2.default.createElement(
@@ -74415,7 +74403,7 @@
 	      var _this3 = this;
 	
 	      var videos = [];
-	      Object.keys(this.props.videos).map(function (key) {
+	      Object.keys(this.props.videos).reverse().map(function (key) {
 	        if (key !== "errors" && videos.length < 16) {
 	          videos.push(_this3.props.videos[key]);
 	        }

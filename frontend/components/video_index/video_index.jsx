@@ -51,7 +51,7 @@ class VideoIndex extends React.Component {
 
   getVideos(){
     let videos = [];
-    Object.keys(this.props.videos).map((key)=>{
+    Object.keys(this.props.videos).reverse().map((key)=>{
       if (key!=="errors" && videos.length<16) {
         videos.push(this.props.videos[key]);
       }
