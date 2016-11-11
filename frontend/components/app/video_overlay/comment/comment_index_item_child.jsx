@@ -60,6 +60,7 @@ class CommentIndexItemChild extends React.Component {
 
   toUserPage(){
     let query = this.props.location.query;
+    query.c = undefined;
     this.props.router.push({pathname:`users/${this.props.comment.user_id}`,query});
   }
 
