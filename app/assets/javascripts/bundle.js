@@ -75761,7 +75761,7 @@
 	
 	      switch (action.type) {
 	        case _query_actions.SET_QUERY:
-	          if (action.query.id !== getState().query.id) {
+	          if (action.query.id && action.query.id !== getState().query.id) {
 	            (0, _comment_api_util.fetchComments)(action.query.id, receiveCommentsSuccess, errorCallback);
 	            (0, _video_api_util.fetchVideo)(action.query.id, receiveVideoSuccess, errorCallback);
 	          }

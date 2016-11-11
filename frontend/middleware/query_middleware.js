@@ -12,7 +12,7 @@ export default ({getState, dispatch}) => next => action => {
 
   switch(action.type){
     case SET_QUERY:
-      if (action.query.id !== getState().query.id){
+      if (action.query.id && action.query.id !== getState().query.id){
         fetchComments(action.query.id, receiveCommentsSuccess, errorCallback);
         fetchVideo(action.query.id,receiveVideoSuccess,errorCallback)
       }
