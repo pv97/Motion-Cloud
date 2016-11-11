@@ -47,7 +47,7 @@ Clicking the SHOW QUEUE reveals videos added to queue, if any
 ![logo.png](http://res.cloudinary.com/tlcoy4e3/image/upload/v1478888153/video-queue_hz0rwy.png)
 
 Clicking the SHOW COMMENTS banner, the player slides right, revealing comments belonging to the video
-![logo.png](http://res.cloudinary.com/tlcoy4e3/image/upload/v1478887583/video_overlay_fqgtwm.png)
+![logo.png](http://res.cloudinary.com/tlcoy4e3/image/upload/v1478887569/comment-overlay_cefs4j.png)
 
 Player can be minimized to ease navigation
 ![logo.png](http://res.cloudinary.com/tlcoy4e3/image/upload/v1478887568/minimized_yarxlq.png)
