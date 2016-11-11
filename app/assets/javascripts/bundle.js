@@ -21491,7 +21491,7 @@
 	
 	var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
 	
-	var _video_actions = __webpack_require__(647);
+	var _user_actions = __webpack_require__(742);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -21503,6 +21503,10 @@
 	
 	// react router
 	
+	
+	var requestUser = function requestUser(nextState) {
+	  store.dispatch((0, _user_actions.fetchUser)(nextState.params.userId));
+	};
 	
 	var Root = function Root(_ref) {
 	  var store = _ref.store;
@@ -21518,7 +21522,7 @@
 	        _reactRouter.Route,
 	        { path: '/', component: _app_container2.default },
 	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _video_index_container2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: '/users/:userId', component: _user_page_container2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: '/users/:userId', component: _user_page_container2.default, onEnter: requestUser }),
 	        _react2.default.createElement(_reactRouter.Route, { path: '/videos/new', component: _video_upload_form_container2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: '/search', component: _search_container2.default })
 	      )
@@ -73867,11 +73871,6 @@
 	  }
 	
 	  _createClass(UserPage, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.props.fetchUser(this.props.params.userId);
-	    }
-	  }, {
 	    key: 'commentsClass',
 	    value: function commentsClass() {
 	      if (this.state.show === "videos") {
@@ -75641,7 +75640,7 @@
 	      var removeCommentSuccess = function removeCommentSuccess(comment) {
 	        return dispatch((0, _comment_actions.removeComment)(comment));
 	      };
-	
+	      console.log(action);
 	      switch (action.type) {
 	        case _comment_actions.FETCH_COMMENTS:
 	          (0, _comment_api_util.fetchComments)(receiveAllCommentsSuccess, errorCallback);

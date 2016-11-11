@@ -14,10 +14,6 @@ class UserPage extends React.Component {
     this.showComments = this.showComments.bind(this)
   }
 
-  componentWillMount(){
-    this.props.fetchUser(this.props.params.userId);
-  }
-
   commentsClass(){
     if(this.state.show==="videos"){
       return "display-none"

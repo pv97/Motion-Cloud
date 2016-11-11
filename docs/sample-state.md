@@ -31,7 +31,7 @@
     errors:{}
     }
   },
-  userShow: {
+  user: {
     username: "username",
     videos: {
       1: {

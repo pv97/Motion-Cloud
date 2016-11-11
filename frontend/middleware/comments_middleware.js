@@ -29,7 +29,7 @@ const CommentsMiddleware = ({getState, dispatch}) => next => action => {
   let receiveCommentSuccess = comment => dispatch(receiveComment(comment));
   let receiveReplySuccess = reply => dispatch(receiveReply(reply));
   let removeCommentSuccess = comment => dispatch(removeComment(comment));
-
+console.log(action)
   switch (action.type) {
     case FETCH_COMMENTS:
       fetchComments(receiveAllCommentsSuccess, errorCallback);

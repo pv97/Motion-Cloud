@@ -15,7 +15,11 @@ import SearchContainer from './search/search_container';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
-import { fetchAllVideos } from '../actions/video_actions'
+import { fetchUser } from '../actions/user_actions'
+
+const requestUser = (nextState) => {
+  store.dispatch(fetchUser(nextState.params.userId))
+}
 
 const Root = ({ store }) => {
 
@@ -24,7 +28,7 @@ const Root = ({ store }) => {
       <Router history={hashHistory}>
         <Route path="/" component={AppContainer}>
           <IndexRoute component={VideoIndexContainer}/>
-          <Route path="/users/:userId" component={UserPageContainer}/>
+          <Route path="/users/:userId" component={UserPageContainer} onEnter={requestUser}/>
           <Route path="/videos/new" component={VideoUploadFormContainer}/>
           <Route path="/search" component={SearchContainer}/>
         </Route>
