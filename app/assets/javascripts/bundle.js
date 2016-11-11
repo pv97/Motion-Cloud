@@ -73806,6 +73806,7 @@
 	var mapStateToProps = function mapStateToProps(state) {
 	  return {
 	    user: state.user,
+	    videos: state.videos,
 	    query: state.query
 	  };
 	};
@@ -73919,6 +73920,8 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+	
 	      var user = this.props.user;
 	      var videos = user.videos;
 	      var comments = user.comments;
@@ -73969,7 +73972,8 @@
 	                'div',
 	                { id: 'user-comment-list' },
 	                comments.map(function (comment) {
-	                  return _react2.default.createElement(_comment_item2.default, { comment: comment, key: comment.id });
+	                  return _react2.default.createElement(_comment_item2.default, { comment: comment, key: comment.id,
+	                    video: _this2.props.videos[comment.video_id] });
 	                })
 	              )
 	            ),
@@ -74212,33 +74216,49 @@
 	var CommentItem = function (_React$Component) {
 	  _inherits(CommentItem, _React$Component);
 	
-	  function CommentItem() {
+	  function CommentItem(props) {
 	    _classCallCheck(this, CommentItem);
 	
-	    return _possibleConstructorReturn(this, (CommentItem.__proto__ || Object.getPrototypeOf(CommentItem)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (CommentItem.__proto__ || Object.getPrototypeOf(CommentItem)).call(this, props));
+	
+	    _this.openVideo = _this.openVideo.bind(_this);
+	    return _this;
 	  }
 	
 	  _createClass(CommentItem, [{
+	    key: 'openVideo',
+	    value: function openVideo() {
+	      var videoId = this.props.video.id;
+	      var pathname = this.props.location.pathname;
+	      var query = this.props.location.query;
+	      query.id = videoId;
+	      this.props.router.replace({ pathname: pathname, query: query });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var comment = this.props.comment;
+	      var title = void 0;
+	      if (this.props.video) {
+	        title = this.props.video.title;
+	      }
 	      return _react2.default.createElement(
 	        'li',
-	        { className: 'parent-comment-container' },
+	        { className: 'comment-container' },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'parent-comment' },
+	          { className: 'comment' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'parent-comment-details' },
+	            { className: 'comment-details' },
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'parent-comment-user' },
-	              comment.user
+	              { className: 'comment-video', onClick: this.openVideo },
+	              title
 	            ),
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'parent-comment-time-ago' },
+	              { className: 'comment-time-ago' },
 	              'Posted ',
 	              comment.age,
 	              ' ago'
@@ -74246,7 +74266,7 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'parent-comment-body' },
+	            { className: 'comment-body' },
 	            comment.body
 	          )
 	        )

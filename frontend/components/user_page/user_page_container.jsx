@@ -4,6 +4,7 @@ import { fetchUser } from '../../actions/user_actions'
 
 const mapStateToProps = state => ({
   user: state.user,
+  videos: state.videos,  
   query: state.query
 });
 

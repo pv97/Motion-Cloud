@@ -58,7 +58,7 @@ class UserPage extends React.Component {
     let user = this.props.user
     let videos = user.videos
     let comments = user.comments
-
+    
     if(videos){
       return(
         <div id="user-page">
@@ -87,7 +87,8 @@ class UserPage extends React.Component {
             <div className={this.commentsClass()}>
               <div id="user-comment-list">
                 {comments.map(comment => (
-                  <CommentItem comment={comment} key={comment.id}/>
+                  <CommentItem comment={comment} key={comment.id}
+                    video={this.props.videos[comment.video_id]}/>
                 ))}
               </div>
             </div>
