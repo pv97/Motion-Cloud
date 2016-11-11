@@ -16,6 +16,8 @@ User.create!({username:"null; DROP USERS TABLE;",password:"password"}) #7
 User.create!({username:"Batman",password:"password"}) #8
 User.create!({username:"doge",password:"password"}) #9
 
+User.create!({username:"PBS Space Time",password:"password"}) #10
+
 Video.create!({
   url:"http://res.cloudinary.com/tlcoy4e3/video/upload/v1478141038/fjbplm92cb48efhlqcss.webm",
   thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478141038/fjbplm92cb48efhlqcss.jpg",
@@ -49,14 +51,13 @@ Video.create!({
   view_count:rand(10000000)
   })
 Video.create!({
-  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478582629/tuon0634h1m2aqgbsaa9.mp4",
-  thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478582629/tuon0634h1m2aqgbsaa9.jpg",
-  title:"How Big is the Moon MM#1",
-  description: "Original at https://www.youtube.com/watch?v=Tqt9hZcWhJM",
-  user_id:2,
+  url: "https://www.youtube.com/watch?v=7UNLgPIiWAg",
+  thumbnail_url:"https://i.ytimg.com/vi/7UNLgPIiWAg/hqdefault.jpg",
+  title:"Did Dark Energy Just Disappear?",
+  description: "Original at https://www.youtube.com/watch?v=7UNLgPIiWAg",
+  user_id:10,
   view_count:rand(10000000)
   })
-
 Video.create!({
   url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478369051/vyzosn1ymlet7lykfyev.mkv",
   thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478369051/vyzosn1ymlet7lykfyev.jpg",
@@ -161,6 +162,14 @@ Video.create!({
   user_id:1,
   view_count:rand(10000000)
   })
+Video.create!({
+  url: "http://res.cloudinary.com/tlcoy4e3/video/upload/v1478582629/tuon0634h1m2aqgbsaa9.mp4",
+  thumbnail_url:"http://res.cloudinary.com/tlcoy4e3/video/upload/w_300,h_180/v1478582629/tuon0634h1m2aqgbsaa9.jpg",
+  title:"How Big is the Moon MM#1",
+  description: "Original at https://www.youtube.com/watch?v=Tqt9hZcWhJM",
+  user_id:2,
+  view_count:rand(10000000)
+  })
 # youtube
 # Kurzgesagt
 Video.create!({
@@ -243,6 +252,22 @@ Video.create!({
   user_id:2,
   view_count:rand(10000000)
   })
+Video.create!({
+  url: "https://www.youtube.com/watch?v=dGiQaabX3_o",
+  thumbnail_url:"https://i.ytimg.com/vi/dGiQaabX3_o/hqdefault.jpg",
+  title:"What Happened Before History? Human Origins",
+  description: "Original at https://www.youtube.com/watch?v=dGiQaabX3_o",
+  user_id:2,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "https://www.youtube.com/watch?v=LS-VPyLaJFM",
+  thumbnail_url:"https://i.ytimg.com/vi/LS-VPyLaJFM/hqdefault.jpg",
+  title:"The Last Star in the Universe – Red Dwarfs Explained",
+  description: "Original at https://www.youtube.com/watch?v=LS-VPyLaJFM",
+  user_id:2,
+  view_count:rand(10000000)
+  })
 #dunkey
 Video.create!({
   url: "https://www.youtube.com/watch?v=z55rJznqF3E",
@@ -257,6 +282,22 @@ Video.create!({
   thumbnail_url:"https://i.ytimg.com/vi/4Cr6QNQkk3o/hqdefault.jpg",
   title:"Operation Teemo",
   description: "Original at https://www.youtube.com/watch?v=4Cr6QNQkk3o",
+  user_id:3,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "https://www.youtube.com/watch?v=KtglAQCxUIk",
+  thumbnail_url:"https://i.ytimg.com/vi/KtglAQCxUIk/hqdefault.jpg",
+  title:"Just Guy 3 : Cable Guy",
+  description: "Original at https://www.youtube.com/watch?v=KtglAQCxUIk",
+  user_id:3,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "https://www.youtube.com/watch?v=9g3CjQv5yec",
+  thumbnail_url:"https://i.ytimg.com/vi/9g3CjQv5yec/hqdefault.jpg",
+  title:"Silent Hill 2",
+  description: "Original at https://www.youtube.com/watch?v=9g3CjQv5yec",
   user_id:3,
   view_count:rand(10000000)
   })
@@ -317,26 +358,133 @@ Video.create!({
   user_id:4,
   view_count:rand(10000000)
   })
+Video.create!({
+  url: "https://www.youtube.com/watch?v=csInNn6pfT4",
+  thumbnail_url:"https://i.ytimg.com/vi/csInNn6pfT4/hqdefault.jpg",
+  title:"Fixed Points",
+  description: "Original at https://www.youtube.com/watch?v=csInNn6pfT4",
+  user_id:4,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "https://www.youtube.com/watch?v=Ks8WH3xUo_E",
+  thumbnail_url:"https://i.ytimg.com/vi/Ks8WH3xUo_E/hqdefault.jpg",
+  title:"Who Owns The Moon?",
+  description: "Original at https://www.youtube.com/watch?v=Ks8WH3xUo_E",
+  user_id:4,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "https://www.youtube.com/watch?v=zRP82omMX0g",
+  thumbnail_url:"https://i.ytimg.com/vi/zRP82omMX0g/hqdefault.jpg",
+  title:"INSIDE a Spherical Mirror",
+  description: "Original at https://www.youtube.com/watch?v=zRP82omMX0g",
+  user_id:4,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "https://www.youtube.com/watch?v=K0-GxoJ_Pcg",
+  thumbnail_url:"https://i.ytimg.com/vi/K0-GxoJ_Pcg/hqdefault.jpg",
+  title:"What If The Earth Stopped Spinning?",
+  description: "Original at https://www.youtube.com/watch?v=K0-GxoJ_Pcg",
+  user_id:4,
+  view_count:rand(10000000)
+  })
+#pbs space time
+Video.create!({
+  url: "https://www.youtube.com/watch?v=dzKWfw68M5U",
+  thumbnail_url:"https://i.ytimg.com/vi/dzKWfw68M5U/hqdefault.jpg",
+  title:"The Many Worlds of the Quantum Multiverse",
+  description: "Original at https://www.youtube.com/watch?v=dzKWfw68M5U",
+  user_id:10,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "https://www.youtube.com/watch?v=ZY47bVu-0Bs",
+  thumbnail_url:"https://i.ytimg.com/vi/ZY47bVu-0Bs/hqdefault.jpg",
+  title:"Quantum Vortices and Superconductivity + Challenge Answers",
+  description: "Original at https://www.youtube.com/watch?v=ZY47bVu-0Bs",
+  user_id:10,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "https://www.youtube.com/watch?v=jW55cViXu6s",
+  thumbnail_url:"https://i.ytimg.com/vi/jW55cViXu6s/hqdefault.jpg",
+  title:"Should We Build a Dyson Sphere?",
+  description: "Original at https://www.youtube.com/watch?v=jW55cViXu6s",
+  user_id:10,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "https://www.youtube.com/watch?v=2Uzytrooz44",
+  thumbnail_url:"https://i.ytimg.com/vi/2Uzytrooz44/hqdefault.jpg",
+  title:"Quantum Eraser Lottery Challenge",
+  description: "Original at https://www.youtube.com/watch?v=2Uzytrooz44",
+  user_id:10,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "https://www.youtube.com/watch?v=8ORLN_KwAgs",
+  thumbnail_url:"https://i.ytimg.com/vi/8ORLN_KwAgs/hqdefault.jpg",
+  title:"How the Quantum Eraser Rewrites the Past",
+  description: "Original at https://www.youtube.com/watch?v=8ORLN_KwAgs",
+  user_id:10,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "https://www.youtube.com/watch?v=eJ2RNBAFLj0",
+  thumbnail_url:"https://i.ytimg.com/vi/eJ2RNBAFLj0/hqdefault.jpg",
+  title:"The Future of Gravitational Waves",
+  description: "Original at https://www.youtube.com/watch?v=eJ2RNBAFLj0",
+  user_id:10,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "https://www.youtube.com/watch?v=-IfmgyXs7z8",
+  thumbnail_url:"https://i.ytimg.com/vi/-IfmgyXs7z8/hqdefault.jpg",
+  title:"Is Quantum Tunneling Faster than Light?",
+  description: "Original at https://www.youtube.com/watch?v=-IfmgyXs7z8",
+  user_id:10,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "https://www.youtube.com/watch?v=xZTb6sfHEX8",
+  thumbnail_url:"https://i.ytimg.com/vi/xZTb6sfHEX8/hqdefault.jpg",
+  title:"Will the Universe Expand Forever?",
+  description: "Original at https://www.youtube.com/watch?v=xZTb6sfHEX8",
+  user_id:10,
+  view_count:rand(10000000)
+  })
+Video.create!({
+  url: "https://www.youtube.com/watch?v=nFYveYkSPuA",
+  thumbnail_url:"https://i.ytimg.com/vi/nFYveYkSPuA/hqdefault.jpg",
+  title:"Pulsar Starquakes Make Fast Radio Bursts? + Challenge Winners!",
+  description: "Original at https://www.youtube.com/watch?v=nFYveYkSPuA",
+  user_id:10,
+  view_count:rand(10000000)
+  })
 
-(1..37).each do |i|
+
+
+(1..55).each do |i|
   Comment.create!({user_id:5,video_id:i,body:"first"})
 end
 
-(1..37).each do |i|
+(1..55).each do |i|
   Comment.create!({user_id:7,video_id:i,body:
     "#{Faker::Hacker.noun} #{Faker::Hacker.verb} #{Faker::Hacker.adjective} #{Faker::Hacker.verb}"})
 end
 
-(1..37).each do |i|
+(1..55).each do |i|
   Comment.create!({user_id:rand(5..9),video_id:i,body:"#{Faker::Company.bs}"})
 end
 
-(1..37).each do |i|
+(1..55).each do |i|
   Comment.create!({user_id:rand(5..9),video_id:i,parent_comment_id:(i*rand(1..3)),
     body:"#{Faker::Company.bs}"})
 end
 
-(1..37).each do |i|
+(1..55).each do |i|
   Comment.create!({user_id:rand(5..9),video_id:i,parent_comment_id:(i*rand(1..3)),
     body:"#{Faker::Company.bs}"})
 end
