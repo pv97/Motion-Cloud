@@ -50,6 +50,10 @@ sufficient CSS styling:
   + [ ] Adequate styling
   + [ ] Smooth, bug-free navigation
 
+- [ ] #bonus Video search
+  + [ ] Adequate styling
+  + [ ] Smooth, bug-free navigation
+
 - [ ] #bonus Likes
   + [ ] Adequate styling
   + [ ] Smooth, bug-free navigation
