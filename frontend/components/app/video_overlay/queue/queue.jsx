@@ -13,7 +13,7 @@ class Queue extends React.Component {
               if(videoId===""){
                 return <div className="display-none"></div>
               } else {
-                return <QueueItem key={videoId+idx} video={this.props.videos[videoId]} idx={idx}/>
+                return <QueueItem key={videoId} video={this.props.videos[videoId]} idx={idx}/>
               }
             })
           }

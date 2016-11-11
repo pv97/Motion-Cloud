@@ -70635,7 +70635,7 @@
 	            if (videoId === "") {
 	              return _react2.default.createElement('div', { className: 'display-none' });
 	            } else {
-	              return _react2.default.createElement(_queue_item2.default, { key: videoId + idx, video: _this2.props.videos[videoId], idx: idx });
+	              return _react2.default.createElement(_queue_item2.default, { key: videoId, video: _this2.props.videos[videoId], idx: idx });
 	            }
 	          })
 	        );
