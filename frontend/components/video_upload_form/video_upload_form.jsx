@@ -67,7 +67,6 @@ class VideoUploadForm extends React.Component {
 			url: this.state.url,
 			thumbnail_url: this.state.thumbnail_url
 		};
-		console.log(video)
 		this.props.createVideo(video);
 	}
 
