@@ -8,10 +8,10 @@ class VideoIndex extends React.Component {
     this.state = {
       featureTimer:0,
       featured:[
-        {class:"picture1",videoId:"52",name:"How Far Will We Go?"},
-        {class:"picture2",videoId:"53",name:"Atoms As Big As Mountains"},
-        {class:"picture3",videoId:"54",name:"What is Light?"},
-        {class:"picture4",videoId:"55",name:"How the Stock Exchange Works"},
+        {class:"picture1",videoId:"53",name:"How Far Will We Go?"},
+        {class:"picture2",videoId:"54",name:"Atoms As Big As Mountains"},
+        {class:"picture3",videoId:"55",name:"What is Light?"},
+        {class:"picture4",videoId:"56",name:"How the Stock Exchange Works"},
         {class:"picture5",videoId:"3",name:"How Big is the Moon?"}
       ]
     }
